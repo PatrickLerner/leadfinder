@@ -1,0 +1,20 @@
+.alert-box {
+  @mixin alert-style($color-name) {
+    background-color: lead-color($color-name);
+    border-color: lead-color-level($color-name, -2);
+  }
+
+  @include alert-style('primary');
+  border-style: solid;
+  border-width: .1rem;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  max-width: 100rem;
+  margin: auto;
+
+  @each $color-name, $color in $lead-colors {
+    &.is-#{$color-name} {
+      @include alert-style($color-name);
+    }
+  }
+}

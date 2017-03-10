@@ -1,0 +1,30 @@
+.button {
+  background-color: lead-color('primary');
+  color: lead-color('background');
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 .5rem;
+  min-width: 10rem;
+  padding: .5rem 2rem;
+  text-align: center;
+  text-decoration: none;
+
+  &[disabled] {
+    background-color: lead-color-level('primary', 1);
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: lead-color-level('primary', 1);
+  }
+
+  .fa {
+    margin-left: calc(-1.28571429em/2);
+    margin-right: .5rem;
+  }
+
+  &.is-large {
+    line-height: 4rem;
+    padding: 0 4rem;
+  }
+}

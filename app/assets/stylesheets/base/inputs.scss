@@ -1,0 +1,14 @@
+input,
+textarea {
+  border: .1rem lead-color-level('foreground', 6) solid;
+  outline: none;
+
+  &.is-large {
+    font-size: 1.6rem;
+    padding: 1rem;
+  }
+
+  &:focus {
+    border-color: lead-color-level('primary', 0);
+  }
+}

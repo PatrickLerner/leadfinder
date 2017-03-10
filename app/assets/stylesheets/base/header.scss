@@ -1,0 +1,32 @@
+.header {
+  $header-padding: 2rem;
+
+  background-color: lead-color('primary');
+  border-bottom: .1rem solid lead-color-level('primary', -2);
+  color: lead-color('background');
+  height: $header-height;
+  margin: auto;
+  padding: 0 $header-padding;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  h1 {
+    display: inline-block;
+    font-size: 2rem;
+    line-height: 6rem;
+    vertical-align: middle;
+  }
+
+  .header-logo {
+    background-image: asset-url('logo.svg');
+    background-position: 50% 50%;
+    background-size: cover;
+    display: inline-block;
+    height: $header-height;
+    margin-right: 1rem;
+    vertical-align: middle;
+    width: $header-height;
+  }
+}

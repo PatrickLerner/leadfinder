@@ -1,0 +1,25 @@
+$neat-grid: (
+  columns: 12,
+  gutter: 20px,
+);
+
+.row {
+  @include grid-collapse;
+  @include grid-container;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    @include grid-column($i);
+  }
+}
+
+@each $size-name, $size in $screen-sizes {
+  @media only screen and (min-width: $size * .625) {
+    @for $i from 1 through 12 {
+      .col-#{$size-name}-#{$i} {
+        @include grid-column($i);
+      }
+    }
+  }
+}

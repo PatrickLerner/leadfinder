@@ -1,0 +1,42 @@
+$lead-colors: (
+  'primary': #3bbf91,
+  'menu': #fafafa,
+  'accent': #d4f1f9,
+  'result': #f7f3c5,
+  'secondary': #5a1321,
+  'foreground': #333,
+  'background': #f6f6f6,
+);
+
+@function lead-color($key: 'primary') {
+  @return map-get($lead-colors, $key);
+}
+
+$color-interval: 10% !global;
+
+@function lead-color-level($color-name: 'primary', $level: 0) {
+  $color: lead-color($color-name);
+  $white: #fff;
+  $black: #000;
+  $color-base: if($level < 0, $black, $white);
+  $level-abs: if($level < 0, -$level, $level);
+
+  @return mix($color-base, $color, $level-abs * $color-interval);
+}
+
+$lead-opacity: (
+  'light': .8,
+  'dark': .4,
+);
+
+@function lead-color-alpha($name: 'primary', $opacity: 0) {
+  $color: lead-color($name);
+
+  // Get the named opacity level, if it exists
+  @if map-key-exists($lead-opacity, $opacity) {
+    $opacity: map-get($lead-opacity, $opacity);
+  }
+
+  // Use rgba() to manipulate the color's alpha level
+  @return rgba($color, $opacity);
+}

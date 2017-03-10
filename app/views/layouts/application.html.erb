@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Leadfinder</title>
+    <title>Lead Finder</title>
     <%= csrf_meta_tags %>
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" />
+    <%= favicon_link_tag       'logo.png' %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= javascript_pack_tag 'leadfinder' %>
   </body>
 </html>

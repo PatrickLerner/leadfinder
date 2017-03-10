@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  &,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  // makes it so that 1rem = 10px anywhere in the layout so long as the user
+  // has set his default font size to 16px.
+  font-size: 62.5%;
+}
+
+body {
+  background-color: lead-color('background');
+  color: lead-color('foreground');
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 2.7rem;
+}
+
+
+.page {
+  height: calc(100vh - #{$header-height});
+  margin-top: $header-height;
+
+  footer {
+    text-align: center;
+    font-size: 1.4rem;
+    margin: 3rem 0;
+    color: lead-color-level('background', -3);
+  }
+
+  .page-title {
+    font-size: 3.4rem;
+    line-height: 5.4rem;
+    margin-bottom: 3rem;
+    font-weight: 200;
+    color: lead-color-level('foreground', 3);
+  }
+
+  .page-content {
+    padding: 1rem;
+  }
+
+  .page-menu {
+    background-color: lead-color('menu');
+    padding-top: 1.5rem;
+
+    .page-menu-subitem {
+      padding-left: 4rem;
+    }
+
+    a {
+      display: block;
+      padding: 1rem 2rem;
+      color: lead-color('foreground');
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: 400;
+      transition: color .5s, background-color .5s;
+
+      &:hover {
+        background-color: lead-color-level('menu', -0.3);
+      }
+
+      .fa-fw {
+        margin-right: 1.4rem;
+        font-size: 1.7rem;
+        margin-left: .5rem;
+      }
+    }
+  }
+
+  @media only screen and (min-width: $screen-size-lg * .625) {
+    .page-content {
+      padding: 2rem;
+      width: calc(100vw - #{$menu-width});
+      margin-left: $menu-width;
+    }
+
+    .page-menu {
+      width: $menu-width;
+      border-right: .1rem solid lead-color-level('menu', -1);
+      position: fixed;
+      bottom: 0;
+      top: 6rem;
+      overflow: auto;
+    }
+  }
+}
