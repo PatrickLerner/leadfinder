@@ -7,6 +7,7 @@ end
 
 gem 'active_model_serializers'
 gem 'bourbon'
+gem 'devise'
 gem 'dotenv-rails'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
@@ -21,8 +22,12 @@ gem 'webpacker', github: "rails/webpacker"
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.7.0'
-  gem 'selenium-webdriver'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'letter_opener'
   gem 'rspec-rails', '~> 3.5'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
 
 group :development do
