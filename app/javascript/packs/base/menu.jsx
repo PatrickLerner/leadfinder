@@ -5,7 +5,7 @@ import Header from './header.jsx'
 
 export default class Menu extends Component {
   render() {
-    if (this.props.signedIn) {
+    if (!this.props.signedIn) {
       return (
         <div></div>
       );

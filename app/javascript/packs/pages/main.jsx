@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { apiFetch } from '../helpers/api_fetch.js';
 
 export default class Main extends Component {
   constructor(props) {
@@ -20,13 +21,13 @@ export default class Main extends Component {
 
   handleRegistrationClick() {
     const data = new FormData();
-    data.append('first_name', this.state.first_name);
-    data.append('last_name', this.state.first_name);
-    data.append('email', this.state.email);
-    data.append('password', this.state.password);
-    data.append('password_confirmation', this.state.password);
+    data.append('user[first_name]', this.state.first_name);
+    data.append('user[last_name]', this.state.first_name);
+    data.append('user[email]', this.state.email);
+    data.append('user[password]', this.state.password);
+    data.append('user[password_confirmation]', this.state.password);
 
-    fetch('/users.json', {
+    apiFetch('/users.json', {
       method: 'POST',
       body: data
     }).then(res => {

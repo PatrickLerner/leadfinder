@@ -23,8 +23,9 @@ module Leadfinder
     # -- all .rb files in that directory are automatically loaded.
 
     config.to_prepare do
-      DeviseController.respond_to :html, :json
+      DeviseController.respond_to :json
     end
+
     config.assets.paths << Rails.root.join('vendor', 'stylesheets')
   end
 end

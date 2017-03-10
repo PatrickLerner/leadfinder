@@ -15,7 +15,7 @@ export default class Layout extends Component {
         <Header />
 
         <div className='page'>
-          <Menu signedIn='false' />
+          <Menu signedIn={isSignedIn} />
           <div className='page-content'>
             { children }
             <footer>

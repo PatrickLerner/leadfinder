@@ -7,6 +7,7 @@
     "babel-preset-env": "^1.2.1",
     "babel-preset-react": "^6.23.0",
     "compression-webpack-plugin": "^0.3.2",
+    "fetch-defaults": "^1.0.0",
     "glob": "^7.1.1",
     "gravatar": "^1.6.0",
     "path-complete-extname": "^0.1.0",
