@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 
@@ -66,6 +67,12 @@ export default class Lists extends Component {
                 <i className='fa fa-fw fa-envelope'></i>
                 {lead.email}
               </span>
+            </div>
+            <div className='col-12 lookup-buttons'>
+              <Link to='/' className='button is-small is-light'>
+                <i className='fa fa-times'></i>
+                Delete
+              </Link>
             </div>
           </div>
         </div>

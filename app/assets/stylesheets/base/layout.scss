@@ -81,6 +81,9 @@ body {
   @media only screen and (min-width: $screen-size-lg * .625) {
     .page-content {
       padding: 2rem;
+    }
+
+    .page-menu + .page-content {
       width: calc(100vw - #{$menu-width});
       margin-left: $menu-width;
     }

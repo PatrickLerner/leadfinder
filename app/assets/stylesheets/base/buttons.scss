@@ -23,8 +23,23 @@
     margin-right: .5rem;
   }
 
+  &.is-light {
+    background-color: lead-color('menu');
+    border: .1rem solid lead-color-level('menu', -2);
+    color: lead-color('foreground');
+
+    &:hover {
+      background-color: lead-color-level('menu', -.5);
+    }
+  }
+
   &.is-large {
     line-height: 4rem;
     padding: 0 4rem;
+  }
+
+  &.is-small {
+    line-height: 3rem;
+    padding: 0 3rem;
   }
 }
