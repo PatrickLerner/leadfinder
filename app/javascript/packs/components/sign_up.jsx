@@ -9,6 +9,9 @@ export default class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
+      first_name: '',
+      last_name: '',
+      gender: 'male'
     };
   }
 
@@ -20,20 +23,61 @@ export default class SignUp extends Component {
 
   handleRegistrationClick() {
     const data = new FormData();
+    data.append('user[gender]', this.state.gender);
+    data.append('user[first_name]', this.state.first_name);
+    data.append('user[last_name]', this.state.last_name);
     data.append('user[email]', this.state.email);
     data.append('user[password]', this.state.password);
 
     apiFetch('/api/v1/users', {
       method: 'POST',
       body: data
-    }).then(res => {
-      browserHistory.replace('/dashboard');
+    }).then(res => res.json()).then(res => {
+      if (res.user) {
+        browserHistory.replace('/dashboard');
+      } else {
+        alert('Sign up not successful.')
+      }
     });
   }
 
   render() {
     return (
       <div className='panel panel-sign-up'>
+        <div className='row'>
+          <div className='col-12 col-lg-6'>
+            <div className='panel-form-control'>
+              <label>
+                <input type='radio' value='male' name='gender' checked={this.state.gender === 'male'}
+                       onChange={this.handleInputChange.bind(this)} />
+                Mr.
+              </label>
+              <label>
+                <input type='radio' value='female' name='gender' checked={this.state.gender === 'female'}
+                       onChange={this.handleInputChange.bind(this)} />
+                Mrs.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-12 col-lg-6'>
+            <div className='panel-form-control'>
+              <label>First Name</label>
+              <input className='is-large' type='text' name='first_name'
+                     value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Peter'/>
+            </div>
+          </div>
+          <div className='col-12 col-lg-6'>
+            <div className='panel-form-control'>
+              <label>Last Name</label>
+              <input className='is-large' type='text' name='last_name'
+                     value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Miller'/>
+            </div>
+          </div>
+        </div>
         <div className='panel-form-control'>
           <label>E-Mail</label>
           <input className='is-large' type='email' name='email'

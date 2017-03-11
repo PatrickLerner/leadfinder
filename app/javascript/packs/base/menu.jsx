@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import { apiFetch } from '../helpers/api_fetch.js';
 import MenuSignout from './menu_signout.jsx'
 
 export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signedIn: props.signedIn
+      signedIn: props.signedIn,
+      lists: []
     };
+
+    apiFetch('/api/v1/lists', {
+      'method': 'GET'
+    }).then(res => res.json()).then(lists => {
+      this.setState(Object.assign({}, this.state, { lists }));
+    });
   }
 
   componentWillReceiveProps(props) {
@@ -26,6 +34,15 @@ export default class Menu extends Component {
         <div></div>
       );
     }
+
+    const listLinks = this.state.lists.map(list => {
+      return (
+        <Link className="page-menu-subitem" to={`/lists/` + list.id} key={list.id}>
+          <i className='fa fa-fw fa-list'></i>
+          {list.name}
+        </Link>
+      );
+    });
 
     return (
       <div className='page-menu'>
@@ -45,10 +62,7 @@ export default class Menu extends Component {
           <i className='fa fa-fw fa-inbox'></i>
           Inbox
         </Link>
-        <Link className="page-menu-subitem" to='/lists'>
-          <i className='fa fa-fw fa-list'></i>
-          Potential Clients
-        </Link>
+        {listLinks}
         <Link className="page-menu-subitem" to='/lists'>
           <i className='fa fa-fw fa-plus'></i>
           Add List

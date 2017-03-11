@@ -11,6 +11,12 @@
     margin: 1rem 0;
   }
 
+  .row {
+    .panel-form-control {
+      margin-bottom: 0;
+    }
+  }
+
   .panel-button-container {
     margin-top: 2rem;
     text-align: right;
@@ -28,7 +34,14 @@
   max-width: 50rem;
   padding: 5rem 6rem 2rem;
 
-  input, .button {
+  input[type='radio'] {
+    margin: 0 1rem 0 2rem;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  .button {
     width: 100%;
   }
 

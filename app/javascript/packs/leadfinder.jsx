@@ -9,6 +9,7 @@ import LayoutLoggedOut from './base/layout_logged_out.jsx'
 import Main from './pages/main.jsx'
 import Dashboard from './pages/dashboard.jsx'
 import Lists from './pages/lists.jsx'
+import List from './pages/list.jsx'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </Route>
         <Route component={LayoutLoggedIn}>
           <Route path='dashboard' component={Dashboard} />
+          <Route path='lists/:listId' component={List} />
           <Route path='lists' component={Lists} />
         </Route>
       </Route>
