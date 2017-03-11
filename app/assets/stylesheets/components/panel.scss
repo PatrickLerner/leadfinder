@@ -1,28 +1,48 @@
 .panel {
-  margin: 2rem auto 0;
-  max-width: 70rem;
-  padding: 2rem;
   background-color: lead-color('menu');
   border-color: lead-color-level('menu', -2);
   border-style: solid;
   border-width: .1rem;
-
-  &.panel-sign-up {
-    input {
-      width: 100%;
-    }
-  }
+  margin: 2rem auto 0;
+  max-width: 70rem;
+  padding: 2rem;
 
   .panel-form-control {
     margin: 1rem 0;
   }
 
   .panel-button-container {
-    text-align: right;
     margin-top: 2rem;
+    text-align: right;
 
-    .button:last-child {
-      margin-right: 0;
+    .button {
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.panel-sign-up,
+.panel-sign-in {
+  max-width: 50rem;
+  padding: 5rem 6rem 2rem;
+
+  input, .button {
+    width: 100%;
+  }
+
+  footer {
+    font-size: 1.4rem;
+    margin: 2rem 0;
+    text-align: center;
+
+    a {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

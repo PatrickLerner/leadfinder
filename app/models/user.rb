@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  include Clearance::User
+
 end

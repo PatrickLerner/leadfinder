@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import Header from './header.jsx'
+import MenuSignout from './menu_signout.jsx'
 
 export default class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signedIn: props.signedIn
+    };
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.signedIn === this.state.signedIn) {
+      return;
+    }
+    this.setState({
+      signedIn: props.signedIn
+    });
+  }
+
   render() {
-    if (!this.props.signedIn) {
+    if (!this.state.signedIn) {
       return (
         <div></div>
       );
@@ -17,7 +33,7 @@ export default class Menu extends Component {
           <i className='fa fa-fw fa-dashboard'></i>
           Dashboard
         </Link>
-        <Link to='/lists'>
+        <Link to='/dashboard'>
           <i className='fa fa-fw fa-search'></i>
           Find Leads
         </Link>
@@ -38,18 +54,16 @@ export default class Menu extends Component {
           Add List
         </Link>
 
-        <Link to='/lists'>
+        <Link to='/dashboard'>
           <i className='fa fa-fw fa-question-circle'></i>
           Help &amp; Support
         </Link>
-        <Link to='/lists'>
+        <Link to='/dashboard'>
           <i className='fa fa-fw fa-gear'></i>
           Settings
         </Link>
-        <Link to='/lists'>
-          <i className='fa fa-fw fa-sign-out'></i>
-          Sign out
-        </Link>
+
+        <MenuSignout onSignOut={this.props.onSignOut} />
       </div>
     );
   }

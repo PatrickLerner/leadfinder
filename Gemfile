@@ -7,7 +7,7 @@ end
 
 gem 'active_model_serializers'
 gem 'bourbon'
-gem 'devise'
+gem 'clearance'
 gem 'dotenv-rails'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'

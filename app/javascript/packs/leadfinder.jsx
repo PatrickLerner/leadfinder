@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import Header from './base/header.jsx'
 import Layout from './base/layout.jsx'
+import LayoutLoggedIn from './base/layout_logged_in.jsx'
+import LayoutLoggedOut from './base/layout_logged_out.jsx'
 
 import Main from './pages/main.jsx'
 import Dashboard from './pages/dashboard.jsx'
@@ -12,11 +14,15 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Router history={ browserHistory }>
-      <Route path='/' component={ Layout }>
-        <IndexRoute component={ Main } />
-        <Route path='dashboard' component={ Dashboard } />
-        <Route path='lists' component={ Lists } />
+    <Router history={browserHistory}>
+      <Route path='/' component={Layout}>
+        <Route component={LayoutLoggedOut}>
+          <IndexRoute component={Main} />
+        </Route>
+        <Route component={LayoutLoggedIn}>
+          <Route path='dashboard' component={Dashboard} />
+          <Route path='lists' component={Lists} />
+        </Route>
       </Route>
     </Router>,
     document.body.appendChild(document.createElement('section')),

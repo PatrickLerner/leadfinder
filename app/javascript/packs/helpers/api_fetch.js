@@ -6,5 +6,6 @@ function getCookieValue(a) {
 }
 
 export const apiFetch = fetchDefaults(fetch, {
-  headers: { 'X-CSRF-TOKEN': decodeURIComponent(getCookieValue('CSRF-TOKEN')) }
+  headers: { 'X-CSRF-TOKEN': decodeURIComponent(getCookieValue('CSRF-TOKEN')) },
+  credentials: 'same-origin'
 });
