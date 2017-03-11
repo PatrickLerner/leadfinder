@@ -33,7 +33,9 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div className='panel panel-sign-in'>
+      <div className='panel panel-narrow panel-sign-in'>
+        <h1 className='panel-header-title'>Login</h1>
+        <p className='panel-header-subtitle'>Great to have you back.</p>
         <div className='panel-form-control'>
           <label>E-Mail</label>
           <input className='is-large' type='email' name='email'

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
+import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
 
@@ -34,6 +35,14 @@ export default class List extends Component {
     }
   }
 
+  handleDeleteClick(ev) {
+    apiFetch(`/api/v1/lists/${this.state.listId}`, {
+      method: 'DELETE'
+    }).then(res => {
+      browserHistory.replace(`/lists`);
+    });
+  }
+
   render() {
     if (this.state.loading) {
       return (<div className='loading-indicator'>
@@ -45,6 +54,9 @@ export default class List extends Component {
       <div>
         <h1 className='page-title'>
           {this.state.list.name}
+          <a className='page-title-action' onClick={this.handleDeleteClick.bind(this)}>
+            <i className='fa fa-fw fa-trash-o'></i>
+          </a>
         </h1>
         <div className='lookup'>
         </div>

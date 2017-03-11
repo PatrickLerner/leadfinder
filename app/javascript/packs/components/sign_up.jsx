@@ -43,7 +43,9 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className='panel panel-sign-up'>
+      <div className='panel panel-narrow panel-sign-up'>
+        <h1 className='panel-header-title'>Register</h1>
+        <p className='panel-header-subtitle'>Just enter some of your details and join us now for free.</p>
         <div className='row'>
           <div className='col-12 col-lg-6'>
             <div className='panel-form-control'>

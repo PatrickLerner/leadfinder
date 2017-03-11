@@ -63,7 +63,7 @@ export default class Menu extends Component {
           Inbox
         </Link>
         {listLinks}
-        <Link className="page-menu-subitem" to='/lists'>
+        <Link className="page-menu-subitem" to='/lists/add'>
           <i className='fa fa-fw fa-plus'></i>
           Add List
         </Link>

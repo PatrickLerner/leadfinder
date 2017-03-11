@@ -27,22 +27,34 @@
       }
     }
   }
+
+  .panel-header-title {
+    color: lead-color-level('foreground', 3);
+    margin-bottom: 1rem;
+  }
+
+  .panel-header-subtitle {
+    color: lead-color-level('foreground', 5);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
 }
 
-.panel-sign-up,
-.panel-sign-in {
+.panel-narrow {
   max-width: 50rem;
-  padding: 5rem 6rem 2rem;
+  padding: 5rem 6rem;
 
-  input[type='radio'] {
+
+  [type='radio'] {
     margin: 0 1rem 0 2rem;
   }
 
-  input[type='text'],
-  input[type='email'],
-  input[type='password'],
+  [type='email'],
+  [type='password'],
+  [type='text'],
   .button {
     width: 100%;
+    margin: 0
   }
 
   footer {
@@ -58,4 +70,9 @@
       }
     }
   }
+}
+
+.panel-sign-up,
+.panel-sign-in {
+  padding: 5rem 6rem 2rem;
 }
