@@ -9,14 +9,38 @@ export default class Menu extends Component {
     super(props);
     this.state = {
       signedIn: props.signedIn,
-      lists: []
+      lists: [],
+      subscription: null
     };
 
-    apiFetch('/api/v1/lists', {
-      'method': 'GET'
-    }).then(res => res.json()).then(lists => {
-      this.setState(Object.assign({}, this.state, { lists }));
+    if (this.state.signedIn) {
+      apiFetch('/api/v1/lists', {
+        'method': 'GET'
+      }).then(res => res.json()).then(lists => {
+        this.setState(Object.assign({}, this.state, { lists }));
+        this.addChannelSubscription()
+      });
+    }
+  }
+
+  addChannelSubscription() {
+    const subscription = App.cable.subscriptions.create('ListsChannel', {
+      received: ((lists) => {
+        this.setState(Object.assign({}, this.state, {
+          lists
+        }));
+      }).bind(this)
     });
+
+    this.setState(Object.assign({}, this.state, {
+      subscription
+    }));
+  }
+
+  componentWillUnmount() {
+    if (this.state.subscription) {
+      this.state.subscription.unsubscribe();
+    }
   }
 
   componentWillReceiveProps(props) {

@@ -1,6 +1,6 @@
 class Api::V1::ListsController < Api::V1::BaseController
   def index
-    @lists = current_user.lists.order(:name)
+    @lists = current_user.lists
     render json: @lists
   end
 
@@ -12,6 +12,7 @@ class Api::V1::ListsController < Api::V1::BaseController
   def create
     @list = current_user.lists.create(list_params)
     if @list.save
+      send_update
       render json: @list
     else
       render json: { errors: @list.errors }
@@ -21,10 +22,15 @@ class Api::V1::ListsController < Api::V1::BaseController
   def destroy
     @list = current_user.lists.find_by!(id: params[:id])
     @list.destroy
+    send_update
     head :ok
   end
 
   protected
+
+  def send_update
+    ListsChannel.update_list_for(current_user)
+  end
 
   def list_params
     params.require(:list).permit(:name, :sort_bt)
