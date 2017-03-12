@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
-import Modal from 'react-modal';
 
+import LeadModal from '../components/lead_modal.jsx';
 import { apiFetch } from '../helpers/api_fetch.js';
 
 export default class MenuAddList extends Component {
@@ -53,15 +53,12 @@ export default class MenuAddList extends Component {
   render() {
     return (
       <span className={this.props.className}>
-        <Modal isOpen={this.state.modalOpen}
-               onRequestClose={this.handleClose.bind(this)}
-               contentLabel='Add new list'
-               className='modal modal-narrow' overlayClassName='modal-overlay'>
+        <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>Add new list...</h1>
           <p>Lists are a way for you to organize your leads.</p>
           <div className='form-control'>
             <label>Name</label>
-            <input className='is-large' type='text' name='name'
+            <input className='is-large' type='text' name='name' autoFocus
                    value={this.state.name} onChange={this.handleInputChange.bind(this)}
                    placeholder='Potential Customers'/>
           </div>
@@ -69,7 +66,7 @@ export default class MenuAddList extends Component {
             <i className='fa fa-fw fa-plus'></i>
             Add List
           </a>
-        </Modal>
+        </LeadModal>
         <Link className='page-menu-subitem' onClick={this.handleAddClick.bind(this)}>
           <i className='fa fa-fw fa-plus'></i>
           Add List

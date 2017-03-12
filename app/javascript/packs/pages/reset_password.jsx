@@ -43,7 +43,7 @@ export default class ResetPassword extends Component {
         <p className='panel-header-subtitle'>Enter your new password here.</p>
         <div className='form-control'>
           <label>Password</label>
-          <input className='is-large' type='password' name='password'
+          <input className='is-large' type='password' name='password' autoFocus
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}
                  placeholder='*********' />
         </div>

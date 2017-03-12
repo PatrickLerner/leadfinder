@@ -10,7 +10,7 @@ export default class Layout extends Component {
     return (
       <div className='App'>
         <Header />
-        { children }
+        {children}
       </div>
     );
   }

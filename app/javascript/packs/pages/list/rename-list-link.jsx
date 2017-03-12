@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
-import Modal from 'react-modal';
 
+import LeadModal from '../../components/lead_modal.jsx';
 import { apiFetch } from '../../helpers/api_fetch.js';
 
 export default class RenameListLink extends Component {
@@ -59,15 +59,12 @@ export default class RenameListLink extends Component {
   render() {
     return (
       <span className={this.props.className}>
-        <Modal isOpen={this.state.modalOpen}
-               onRequestClose={this.handleClose.bind(this)}
-               contentLabel='Rename list'
-               className='modal modal-narrow' overlayClassName='modal-overlay'>
+        <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>Rename list</h1>
           <p>Enter the new name for the list here.</p>
           <div className='form-control'>
             <label>Name</label>
-            <input className='is-large' type='text' name='name'
+            <input className='is-large' type='text' name='name' autoFocus
                    value={this.state.name} onChange={this.handleInputChange.bind(this)}
                    placeholder='Potential Customers'/>
           </div>
@@ -76,7 +73,7 @@ export default class RenameListLink extends Component {
             <i className='fa fa-fw fa-pencil'></i>
             Rename
           </a>
-        </Modal>
+        </LeadModal>
         <a onClick={this.handleRenameClick.bind(this)}>
           <i className='fa fa-fw fa-pencil'></i>
         </a>

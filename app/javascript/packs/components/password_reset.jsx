@@ -48,7 +48,7 @@ export default class PasswordReset extends Component {
         <div>
           <div className='form-control'>
             <label>E-Mail</label>
-            <input className='is-large' type='email' name='email'
+            <input className='is-large' type='email' name='email' autoFocus
                    value={this.state.email} onChange={this.handleInputChange.bind(this)}
                    placeholder='peter.miller@example.com'/>
           </div>

@@ -38,7 +38,7 @@ export default class SignIn extends Component {
         <p className='panel-header-subtitle'>Great to have you back.</p>
         <div className='form-control'>
           <label>E-Mail</label>
-          <input className='is-large' type='email' name='email'
+          <input className='is-large' type='email' name='email' autoFocus
                  value={this.state.email} onChange={this.handleInputChange.bind(this)}
                  placeholder='peter.miller@example.com'/>
         </div>

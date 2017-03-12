@@ -66,7 +66,7 @@ export default class SignUp extends Component {
           <div className='col-12 col-lg-6'>
             <div className='form-control'>
               <label>First Name</label>
-              <input className='is-large' type='text' name='first_name'
+              <input className='is-large' type='text' name='first_name' autoFocus
                      value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Peter'/>
             </div>

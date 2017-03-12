@@ -2,6 +2,24 @@
   overflow: hidden;
 }
 
+.ReactModalPortal > * {
+  // When the modal is closed, overlay div has no css class
+  // This selector should be overridden by the `&--after-open` class below
+  opacity: 0;
+}
+
+.ReactModalPortal > .ReactModal__Overlay {
+  transition: opacity 200ms ease-in-out;
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}
+
 .modal-overlay {
   align-items: center;
   background-color: lead-color-alpha('foreground', 'dark');
@@ -24,8 +42,8 @@
   padding: 5rem 6rem;
 
   &.modal-narrow {
-    width: 50rem;
     max-width: 50rem;
+    width: 50rem;
   }
 
   h1 {

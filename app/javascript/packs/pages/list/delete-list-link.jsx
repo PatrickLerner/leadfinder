@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
-import Modal from 'react-modal';
 
+import LeadModal from '../../components/lead_modal.jsx';
 import { apiFetch } from '../../helpers/api_fetch.js';
 
 export default class DeleteListLink extends Component {
@@ -47,10 +47,7 @@ export default class DeleteListLink extends Component {
   render() {
     return (
       <span className={this.props.className}>
-        <Modal isOpen={this.state.modalOpen}
-               onRequestClose={this.handleClose.bind(this)}
-               contentLabel='Delete list?'
-               className='modal modal-narrow' overlayClassName='modal-overlay'>
+        <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>Delete this list?</h1>
           <p>This list will be deleted and all leads not contained in any other list will be moved to your inbox.</p>
 
@@ -59,7 +56,7 @@ export default class DeleteListLink extends Component {
             <i className='fa fa-fw fa-trash-o'></i>
             Delete
           </a>
-        </Modal>
+        </LeadModal>
         <a onClick={this.handleDeleteClick.bind(this)}>
           <i className='fa fa-fw fa-trash-o'></i>
         </a>
