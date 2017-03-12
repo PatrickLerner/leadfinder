@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # user and auth
-      resources :passwords, controller: "clearance/passwords", only: [:create]
-      resource :session, controller: "clearance/sessions", only: [:create]
-      resources :users, controller: "clearance/users", only: [:create, :index] do
-        resource :password, controller: "clearance/passwords", only: [:create, :update]
-      end
-      delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
+      resources :passwords, controller: 'clearance/passwords', only: [:create]
+      patch :passwords, to: 'clearance/passwords#update'
+      resource :session, controller: 'clearance/sessions', only: [:create]
+      resources :users, controller: 'clearance/users', only: [:create, :index]
+      delete '/sign_out', to: 'clearance/sessions#destroy', as: "sign_out"
 
       resources :lists, only: [:index, :show, :create, :destroy]
     end

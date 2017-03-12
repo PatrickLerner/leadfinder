@@ -6,11 +6,12 @@ import Layout from './base/layout.jsx'
 import LayoutLoggedIn from './base/layout_logged_in.jsx'
 import LayoutLoggedOut from './base/layout_logged_out.jsx'
 
-import Main from './pages/main.jsx'
 import Dashboard from './pages/dashboard.jsx'
-import Lists from './pages/lists.jsx'
 import List from './pages/list.jsx'
 import ListNew from './pages/list_new.jsx'
+import Lists from './pages/lists.jsx'
+import Main from './pages/main.jsx'
+import ResetPassword from './pages/reset_password.jsx'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <Route path='/' component={Layout}>
         <Route component={LayoutLoggedOut}>
           <IndexRoute component={Main} />
+          <Route path='resetpassword/:passwordResetToken' component={ResetPassword} />
         </Route>
         <Route component={LayoutLoggedIn}>
           <Route path='dashboard' component={Dashboard} />

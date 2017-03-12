@@ -48,6 +48,7 @@ export default class SignIn extends Component {
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}
                  placeholder='*********' />
         </div>
+        <a className='forgot-password-link' onClick={this.props.resetPassword}>Forgot your password?</a>
         <div className='panel-button-container'>
           <a className='button is-large' onClick={this.handleLoginClick.bind(this)}>
             <i className='fa fa-fw fa-sign-in'></i>

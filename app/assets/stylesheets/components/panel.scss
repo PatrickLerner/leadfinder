@@ -57,22 +57,29 @@
     margin: 0
   }
 
+  a:not(.button) {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   footer {
     font-size: 1.4rem;
     margin: 2rem 0;
     text-align: center;
-
-    a {
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
 .panel-sign-up,
+.panel-password-reset,
 .panel-sign-in {
   padding: 5rem 6rem 2rem;
+
+  .forgot-password-link {
+    display: block;
+    font-size: 1.4rem;
+    text-align: right;
+  }
 }

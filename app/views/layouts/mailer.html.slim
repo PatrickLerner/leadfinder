@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    sass:
+      $color-grayish-white: #f6f6f6
+      $color-black: #333
+      $color-white: #fafafa
+      $color-btn: #3bbf91
+      $color-border: #c8c8c8
+      body
+        background-color: $color-grayish-white
+        color: $color-black
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif
+        font-size: 18px
+        font-weight: 300
+        line-height: 27px
+      .content
+        background: $color-white
+        border: 1px solid $color-border
+        padding: 40px
+        max-width: 550px
+        margin: auto
+      a
+        color: black
+        text-decoration: none
+        border-bottom: 1px dashed rgba($color-black, .25)
+      a:hover
+        border-bottom: 1px dashed $color-black
+      h1
+        font-size: 20px
+        font-weight: 400
+      .logo
+        text-align: center
+        margin: 30px 0
+        img
+          width: 150px
+          height: 150px
+      p.footer
+        font-size: 15px
+      .btn
+        background: $color-btn
+        transition: all .4s
+        color: white
+        padding: 10px 25px
+        border: 0
+      .btn:hover
+        background: lighten($color-btn, 5%)
+        border: 0
+      .u-text-center
+        text-align: center
+  body
+    .logo
+      = image_tag asset_url('logo.png')
+    .content
+      = yield
