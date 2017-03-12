@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PageControllerController, type: :controller do
+describe PageController, type: :controller do
   describe "GET #index" do
     it "returns http success" do
       get :index
