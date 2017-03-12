@@ -23,12 +23,16 @@
   overflow: auto;
   padding: 5rem 6rem;
 
+  &.modal-narrow {
+    width: 50rem;
+    max-width: 50rem;
+  }
+
   h1 {
     color: lead-color-level('foreground', 3);
     font-size: 2.7rem;
     font-weight: 400;
     line-height: 3.7rem;
-    margin-bottom: 1rem;
   }
 
   p {

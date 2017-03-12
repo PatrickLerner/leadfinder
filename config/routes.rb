@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :users, controller: 'clearance/users', only: [:create, :index]
       delete '/sign_out', to: 'clearance/sessions#destroy', as: "sign_out"
 
-      resources :lists, only: [:index, :show, :create, :destroy]
+      resources :lists, only: [:index, :show, :create, :destroy, :update]
     end
   end
 

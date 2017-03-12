@@ -50,18 +50,15 @@ export default class DeleteListLink extends Component {
         <Modal isOpen={this.state.modalOpen}
                onRequestClose={this.handleClose.bind(this)}
                contentLabel='Delete list?'
-               className='modal' overlayClassName='modal-overlay'>
-          <h1>Are you sure you want to delete this list?</h1>
-          <footer className='modal-buttons'>
-            <a className='button is-large is-abort' onClick={this.handleClose.bind(this)}>
-              <i className='fa fa-fw fa-ban'></i>
-              Abort
-            </a>
-            <a className='button is-large is-delete' onClick={this.handleDeleteConfirmClick.bind(this)}>
-              <i className='fa fa-fw fa-trash-o'></i>
-              Delete
-            </a>
-          </footer>
+               className='modal modal-narrow' overlayClassName='modal-overlay'>
+          <h1>Delete this list?</h1>
+          <p>This list will be deleted and all leads not contained in any other list will be moved to your inbox.</p>
+
+          <a className='button is-large is-delete is-full-width'
+             onClick={this.handleDeleteConfirmClick.bind(this)}>
+            <i className='fa fa-fw fa-trash-o'></i>
+            Delete
+          </a>
         </Modal>
         <a onClick={this.handleDeleteClick.bind(this)}>
           <i className='fa fa-fw fa-trash-o'></i>

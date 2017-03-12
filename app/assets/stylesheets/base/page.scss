@@ -40,12 +40,15 @@
       display: block;
       font-size: 1.4rem;
       font-weight: 400;
+      overflow: hidden;
       padding: 1rem 2rem;
       text-decoration: none;
+      text-overflow: ellipsis;
       transition: color .5s, background-color .5s;
+      white-space: nowrap;
 
       &:hover {
-        background-color: lead-color-level('menu', -0.3);
+        background-color: lead-color-level('menu', -.3);
       }
 
       .fa-fw {

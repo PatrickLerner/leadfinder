@@ -41,7 +41,7 @@ export default class ResetPassword extends Component {
       <div className='panel panel-narrow panel-reset-password'>
         <h1 className='panel-header-title'>Password Reset</h1>
         <p className='panel-header-subtitle'>Enter your new password here.</p>
-        <div className='panel-form-control'>
+        <div className='form-control'>
           <label>Password</label>
           <input className='is-large' type='password' name='password'
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}

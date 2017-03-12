@@ -46,7 +46,7 @@ export default class PasswordReset extends Component {
     } else {
       content = (
         <div>
-          <div className='panel-form-control'>
+          <div className='form-control'>
             <label>E-Mail</label>
             <input className='is-large' type='email' name='email'
                    value={this.state.email} onChange={this.handleInputChange.bind(this)}

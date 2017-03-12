@@ -19,6 +19,17 @@ class Api::V1::ListsController < Api::V1::BaseController
     end
   end
 
+  def update
+    @list = current_user.lists.find_by!(id: params[:id])
+    @list.update_attributes(list_params)
+    if @list.save
+      send_update
+      render json: @list
+    else
+      render json: { errors: @list.errors }
+    end
+  end
+
   def destroy
     @list = current_user.lists.find_by!(id: params[:id])
     @list.destroy

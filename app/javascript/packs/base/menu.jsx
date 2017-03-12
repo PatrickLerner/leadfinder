@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
 import MenuSignout from './menu_signout.jsx'
+import MenuAddList from './menu_addlist.jsx'
 
 export default class Menu extends Component {
   constructor(props) {
@@ -87,11 +88,8 @@ export default class Menu extends Component {
           Inbox
         </Link>
         {listLinks}
-        <Link className="page-menu-subitem" to='/lists/add'>
-          <i className='fa fa-fw fa-plus'></i>
-          Add List
-        </Link>
 
+        <MenuAddList />
         <Link to='/dashboard'>
           <i className='fa fa-fw fa-question-circle'></i>
           Help &amp; Support

@@ -48,7 +48,7 @@ export default class SignUp extends Component {
         <p className='panel-header-subtitle'>Just enter some of your details and join us now for free.</p>
         <div className='row'>
           <div className='col-12 col-lg-6'>
-            <div className='panel-form-control'>
+            <div className='form-control'>
               <label>
                 <input type='radio' value='male' name='gender' checked={this.state.gender === 'male'}
                        onChange={this.handleInputChange.bind(this)} />
@@ -64,7 +64,7 @@ export default class SignUp extends Component {
         </div>
         <div className='row'>
           <div className='col-12 col-lg-6'>
-            <div className='panel-form-control'>
+            <div className='form-control'>
               <label>First Name</label>
               <input className='is-large' type='text' name='first_name'
                      value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
@@ -72,7 +72,7 @@ export default class SignUp extends Component {
             </div>
           </div>
           <div className='col-12 col-lg-6'>
-            <div className='panel-form-control'>
+            <div className='form-control'>
               <label>Last Name</label>
               <input className='is-large' type='text' name='last_name'
                      value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
@@ -80,13 +80,13 @@ export default class SignUp extends Component {
             </div>
           </div>
         </div>
-        <div className='panel-form-control'>
+        <div className='form-control'>
           <label>E-Mail</label>
           <input className='is-large' type='email' name='email'
                  value={this.state.email} onChange={this.handleInputChange.bind(this)}
                  placeholder='peter.miller@example.com'/>
         </div>
-        <div className='panel-form-control'>
+        <div className='form-control'>
           <label>Password</label>
           <input className='is-large' type='password' name='password'
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}

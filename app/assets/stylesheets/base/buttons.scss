@@ -23,6 +23,11 @@
     margin-right: .5rem;
   }
 
+  &.is-full-width {
+    margin: 0;
+    width: 100%;
+  }
+
   &.is-light {
     background-color: lead-color('menu');
     border: .1rem solid lead-color-level('menu', -2);

@@ -36,13 +36,13 @@ export default class SignIn extends Component {
       <div className='panel panel-narrow panel-sign-in'>
         <h1 className='panel-header-title'>Login</h1>
         <p className='panel-header-subtitle'>Great to have you back.</p>
-        <div className='panel-form-control'>
+        <div className='form-control'>
           <label>E-Mail</label>
           <input className='is-large' type='email' name='email'
                  value={this.state.email} onChange={this.handleInputChange.bind(this)}
                  placeholder='peter.miller@example.com'/>
         </div>
-        <div className='panel-form-control'>
+        <div className='form-control'>
           <label>Password</label>
           <input className='is-large' type='password' name='password'
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}

@@ -19,3 +19,24 @@ label {
   font-weight: 600;
   margin-bottom: .3rem;
 }
+
+.row {
+  .form-control {
+    margin-bottom: 0;
+  }
+}
+
+.form-control {
+  margin: 1rem 0;
+  [type='radio'] {
+    margin: 0 1rem 0 2rem;
+  }
+
+  [type='email'],
+  [type='password'],
+  [type='text'],
+  .button {
+    margin: 0;
+    width: 100%;
+  }
+}

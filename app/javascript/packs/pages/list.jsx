@@ -6,14 +6,14 @@ import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
 import DeleteListLink from './list/delete-list-link.jsx';
+import RenameListLink from './list/rename-list-link.jsx';
 
 export default class List extends Component {
   loadList(listId) {
-    this.state = {
+    this.setState(Object.assign({}, this.state, {
       listId,
-      loading: true,
-      list: false
-    }
+      loading: true
+    }));
 
     apiFetch(`/api/v1/lists/${listId}`, {
       'method': 'GET'
@@ -27,12 +27,45 @@ export default class List extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      listId: this.props.params.listId,
+      loading: true,
+      list: false,
+      subscription: null
+    }
+  }
+
+  componentDidMount() {
     this.loadList(this.props.params.listId);
+    this.addChannelSubscription();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.listId !== this.state.listId) {
       this.loadList(nextProps.params.listId);
+    }
+  }
+
+  addChannelSubscription() {
+    const subscription = App.cable.subscriptions.create('ListsChannel', {
+      received: ((lists) => {
+        const current_list = lists.find(list => list.id === this.state.list.id);
+        if (current_list) {
+          this.setState(Object.assign({}, this.state, {
+            list: Object.assign({}, this.state.list, current_list)
+          }));
+        }
+      }).bind(this)
+    });
+
+    this.setState(Object.assign({}, this.state, {
+      subscription
+    }));
+  }
+
+  componentWillUnmount() {
+    if (this.state.subscription) {
+      this.state.subscription.unsubscribe();
     }
   }
 
@@ -56,6 +89,8 @@ export default class List extends Component {
         <h1 className='page-title'>
           {this.state.list.name}
           <DeleteListLink className='page-title-action' listId={this.state.listId} />
+          <RenameListLink className='page-title-action' listId={this.state.listId}
+                          listName={this.state.list.name} />
         </h1>
         <div className='lookup'>
         </div>
