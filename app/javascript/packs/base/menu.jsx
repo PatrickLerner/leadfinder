@@ -83,7 +83,7 @@ export default class Menu extends Component {
           <i className='fa fa-fw fa-list'></i>
           Lead Lists
         </Link>
-        <Link className="page-menu-subitem" to='/lists'>
+        <Link className="page-menu-subitem" to='/lists/inbox'>
           <i className='fa fa-fw fa-inbox'></i>
           Inbox
         </Link>

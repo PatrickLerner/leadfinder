@@ -10,16 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311115849) do
+ActiveRecord::Schema.define(version: 20170312091143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
 
+  create_table "entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "position"
+    t.string "company", null: false
+    t.string "email"
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entries_lists", id: false, force: :cascade do |t|
+    t.uuid "entry_id", null: false
+    t.uuid "list_id", null: false
+    t.index ["entry_id", "list_id"], name: "index_entries_lists_on_entry_id_and_list_id"
+    t.index ["list_id", "entry_id"], name: "index_entries_lists_on_list_id_and_entry_id"
+  end
+
   create_table "lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "sort_by", null: false
-    t.uuid "user_id"
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,5 +56,8 @@ ActiveRecord::Schema.define(version: 20170311115849) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "entries", "users"
+  add_foreign_key "entries_lists", "entries"
+  add_foreign_key "entries_lists", "lists"
   add_foreign_key "lists", "users"
 end

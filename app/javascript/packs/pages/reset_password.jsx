@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
-import PasswordReset from '../components/password_reset.jsx';
 
 export default class ResetPassword extends Component {
   constructor(props) {

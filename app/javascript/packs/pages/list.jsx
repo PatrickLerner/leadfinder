@@ -7,6 +7,8 @@ import { browserHistory } from 'react-router';
 import { apiFetch } from '../helpers/api_fetch.js';
 import DeleteListLink from './list/delete-list-link.jsx';
 import RenameListLink from './list/rename-list-link.jsx';
+import EntrySearch from './list/entry_search.jsx';
+import Entry from './list/entry.jsx';
 
 export default class List extends Component {
   loadList(listId) {
@@ -84,15 +86,30 @@ export default class List extends Component {
       </div>);
     }
 
+    const entries = this.state.list.entries.map(entry => {
+      return (<Entry entry={entry} key={entry.id} />);
+    });
+
+    let actions = null;
+    if (this.state.list.id) {
+      actions = (
+        <span>
+          <DeleteListLink className='page-title-action' listId={this.state.listId} />
+          <RenameListLink className='page-title-action' listId={this.state.listId}
+                          listName={this.state.list.name} />
+        </span>
+      );
+    }
+
     return (
       <div>
         <h1 className='page-title'>
           {this.state.list.name}
-          <DeleteListLink className='page-title-action' listId={this.state.listId} />
-          <RenameListLink className='page-title-action' listId={this.state.listId}
-                          listName={this.state.list.name} />
+          {actions}
         </h1>
         <div className='lookup'>
+          <EntrySearch />
+          {entries}
         </div>
       </div>
     );

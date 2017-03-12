@@ -3,7 +3,7 @@ class CreateLists < ActiveRecord::Migration[5.1]
     create_table :lists, id: :uuid do |t|
       t.string :name, null: false
       t.string :sort_by, null: false
-      t.uuid :user_id
+      t.uuid :user_id, null: false
 
       t.timestamps
     end

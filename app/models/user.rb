@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include Clearance::User
 
   has_many :lists, -> { order(:name) }
+  has_many :entries
 
   validates :first_name, presence: true
   validates :last_name, presence: true
