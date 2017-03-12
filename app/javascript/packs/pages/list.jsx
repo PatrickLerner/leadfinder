@@ -13,11 +13,11 @@ import Entry from './list/entry.jsx';
 export default class List extends Component {
   loadList(listId) {
     this.setState(Object.assign({}, this.state, {
-      listId,
+      listId: listId || 'inbox',
       loading: true
     }));
 
-    apiFetch(`/api/v1/lists/${listId}`, {
+    apiFetch(`/api/v1/lists/${listId || 'inbox'}`, {
       'method': 'GET'
     }).then(res => res.json()).then(list => {
       this.setState(Object.assign({}, this.state, {

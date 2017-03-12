@@ -14,8 +14,8 @@ export default class Entry extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(Object.assign({}, this.state, props.entry, {
-      pictureUrl: this.pictureUrl(props.entry.email)
+    this.setState(Object.assign({}, this.state, nextProps.entry, {
+      pictureUrl: this.pictureUrl(nextProps.entry.email)
     }));
   }
 

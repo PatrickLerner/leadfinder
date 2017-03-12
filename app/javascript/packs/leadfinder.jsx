@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Route component={LayoutLoggedIn}>
           <Route path='dashboard' component={Dashboard} />
           <Route path='lists/:listId' component={List} />
-          <Route path='lists' component={Dashboard} />
+          <Route path='lists' component={List} />
         </Route>
       </Route>
     </Router>,
