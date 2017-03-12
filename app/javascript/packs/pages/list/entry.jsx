@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 
+import EntryListLink from './entry-list-link.jsx'
+
 export default class Entry extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ export default class Entry extends Component {
           <div className='col-12 col-sm-6'>
             <span className='lookup-listing-position'>
               <i className='fa fa-fw fa-briefcase'></i>
-              {this.state.position}
+              {this.state.position || (<i className='lookup-unknown'>Unknown</i>)}
             </span><br />
             <span className='lookup-listing-company'>
               <i className='fa fa-fw fa-building'></i>
@@ -44,10 +46,11 @@ export default class Entry extends Component {
           <div className='col-12 col-sm-6'>
             <span className='lookup-listing-email'>
               <i className='fa fa-fw fa-envelope'></i>
-              {this.state.email}
+              {this.state.email || (<i className='lookup-unknown'>Unknown</i>)}
             </span>
           </div>
           <div className='col-12 lookup-buttons'>
+            <EntryListLink entryId={this.state.id} />
             <Link to='/' className='button is-small is-light'>
               <i className='fa fa-times'></i>
               Delete

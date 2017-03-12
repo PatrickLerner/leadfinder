@@ -24,6 +24,16 @@ class Api::V1::EntriesController < Api::V1::BaseController
     ).as_json
   end
 
+  def update_lists
+    @entry = current_user.entries.find_by!(id: params[:id])
+    list_ids = []
+    if params.key?(:entry) && params[:entry].key?(:lists)
+      list_ids = params[:entry][:lists]
+    end
+    @entry.update_attributes(list_ids: list_ids)
+    head :ok
+  end
+
   protected
 
   def list_params

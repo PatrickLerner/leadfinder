@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :entries, only: [:create, :destroy] do
         member do
           get :lists
+          patch :lists, to: 'entries#update_lists'
         end
       end
     end
