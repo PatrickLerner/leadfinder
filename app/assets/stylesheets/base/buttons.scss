@@ -33,6 +33,16 @@
     }
   }
 
+  &.is-delete {
+    background-color: lead-color('delete');
+    color: lead-color('background');
+  }
+
+  &.is-abort {
+    background-color: lead-color('abort');
+    color: lead-color('background');
+  }
+
   &.is-large {
     line-height: 4rem;
     padding: 0 4rem;

@@ -1,0 +1,50 @@
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.modal-overlay {
+  align-items: center;
+  background-color: lead-color-alpha('foreground', 'dark');
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.modal {
+  background-color: lead-color('menu');
+  border: .1rem solid lead-color-level('menu', -2);
+  margin-top: 2rem;
+  max-width: 70rem;
+  outline: none;
+  overflow: auto;
+  padding: 5rem 6rem;
+
+  h1 {
+    color: lead-color-level('foreground', 3);
+    font-size: 2.7rem;
+    font-weight: 400;
+    line-height: 3.7rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: lead-color-level('foreground', 5);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .modal-buttons {
+    margin-top: 3rem;
+    text-align: right;
+
+    .button {
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

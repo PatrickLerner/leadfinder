@@ -6,6 +6,8 @@ $lead-colors: (
   'secondary': #5a1321,
   'foreground': #333,
   'background': #f6f6f6,
+  'delete': #e05050,
+  'abort': #a5a5a5,
 );
 
 @function lead-color($key: 'primary') {
@@ -33,7 +35,7 @@ $lead-opacity: (
   $color: lead-color($name);
 
   // Get the named opacity level, if it exists
-  @if map-key-exists($lead-opacity, $opacity) {
+  @if map-has-key($lead-opacity, $opacity) {
     $opacity: map-get($lead-opacity, $opacity);
   }
 

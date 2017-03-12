@@ -5,6 +5,7 @@ import gravatar from 'gravatar';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
+import DeleteListLink from './list/delete-list-link.jsx';
 
 export default class List extends Component {
   loadList(listId) {
@@ -54,9 +55,7 @@ export default class List extends Component {
       <div>
         <h1 className='page-title'>
           {this.state.list.name}
-          <a className='page-title-action' onClick={this.handleDeleteClick.bind(this)}>
-            <i className='fa fa-fw fa-trash-o'></i>
-          </a>
+          <DeleteListLink className='page-title-action' listId={this.state.listId} />
         </h1>
         <div className='lookup'>
         </div>
