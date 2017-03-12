@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
-import { apiFetch } from '../helpers/api_fetch.js';
+import { apiFetch } from '../../helpers/api_fetch.js';
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class SignIn extends Component {
         </div>
         <a className='forgot-password-link' onClick={this.props.resetPassword}>Forgot your password?</a>
         <div className='panel-button-container'>
-          <a className='button is-large' onClick={this.handleLoginClick.bind(this)}>
+          <a className='button is-large is-full-width' onClick={this.handleLoginClick.bind(this)}>
             <i className='fa fa-fw fa-sign-in'></i>
             Login
           </a>

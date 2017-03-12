@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
-import PasswordReset from '../components/password_reset.jsx';
-import SignIn from '../components/sign_in.jsx';
-import SignUp from '../components/sign_up.jsx';
+import PasswordReset from './main/password_reset.jsx';
+import SignIn from './main/sign_in.jsx';
+import SignUp from './main/sign_up.jsx';
 
 export default class Main extends Component {
   constructor(props) {

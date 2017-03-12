@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
-import { apiFetch } from '../helpers/api_fetch.js';
+import { apiFetch } from '../../helpers/api_fetch.js';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -93,7 +93,7 @@ export default class SignUp extends Component {
                  placeholder='*********' />
         </div>
         <div className='panel-button-container'>
-          <a className='button is-large' onClick={this.handleRegistrationClick.bind(this)}>
+          <a className='button is-large is-full-width' onClick={this.handleRegistrationClick.bind(this)}>
             <i className='fa fa-fw fa-user-plus'></i>
             Register
           </a>

@@ -48,8 +48,8 @@ export default class ResetPassword extends Component {
                  placeholder='*********' />
         </div>
         <div className='panel-button-container'>
-          <a className='button is-large' onClick={this.handleLoginClick.bind(this)}>
-            <i className='fa fa-fw fa-key'></i>
+          <a className='button is-large is-full-width' onClick={this.handleLoginClick.bind(this)}>
+            <i className='fa fa-fw fa-key is-full-size'></i>
             Change Password
           </a>
         </div>
