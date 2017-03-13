@@ -3,7 +3,7 @@ class ListsChannel < ActionCable::Channel::Base
     stream_from ListsChannel.user_channel_name(current_user)
   end
 
-  def self.update_list_for(user)
+  def self.update_lists_for(user)
     ActionCable.server.broadcast(
       user_channel_name(user),
       ActiveModelSerializers::SerializableResource.new(user.lists).as_json

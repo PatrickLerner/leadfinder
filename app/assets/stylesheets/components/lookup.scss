@@ -49,10 +49,11 @@
   }
 
   .lookup-picture {
-    border: .1rem solid lead-color-level('menu', -2);
     border-radius: .5rem;
+    border: .1rem solid lead-color-level('menu', -2);
     height: 10rem;
     margin-right: 2rem;
+    width: 10rem;
   }
 
   .lookup-unknown {

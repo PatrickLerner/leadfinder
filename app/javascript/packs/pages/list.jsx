@@ -12,12 +12,12 @@ import Entry from './list/entry.jsx';
 
 export default class List extends Component {
   loadList(listId) {
-    this.setState(Object.assign({}, this.state, {
-      listId: listId || 'inbox',
+    this.setState(Object.assign({}, this.state, this.addChannelSubscription(listId), {
+      listId,
       loading: true
     }));
 
-    apiFetch(`/api/v1/lists/${listId || 'inbox'}`, {
+    apiFetch(`/api/v1/lists/${listId}`, {
       'method': 'GET'
     }).then(res => res.json()).then(list => {
       this.setState(Object.assign({}, this.state, {
@@ -33,22 +33,23 @@ export default class List extends Component {
       listId: this.props.params.listId,
       loading: true,
       list: false,
-      subscription: null
+      subscription: null,
+      listSubscription: null
     }
   }
 
   componentDidMount() {
-    this.loadList(this.props.params.listId);
-    this.addChannelSubscription();
+    this.loadList(this.props.params.listId || 'inbox');
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.listId !== this.state.listId) {
-      this.loadList(nextProps.params.listId);
+      this.loadList(nextProps.params.listId || 'inbox');
     }
   }
 
-  addChannelSubscription() {
+  addChannelSubscription(listId) {
+    this.removeChannelSubscriptions();
     const subscription = App.cable.subscriptions.create('ListsChannel', {
       received: ((lists) => {
         const current_list = lists.find(list => list.id === this.state.list.id);
@@ -60,14 +61,40 @@ export default class List extends Component {
       }).bind(this)
     });
 
-    this.setState(Object.assign({}, this.state, {
-      subscription
-    }));
+    const listSubscription = App.cable.subscriptions.create({
+      channel: 'ListChannel',
+      listId
+    }, {
+      received: ((update) => {
+        const newState = Object.assign({}, this.state);
+        if (update.add) {
+          newState.list.entries.push(update.add);
+          this.setState(newState);
+        }
+        if (update.remove) {
+          newState.list.entries = newState.list.entries.filter(entry => {
+            return entry.id !== update.remove.id;
+          });
+        }
+        this.setState(newState);
+      }).bind(this)
+    });
+
+    return {
+      subscription, listSubscription
+    };
   }
 
   componentWillUnmount() {
+    this.removeChannelSubscriptions();
+  }
+
+  removeChannelSubscriptions() {
     if (this.state.subscription) {
       this.state.subscription.unsubscribe();
+    }
+    if (this.state.listSubscription) {
+      this.state.listSubscription.unsubscribe();
     }
   }
 

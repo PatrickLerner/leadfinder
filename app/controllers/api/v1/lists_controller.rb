@@ -46,7 +46,7 @@ class Api::V1::ListsController < Api::V1::BaseController
   protected
 
   def send_update
-    ListsChannel.update_list_for(current_user)
+    ListsChannel.update_lists_for(current_user)
   end
 
   def list_params

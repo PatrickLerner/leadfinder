@@ -48,12 +48,14 @@ export default class EntryListLink extends Component {
       data.append('entry[lists][]', list.id);
     });
 
-    apiFetch(`/api/v1/entries/${this.state.entryId}/lists`, {
-      method: 'PATCH',
-      body: data
-    }).then(res => {
-      this.handleClose.bind(this)();
-    });
+    this.handleClose.bind(this)();
+
+    setTimeout(() => {
+      apiFetch(`/api/v1/entries/${this.state.entryId}/lists`, {
+        method: 'PATCH',
+        body: data
+      });
+    }, 400);
   }
 
   handleCheckedToggleClick(listId) {
@@ -68,7 +70,6 @@ export default class EntryListLink extends Component {
         }
       })
     }));
-    console.log(this.state)
   }
 
   render() {
