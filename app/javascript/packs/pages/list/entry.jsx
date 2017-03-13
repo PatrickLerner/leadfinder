@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 
+import EntryDeleteLink from './entry-delete-link.jsx'
 import EntryListLink from './entry-list-link.jsx'
 
 export default class Entry extends Component {
@@ -51,10 +52,7 @@ export default class Entry extends Component {
           </div>
           <div className='col-12 lookup-buttons'>
             <EntryListLink entryId={this.state.id} />
-            <Link to='/' className='button is-small is-light'>
-              <i className='fa fa-times'></i>
-              Delete
-            </Link>
+            <EntryDeleteLink entryId={this.state.id} />
           </div>
         </div>
       </div>

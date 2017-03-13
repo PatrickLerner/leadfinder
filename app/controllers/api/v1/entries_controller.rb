@@ -11,8 +11,10 @@ class Api::V1::EntriesController < Api::V1::BaseController
 
   def destroy
     @entry = current_user.entries.find_by!(id: params[:id])
+    removed_ids = @entry.lists.pluck(:id)
+    removed_ids = %i(inbox) if removed_ids.empty?
     @entry.destroy
-    send_update
+    removed_ids.each { |id| ListChannel.remove_entry_from_list(@entry, id) }
     head :ok
   end
 

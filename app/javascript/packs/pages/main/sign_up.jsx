@@ -52,7 +52,7 @@ export default class SignUp extends Component {
     const toggleClass = `fa fa-fw fa-eye${this.state.showPassword ? '-slash' : ''}`;
     const showPassword = (
       <a onClick={this.togglePassword.bind(this)} className='u-pull-right'>
-        {this.state.showPassword ? 'Show' : 'Hide'}
+        {this.state.showPassword ? 'Hide' : 'Show'}
         <i className={toggleClass}></i>
       </a>
     );
