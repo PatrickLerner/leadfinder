@@ -15,7 +15,7 @@ class ListChannel < ActionCable::Channel::Base
   def self.add_entry_to_list(entry, listId)
     ActionCable.server.broadcast(
       user_channel_name(entry.user, listId),
-      add: ActiveModelSerializers::SerializableResource.new(entry).as_json
+      add: ActiveModelSerializers::SerializableResource.new(entry, include: []).as_json
     )
   end
 

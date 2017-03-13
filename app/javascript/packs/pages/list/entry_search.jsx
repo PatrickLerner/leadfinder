@@ -45,7 +45,7 @@ export default class EntrySearch extends Component {
             <div className='form-control'>
               <label>First Name</label>
               <input className='is-large' type='text' name='first_name' autoFocus
-                     value={this.state.email} onChange={this.handleInputChange.bind(this)}
+                     value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Peter' />
             </div>
           </div>
@@ -53,7 +53,7 @@ export default class EntrySearch extends Component {
             <div className='form-control'>
               <label>Last Name</label>
               <input className='is-large' type='text' name='last_name'
-                     value={this.state.email} onChange={this.handleInputChange.bind(this)}
+                     value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Miller' />
             </div>
           </div>
@@ -61,7 +61,7 @@ export default class EntrySearch extends Component {
             <div className='form-control'>
               <label>Company</label>
               <input className='is-large' type='text' name='company'
-                     value={this.state.email} onChange={this.handleInputChange.bind(this)}
+                     value={this.state.company} onChange={this.handleInputChange.bind(this)}
                      placeholder='Miller & Son Corp.' />
             </div>
           </div>

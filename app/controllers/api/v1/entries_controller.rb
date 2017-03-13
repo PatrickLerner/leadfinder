@@ -2,6 +2,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   def create
     @entry = current_user.entries.create(list_params)
     if @entry.save
+      ListChannel.add_entry_to_list(@entry, 'inbox')
       render json: @entry
     else
       render json: { errors: @entry.errors }
