@@ -11,7 +11,8 @@ export default class SignUp extends Component {
       password: '',
       first_name: '',
       last_name: '',
-      gender: 'male'
+      gender: 'male',
+      showPassword: false
     };
   }
 
@@ -19,6 +20,12 @@ export default class SignUp extends Component {
     let nextState = Object.assign({}, this.state);
     nextState[ev.target.name] = ev.target.value;
     this.setState(nextState);
+  }
+
+  togglePassword() {
+    this.setState(Object.assign({}, this.state, {
+      showPassword: !this.state.showPassword
+    }));
   }
 
   handleRegistrationClick() {
@@ -42,6 +49,13 @@ export default class SignUp extends Component {
   }
 
   render() {
+    const toggleClass = `fa fa-fw fa-eye${this.state.showPassword ? '-slash' : ''}`;
+    const showPassword = (
+      <a onClick={this.togglePassword.bind(this)} className='u-pull-right'>
+        {this.state.showPassword ? 'Show' : 'Hide'}
+        <i className={toggleClass}></i>
+      </a>
+    );
     return (
       <div className='panel panel-narrow panel-sign-up'>
         <h1 className='panel-header-title'>Register</h1>
@@ -87,8 +101,11 @@ export default class SignUp extends Component {
                  placeholder='peter.miller@example.com'/>
         </div>
         <div className='form-control'>
-          <label>Password</label>
-          <input className='is-large' type='password' name='password'
+          <label>
+            Password
+            {showPassword}
+          </label>
+          <input className='is-large' type={this.state.showPassword ? 'text' : 'password'} name='password'
                  value={this.state.password} onChange={this.handleInputChange.bind(this)}
                  placeholder='*********' />
         </div>
