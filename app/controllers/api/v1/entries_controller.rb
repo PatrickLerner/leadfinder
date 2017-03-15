@@ -1,5 +1,6 @@
 class Api::V1::EntriesController < Api::V1::BaseController
   def create
+    @entry = current_user.entries.create(entry_params)
     if entry.save
       ListChannel.add_entry_to_list(entry, 'inbox')
       render json: entry
@@ -52,7 +53,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
     @lists_from_params ||= params[:entry][:lists]
   end
 
-  def list_params
+  def entry_params
     params.require(:entry).permit(:first_name, :last_name, :position, :company_name, :email)
   end
 end
