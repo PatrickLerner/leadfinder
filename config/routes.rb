@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root 'page#index'
 
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
       patch :passwords, to: 'clearance/passwords#update'
       resource :session, controller: 'clearance/sessions', only: [:create]
       resources :users, controller: 'clearance/users', only: [:create, :index]
-      delete '/sign_out', to: 'clearance/sessions#destroy', as: "sign_out"
+      delete '/sign_out', to: 'clearance/sessions#destroy', as: 'sign_out'
 
       resources :lists, only: [:index, :show, :create, :destroy, :update] do
         collection do
@@ -23,6 +25,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get '*path', to: 'page#index'
 end

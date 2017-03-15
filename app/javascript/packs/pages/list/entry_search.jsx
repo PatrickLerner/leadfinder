@@ -9,7 +9,7 @@ export default class EntrySearch extends Component {
     this.state = {
       first_name: '',
       last_name: '',
-      company: '',
+      company_name: '',
     };
   }
 
@@ -23,17 +23,21 @@ export default class EntrySearch extends Component {
     const data = new FormData();
     data.append('entry[first_name]', this.state.first_name);
     data.append('entry[last_name]', this.state.last_name);
-    data.append('entry[company]', this.state.company);
+    data.append('entry[company_name]', this.state.company_name);
 
     apiFetch('/api/v1/entries', {
       method: 'POST',
       body: data
-    }).then(res => {
-      this.setState(Object.assign({}, this.state, {
-        first_name: '',
-        last_name: '',
-        company: ''
-      }));
+    }).then(res => res.json()).then(res => {
+      if (res.errors) {
+        alert('Error');
+      } else {
+        this.setState(Object.assign({}, this.state, {
+          first_name: '',
+          last_name: '',
+          company_name: ''
+        }));
+      }
     });
   }
 
@@ -60,8 +64,8 @@ export default class EntrySearch extends Component {
           <div className='col-12 col-lg-3'>
             <div className='form-control'>
               <label>Company</label>
-              <input className='is-large' type='text' name='company'
-                     value={this.state.company} onChange={this.handleInputChange.bind(this)}
+              <input className='is-large' type='text' name='company_name'
+                     value={this.state.company_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Miller & Son Corp.' />
             </div>
           </div>

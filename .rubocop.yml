@@ -1,10 +1,10 @@
 AllCops:
-  TargetRubyVersion: 2.4
-  Includes:
+  TargetRubyVersion: 2.3
+  Include:
     - Rakefile
     - config.ru
     - Gemfile
-  Excludes:
+  Exclude:
     - db/**
     - config/**
     - script/**
@@ -20,4 +20,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 15
 Style/ClassAndModuleChildren:
+  Enabled: false
+Style/FrozenStringLiteralComment:
   Enabled: false

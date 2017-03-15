@@ -1,5 +1,6 @@
 class EntryListSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attribute :id
+  attribute :name
 
   attributes :included
 

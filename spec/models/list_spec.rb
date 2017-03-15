@@ -3,6 +3,8 @@ require 'rails_helper'
 describe List, type: :model do
   it_behaves_like 'a model with factory'
 
+  it { expect(subject).to validate_presence_of(:name) }
+
   describe '#destroy' do
     let!(:entry_count) { 1 }
     let!(:list_with_entries) { create(:list, with_entries: entry_count) }
