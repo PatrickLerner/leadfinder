@@ -1,5 +1,13 @@
 # Lead Finder
 
+## Software Requirements
+
+  * Ruby 2.3
+  * Rails 5.1
+  * Postgresql
+  * Redis
+  * Elasticsearch
+
 ## Development Setup
 
 1. Create .env file with the following keys: `GOOGLE_PLACES_API_KEY`

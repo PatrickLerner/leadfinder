@@ -76,6 +76,15 @@ export default class List extends Component {
             return entry.id !== update.remove.id;
           });
         }
+        if (update.update) {
+          newState.list.entries = newState.list.entries.map(entry => {
+            if (entry.id === update.update.id) {
+              return update.update;
+            } else {
+              return entry;
+            }
+          });
+        }
         this.setState(newState);
       }).bind(this)
     });

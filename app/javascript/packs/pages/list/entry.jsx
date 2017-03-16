@@ -25,6 +25,25 @@ export default class Entry extends Component {
   }
 
   render() {
+    const failure_states = [
+      'searching_company', 'company_found', 'searching_email'
+    ];
+    let email = null;
+    if (this.state.lookup_state === 'email_found') {
+      email = (
+        <span>
+          <i className='fa fa-fw fa-envelope'></i>
+          {this.state.email || (<i className='lookup-unknown'>Unknown</i>)}
+        </span>
+      )
+    } else if (failure_states.indexOf(this.state.lookup_state) !== -1) {
+      email = (<span><i className='fa fa-fw fa-spin fa-circle-o-notch'></i> Processing...</span>)
+    } else if (this.state.lookup_state === 'unknown') {
+      email = (<span><i className='fa fa-fw fa-spin fa-question'></i> Unknown</span>)
+    } else {
+      email = (<span><i className='fa fa-fw fa-times'></i> Failure</span>)
+    }
+
     return (
       <div className='lookup-listing'>
         <img src={this.state.pictureUrl} className='lookup-picture' />
@@ -46,8 +65,7 @@ export default class Entry extends Component {
           </div>
           <div className='col-12 col-sm-6'>
             <span className='lookup-listing-email'>
-              <i className='fa fa-fw fa-envelope'></i>
-              {this.state.email || (<i className='lookup-unknown'>Unknown</i>)}
+              {email}
             </span>
           </div>
           <div className='col-12 lookup-buttons'>
