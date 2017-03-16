@@ -1,6 +1,11 @@
 input,
+select,
 textarea {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
   border: .1rem lead-color-level('foreground', 6) solid;
+  border-radius: 0;
   outline: none;
 
   &.is-large {
@@ -28,6 +33,7 @@ label {
 
 .form-control {
   margin: 1rem 0;
+
   [type='radio'] {
     margin: 0 1rem 0 2rem;
   }
@@ -35,6 +41,7 @@ label {
   [type='email'],
   [type='password'],
   [type='text'],
+  select,
   .button {
     margin: 0;
     width: 100%;
