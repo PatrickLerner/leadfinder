@@ -75,7 +75,7 @@ export default class Menu extends Component {
           <i className='fa fa-fw fa-dashboard'></i>
           Dashboard
         </Link>
-        <Link to='/dashboard'>
+        <Link to='/find'>
           <i className='fa fa-fw fa-search'></i>
           Find Leads
         </Link>
@@ -90,11 +90,11 @@ export default class Menu extends Component {
         {listLinks}
 
         <MenuAddList />
-        <Link to='/dashboard'>
+        <Link to='/help'>
           <i className='fa fa-fw fa-question-circle'></i>
           Help &amp; Support
         </Link>
-        <Link to='/dashboard'>
+        <Link to='/settings'>
           <i className='fa fa-fw fa-gear'></i>
           Settings
         </Link>

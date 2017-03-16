@@ -34,12 +34,15 @@ export default class MenuAddList extends Component {
   }
 
   handleAddConfirmClick(ev) {
-    const data = new FormData();
-    data.append('list[name]', this.state.name);
+    const data = {
+      list: {
+        name: this.state.name
+      }
+    };
 
     apiFetch('/api/v1/lists', {
       method: 'POST',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => res.json()).then(res => {
       if (res.errors) {
         alert('Could not create list');

@@ -8,6 +8,9 @@ import LayoutLoggedOut from './base/layout_logged_out.jsx'
 
 import Dashboard from './pages/dashboard.jsx'
 import List from './pages/list.jsx'
+import Find from './pages/find.jsx'
+import Settings from './pages/settings.jsx'
+import Help from './pages/help.jsx'
 import Main from './pages/main.jsx'
 import ResetPassword from './pages/reset_password.jsx'
 
@@ -23,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </Route>
         <Route component={LayoutLoggedIn}>
           <Route path='dashboard' component={Dashboard} />
+          <Route path='find' component={Find} />
+          <Route path='help' component={Help} />
+          <Route path='settings' component={Settings} />
           <Route path='lists/:listId' component={List} />
           <Route path='lists' component={List} />
         </Route>

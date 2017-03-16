@@ -19,13 +19,16 @@ export default class ResetPassword extends Component {
   }
 
   handleLoginClick() {
-    const data = new FormData();
-    data.append('password_reset[password]', this.state.password);
-    data.append('token', this.state.token);
+    const data = {
+      token: this.state.token,
+      password_reset: {
+        password: this.state.password
+      }
+    };
 
     apiFetch('/api/v1/passwords', {
       method: 'PATCH',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => res.json()).then(res => {
       if (res.errors) {
         alert('Token is invalid.')

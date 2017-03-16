@@ -45,12 +45,15 @@ export default class RenameListLink extends Component {
   }
 
   handleRenameConfirmClick(ev) {
-    const data = new FormData();
-    data.append('list[name]', this.state.name);
+    const data = {
+      list: {
+        name: this.state.name
+      }
+    };
 
     apiFetch(`/api/v1/lists/${this.state.listId}`, {
       method: 'PATCH',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => {
       this.handleClose.bind(this)();
     });

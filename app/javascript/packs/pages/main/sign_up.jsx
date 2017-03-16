@@ -29,16 +29,19 @@ export default class SignUp extends Component {
   }
 
   handleRegistrationClick() {
-    const data = new FormData();
-    data.append('user[gender]', this.state.gender);
-    data.append('user[first_name]', this.state.first_name);
-    data.append('user[last_name]', this.state.last_name);
-    data.append('user[email]', this.state.email);
-    data.append('user[password]', this.state.password);
+    const data = {
+      user: {
+        gender: this.state.gender,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+        password: this.state.password
+      }
+    };
 
     apiFetch('/api/v1/users', {
       method: 'POST',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => res.json()).then(res => {
       if (res.user) {
         browserHistory.replace('/dashboard');

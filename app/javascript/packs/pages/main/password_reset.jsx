@@ -22,12 +22,15 @@ export default class PasswordReset extends Component {
     if (this.state.email.indexOf('@') === -1) {
       return;
     }
-    const data = new FormData();
-    data.append('password[email]', this.state.email);
+    const data = {
+      password: {
+        email: this.state.email
+      }
+    };
 
     apiFetch('/api/v1/passwords', {
       method: 'POST',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => {
       this.setState(Object.assign({}, this.state, {
         sent: true

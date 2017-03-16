@@ -20,14 +20,11 @@ export default class EntrySearch extends Component {
   }
 
   handleSearchClick() {
-    const data = new FormData();
-    data.append('entry[first_name]', this.state.first_name);
-    data.append('entry[last_name]', this.state.last_name);
-    data.append('entry[company_name]', this.state.company_name);
+    const data = { entry: this.state }
 
     apiFetch('/api/v1/entries', {
       method: 'POST',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => res.json()).then(res => {
       if (res.errors) {
         alert('Error');

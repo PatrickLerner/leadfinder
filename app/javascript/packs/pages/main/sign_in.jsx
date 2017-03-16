@@ -19,13 +19,13 @@ export default class SignIn extends Component {
   }
 
   handleLoginClick() {
-    const data = new FormData();
-    data.append('session[email]', this.state.email);
-    data.append('session[password]', this.state.password);
+    const data = {
+      session: this.state
+    };
 
     apiFetch('/api/v1/session', {
       method: 'POST',
-      body: data
+      body: JSON.stringify(data)
     }).then(res => {
       browserHistory.replace('/dashboard');
     });

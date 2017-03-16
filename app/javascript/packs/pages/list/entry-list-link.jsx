@@ -43,17 +43,18 @@ export default class EntryListLink extends Component {
   }
 
   handleListConfirmClick(ev) {
-    const data = new FormData();
-    this.state.lists.filter(list => list.included).forEach(list => {
-      data.append('entry[lists][]', list.id);
-    });
+    const data = {
+      entry: {
+        lists: this.state.lists.filter(list => list.included).map(list => list.id)
+      }
+    };
 
     this.handleClose.bind(this)();
 
     setTimeout(() => {
       apiFetch(`/api/v1/entries/${this.state.entryId}/lists`, {
         method: 'PATCH',
-        body: data
+        body: JSON.stringify(data)
       });
     }, 400);
   }
