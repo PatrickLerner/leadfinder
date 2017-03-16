@@ -18,6 +18,12 @@ textarea {
   }
 }
 
+select {
+  background-image: asset-url('dropdown_arrow.gif');
+  background-repeat: no-repeat;
+  background-position: 97%;
+}
+
 label {
   color: lead-color-level('foreground', 3);
   font-size: 1.4rem;
