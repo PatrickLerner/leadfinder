@@ -4,19 +4,46 @@ export default class Find extends Component {
   constructor(props) {
     super(props);
     this.roles = {
-      'Owner': '("Owner" OR "Founder" OR "CEO" OR "Chief Executive Officer" OR "Founder & CEO" OR "Partner")',
-      'Marketing Manager': '("Marketing Manager" OR "Director of Marketing" OR "CMO" OR "Chief Marketing Officer" OR "Vice President of Marketing" OR "VP of Marketing" OR "VP Marketing")',
-      'Sales Manager': '("Sales Manager" OR "Business Development Manager" OR "Sales Director" OR "Director of Sales" OR "Head of Sales" OR "VP Sales" OR "VP of Sales")',
-      'Operations Manager': '("Operations Manager" OR "COO" OR "Chief Operations Officer" OR "Director of Operations" OR "VP Operations" OR "Vice President of Operations")',
-      'Financial Manager': '("Financial Manager" OR "Chief Financial Officer" OR "CFO" OR "Finance Director" OR "Director of Finance" OR "VP Finance" OR "VP of Finance" "Finance Manager" OR "VP Finance")',
-      'IT Manager': '("IT Manager" OR "CIO" OR "Director of IT" OR "Chief Information Officer" OR "Director of Information Technology" OR "Vice President of IT" OR "IT Director")',
-      'Chief Technology Manager': '("Chief Technology Officer" OR "CTO" OR "Director of Technology" OR "VP Technology" OR "Vice President of Technology" OR "Technology Director")',
-      'Customer Service Manager': '("Customer Service Manager" OR "Customer Support Manager" OR "Customer Success Manager" OR "Office Manager" OR "Head of Customer Support" OR "Customer Service Director")',
-      'Sales Representative': '("Sales Representative" OR "Sales Rep" OR "Account Manager" OR "Account Executive" OR "Business Development" OR "Sales Development" OR "Sales Executive" OR "SDR" OR "BDR")',
-      'HR Manager': '("Manager" OR "Officer" OR "Coordinator" OR "Director" OR "VP" OR "President") AND ("HR" OR "Human Resources" OR "People Officer" OR "Talent")',
-      'Product/Project Manager': '("Product Manager" OR "Project Manager" OR "VP Product" OR "Project Lead")',
-      'Lawyer': '("Lawyer" OR "Attorney" OR "Attorney at Law")',
-      'Realtor': '("Realtor" OR "Real Estate Agent")'
+      'Owner': [['Owner', 'Founder', 'CEO', 'Chief Executive Officer', 'Founder & CEO', 'Partner']],
+      'Marketing Manager': [[
+        'Marketing Manager', 'Director of Marketing', 'CMO', 'Chief Marketing Officer',
+        'Vice President of Marketing', 'VP of Marketing', 'VP Marketing'
+      ]],
+      'Sales Manager': [[
+        'Sales Manager', 'Business Development Manager', 'Sales Director', 'Director of Sales', 'Head of Sales',
+        'VP Sales', 'VP of Sales'
+      ]],
+      'Operations Manager': [[
+        'Operations Manager', 'COO', 'Chief Operations Officer', 'Director of Operations', 'VP Operations',
+        'Vice President of Operations'
+      ]],
+      'Financial Manager': [[
+        'Financial Manager', 'Chief Financial Officer', 'CFO', 'Finance Director', 'Director of Finance',
+        'VP Finance', 'VP of Finance', 'Finance Manager', 'VP Finance'
+      ]],
+      'IT Manager': [[
+        'IT Manager', 'CIO', 'Director of IT', 'Chief Information Officer', 'Director of Infomation Technology',
+        'Vice President of IT', 'IT Director'
+      ]],
+      'Chief Technology Manager': [[
+        'Chief Technology Officer', 'CTO', 'Director of Technology', 'VP Technology', 'Vice President of Technology',
+        'Technology Director'
+      ]],
+      'Customer Service Manager': [[
+        'Customer Service Manager', 'Customer Support Manager', 'Customer Success Manager', 'Office Manager',
+        'Head of Customer Support', 'Customer Service Director'
+      ]],
+      'Sales Representative': [[
+        'Sales Representative', 'Sales Rep', 'Account Manager', 'Account Executive', 'Business Development',
+        'Sales Development', 'Sales Executive', 'SDR', 'BDR'
+      ]],
+      'HR Manager': [
+        ['Manager', 'Officer', 'Coordinator', 'Director', 'VP', 'President'],
+        ['HR', 'Human Resources', 'People Officer', 'Talent']
+      ],
+      'Product/Project Manager': [['Product Manager', 'Project Manager', 'VP Product', 'Project Lead']],
+      'Lawyer': [['Lawyer', 'Attorney', 'Attorney at Law']],
+      'Realtor': [['Real,', 'Real Estate Agent']]
     };
     this.excludes = [
       'assistant', 'intern', 'secretary', 'vice', 'paralegal'
@@ -32,7 +59,8 @@ export default class Find extends Component {
     const query = this.state.role;
     const site = 'site:xing.com/profile';
     const region = this.state.region;
-    const param = encodeURIComponent(`${query} ${region} ${site}`);
+    const excludes = this.excludes.map(item => `-${item}`).join(' ');
+    const param = encodeURIComponent(`${query} ${region} ${excludes} ${site}`);
     const url = `https://www.google.com/search?q=${param}`;
     window.open(url);
   }
@@ -51,7 +79,9 @@ export default class Find extends Component {
 
   render() {
     const roles = Object.keys(this.roles).map(name => {
-      const query = this.roles[name];
+      const query = '(' + this.roles[name].map(subquery => {
+        return subquery.map(item => `"${item}"`).join(' OR ');
+      }).join(') AND (') + ')';
       return (
         <option value={query} key={name}>{name}</option>
       );
