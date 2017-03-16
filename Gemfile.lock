@@ -65,6 +65,8 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
+    autoprefixer-rails (6.7.7)
+      execjs
     bcrypt (3.1.11)
     bourbon (4.3.3)
       sass (~> 3.4)
@@ -271,6 +273,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  autoprefixer-rails
   bourbon
   byebug
   capybara (~> 2.7.0)

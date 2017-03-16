@@ -22,7 +22,7 @@ export default class Find extends Component {
         'VP Finance', 'VP of Finance', 'Finance Manager', 'VP Finance'
       ]],
       'IT Manager': [[
-        'IT Manager', 'CIO', 'Director of IT', 'Chief Information Officer', 'Director of Infomation Technology',
+        'IT Manager', 'CIO', 'Director of IT', 'Chief Information Officer', 'Director of Information Technology',
         'Vice President of IT', 'IT Director'
       ]],
       'Chief Technology Manager': [[
@@ -43,7 +43,7 @@ export default class Find extends Component {
       ],
       'Product/Project Manager': [['Product Manager', 'Project Manager', 'VP Product', 'Project Lead']],
       'Lawyer': [['Lawyer', 'Attorney', 'Attorney at Law']],
-      'Realtor': [['Real,', 'Real Estate Agent']]
+      'Realtor': [['Realtor', 'Real Estate Agent']]
     };
     this.excludes = [
       'assistant', 'intern', 'secretary', 'vice', 'paralegal'

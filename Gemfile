@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers'
+gem 'autoprefixer-rails'
 gem 'bourbon'
 gem 'clearance'
 gem 'dotenv-rails'
