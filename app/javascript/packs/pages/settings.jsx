@@ -7,8 +7,11 @@ export default class Settings extends Component {
         <h1 className='page-title'>
           Settings
         </h1>
-        <div className='alert-box is-accent'>
-          Sorry, this section does not work yet.
+
+        <div className='form-control'>
+          <label>Region</label>
+          <div className='flag flag-de'></div>
+          <div className='flag flag-en'></div>
         </div>
       </div>
     );

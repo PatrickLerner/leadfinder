@@ -1,0 +1,14 @@
+.flag {
+  display: inline-block;
+  width: 100%;
+  max-width: 7rem;
+  padding-bottom: 65.7142%;
+
+  $languages: ('en', 'de');
+
+  @each $language in $languages {
+    &.flag-#{$language} {
+      background-image: image-url('lang_#{$language}.png');
+    }
+  }
+}
