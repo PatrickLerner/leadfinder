@@ -1,4 +1,4 @@
-module Entry
+class Entry < ApplicationRecord
   module Lookup
     extend ActiveSupport::Concern
 
