@@ -303,6 +303,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  addressable
   autoprefixer-rails
   bourbon
   byebug
