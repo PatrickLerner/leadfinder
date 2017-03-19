@@ -28,7 +28,7 @@ export default class App extends Component {
           indexRoute: {
             component: Main
           },
-          childRoute: [
+          childRoutes: [
             { path: 'resetpassword/:passwordResetToken', component: ResetPassword }
           ]
         },
