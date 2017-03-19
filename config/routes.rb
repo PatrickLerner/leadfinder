@@ -27,6 +27,11 @@ Rails.application.routes.draw do
     end
   end
 
+  if Rails.env.production?
+    Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+      username == 'sidekiq' && password == 'le4dfinder$$$'
+    end
+  end
   mount Sidekiq::Web, at: '/sidekiq'
 
   get '*path', to: 'page#index'
