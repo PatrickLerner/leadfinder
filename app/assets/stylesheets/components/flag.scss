@@ -1,14 +1,39 @@
 .flag {
+  $flag-width: 5rem;
+
+  background-size: cover;
   display: inline-block;
-  width: 100%;
-  max-width: 7rem;
-  padding-bottom: 65.7142%;
+  height: .657142 * $flag-width;
+  margin-right: 1rem;
+  width: $flag-width;
 
   $languages: ('en', 'de');
 
   @each $language in $languages {
     &.flag-#{$language} {
       background-image: image-url('lang_#{$language}.png');
+    }
+  }
+
+  &.flag-active,
+  &.flag-inactive {
+    cursor: pointer;
+    transition: opacity .4s;
+  }
+
+  &.flag-active {
+    opacity: .9;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.flag-inactive {
+    opacity: .5;
+
+    &:hover {
+      opacity: .6;
     }
   }
 }

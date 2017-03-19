@@ -3,9 +3,10 @@ import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
 import LeadModal from '../../components/lead_modal.jsx';
+import translate from '../../helpers/translate.js';
 import { apiFetch } from '../../helpers/api_fetch.js';
 
-export default class RenameListLink extends Component {
+class RenameListLink extends Component {
   setList(props) {
     this.state = {
       listId: props.listId,
@@ -63,18 +64,18 @@ export default class RenameListLink extends Component {
     return (
       <span className={this.props.className}>
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
-          <h1>Rename list</h1>
-          <p>Enter the new name for the list here.</p>
+          <h1>{this.props.translate('Rename List')}</h1>
+          <p>{this.props.translate('Enter the new name for the list here.')}</p>
           <div className='form-control'>
-            <label>Name</label>
+            <label>{this.props.translate('Name')}</label>
             <input className='is-large' type='text' name='name' autoFocus
                    value={this.state.name} onChange={this.handleInputChange.bind(this)}
-                   placeholder='Potential Customers'/>
+                   placeholder={this.props.translate('example', 'list name')} />
           </div>
           <a className='button is-large is-full-width'
              onClick={this.handleRenameConfirmClick.bind(this)}>
             <i className='fa fa-fw fa-pencil'></i>
-            Rename
+            {this.props.translate('Rename')}
           </a>
         </LeadModal>
         <a onClick={this.handleRenameClick.bind(this)}>
@@ -84,3 +85,5 @@ export default class RenameListLink extends Component {
     );
   }
 }
+
+export default translate('RenameListLink')(RenameListLink);

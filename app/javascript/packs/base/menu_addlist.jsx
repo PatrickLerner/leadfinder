@@ -3,9 +3,10 @@ import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
 import LeadModal from '../components/lead_modal.jsx';
+import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 
-export default class MenuAddList extends Component {
+class MenuAddList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,24 +58,26 @@ export default class MenuAddList extends Component {
     return (
       <span className={this.props.className}>
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
-          <h1>Add new list...</h1>
-          <p>Lists are a way for you to organize your leads.</p>
+          <h1>{this.props.translate('Add new list...')}</h1>
+          <p>{this.props.translate('Lists are a way for you to organize your leads.')}</p>
           <div className='form-control'>
-            <label>Name</label>
+            <label>{this.props.translate('Name')}</label>
             <input className='is-large' type='text' name='name' autoFocus
                    value={this.state.name} onChange={this.handleInputChange.bind(this)}
-                   placeholder='Potential Customers'/>
+                   placeholder={this.props.translate('example', 'list name')}/>
           </div>
           <a className='button is-large is-full-width' onClick={this.handleAddConfirmClick.bind(this)}>
             <i className='fa fa-fw fa-plus'></i>
-            Add List
+            {this.props.translate('Add List')}
           </a>
         </LeadModal>
         <Link className='page-menu-subitem' onClick={this.handleAddClick.bind(this)}>
           <i className='fa fa-fw fa-plus'></i>
-          Add List
+          {this.props.translate('Add List')}
         </Link>
       </span>
     );
   }
 }
+
+export default translate('MenuAddList')(MenuAddList);

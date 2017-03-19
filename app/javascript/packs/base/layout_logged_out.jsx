@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 
+import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 
 import Header from './header.jsx'
 import Menu from './menu.jsx'
 
-export default class Layout extends Component {
+class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,9 +18,10 @@ export default class Layout extends Component {
   refreshSignedIn() {
     apiFetch('/api/v1/users', {
       method: 'GET'
-    }).then(res => res.json()).then((res => {
+    }).then(res => res.json()).then((data => {
+      this.context.setLanguage('en');
       this.setState(Object.assign({}, this.state, {
-        signedIn: res.user !== null
+        signedIn: data.user !== null
       }));
       if (this.state.signedIn) {
         browserHistory.replace('/dashboard')
@@ -55,3 +57,9 @@ export default class Layout extends Component {
     );
   }
 }
+
+Layout.contextTypes = {
+  setLanguage: PropTypes.func
+};
+
+export default translate('Layout')(Layout);

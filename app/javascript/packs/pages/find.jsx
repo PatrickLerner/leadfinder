@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-export default class Find extends Component {
+import translate from '../helpers/translate.js';
+
+class Find extends Component {
   constructor(props) {
     super(props);
     this.roles = {
@@ -89,26 +91,28 @@ export default class Find extends Component {
     return (
       <div className='panel panel-narrow'>
         <h1 className='page-title'>
-          Find Leads
+          {this.props.translate('Find Leads')}
         </h1>
         <div className='form-control'>
-          <label>Role / Function</label>
+          <label>{this.props.translate('Role / Function')}</label>
           <select onChange={this.roleSelected.bind(this)} className='is-large'>
             {roles}
           </select>
         </div>
         <div className='form-control'>
-          <label>Region</label>
+          <label>{this.props.translate('Region')}</label>
           <input className='is-large' type='text' name='region'
                    value={this.state.region} onChange={this.handleInputChange.bind(this)}
-                   placeholder='Region'/>
+                   placeholder={this.props.translate('Region')}/>
         </div>
 
         <a className='button is-large is-full-width' onClick={this.searchButton.bind(this)}>
           <i className='fa fa-search fa-fw'></i>
-          Search
+          {this.props.translate('Search')}
         </a>
       </div>
     );
   }
 }
+
+export default translate('Find')(Find);

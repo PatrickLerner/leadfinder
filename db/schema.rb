@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313195116) do
+ActiveRecord::Schema.define(version: 20170317070457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,9 @@ ActiveRecord::Schema.define(version: 20170313195116) do
     t.string "encrypted_password", limit: 128
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128
+    t.string "language", default: "en", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["language"], name: "index_users_on_language"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 import MenuSignout from './menu_signout.jsx'
 import MenuAddList from './menu_addlist.jsx'
 
-export default class Menu extends Component {
+class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,30 +74,30 @@ export default class Menu extends Component {
       <div className='page-menu'>
         <Link to='/dashboard'>
           <i className='fa fa-fw fa-dashboard'></i>
-          Dashboard
+          {this.props.translate('Dashboard')}
         </Link>
         <Link to='/find'>
           <i className='fa fa-fw fa-search'></i>
-          Find Leads
+          {this.props.translate('Find Leads')}
         </Link>
         <Link to='/lists'>
           <i className='fa fa-fw fa-list'></i>
-          Lead Lists
+          {this.props.translate('Lead Lists')}
         </Link>
         <Link className="page-menu-subitem" to='/lists/inbox'>
           <i className='fa fa-fw fa-inbox'></i>
-          Inbox
+          {this.props.translate('Inbox')}
         </Link>
         {listLinks}
 
         <MenuAddList />
         <Link to='/help'>
           <i className='fa fa-fw fa-question-circle'></i>
-          Help &amp; Support
+          {this.props.translate('Help & Support')}
         </Link>
         <Link to='/settings'>
           <i className='fa fa-fw fa-gear'></i>
-          Settings
+          {this.props.translate('Settings')}
         </Link>
 
         <MenuSignout onSignOut={this.props.onSignOut} />
@@ -104,3 +105,5 @@ export default class Menu extends Component {
     );
   }
 }
+
+export default translate('Menu')(Menu);

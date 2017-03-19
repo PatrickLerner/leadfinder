@@ -1,6 +1,7 @@
 class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
   def create
-    if user = find_user_for_create
+    user = find_user_for_create
+    if user.present?
       user.forgot_password!
       UserMailer.change_password(user).deliver_later
     end
@@ -31,7 +32,6 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
 
   def find_user_for_create
     return unless params.key?(:password) && params[:password].key?(:email)
-    Clearance.configuration.user_model.
-      find_by_normalized_email params[:password][:email]
+    User.find_by_normalized_email params[:password][:email]
   end
 end

@@ -4,13 +4,14 @@ import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 import { browserHistory } from 'react-router';
 
+import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 import DeleteListLink from './list/delete-list-link.jsx';
 import RenameListLink from './list/rename-list-link.jsx';
 import EntrySearch from './list/entry_search.jsx';
 import Entry from './list/entry.jsx';
 
-export default class List extends Component {
+class List extends Component {
   loadList(listId) {
     this.setState(Object.assign({}, this.state, this.addChannelSubscription(listId), {
       listId,
@@ -137,10 +138,15 @@ export default class List extends Component {
       );
     }
 
+    let name = this.state.list.name;
+    if (name === 'Inbox') {
+      name = this.props.translate(name);
+    }
+
     return (
       <div>
         <h1 className='page-title'>
-          {this.state.list.name}
+          {name}
           {actions}
         </h1>
         <div className='lookup'>
@@ -151,3 +157,5 @@ export default class List extends Component {
     );
   }
 }
+
+export default translate('List')(List);

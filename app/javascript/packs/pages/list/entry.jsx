@@ -3,10 +3,11 @@ import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 
+import translate from '../../helpers/translate.js';
 import EntryDeleteLink from './entry-delete-link.jsx'
 import EntryListLink from './entry-list-link.jsx'
 
-export default class Entry extends Component {
+class Entry extends Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.entry, {
@@ -33,15 +34,19 @@ export default class Entry extends Component {
       email = (
         <span>
           <i className='fa fa-fw fa-envelope'></i>
-          {this.state.email || (<i className='lookup-unknown'>Unknown</i>)}
+          {this.state.email || (<i className='lookup-unknown'>{this.props.translate('Unknown')}</i>)}
         </span>
       )
     } else if (failure_states.indexOf(this.state.lookup_state) !== -1) {
-      email = (<span><i className='fa fa-fw fa-spin fa-circle-o-notch'></i> Processing...</span>)
+      email = (
+        <span>
+          <i className='fa fa-fw fa-spin fa-circle-o-notch'></i> {this.props.translate('Processing')}...
+        </span>
+      )
     } else if (this.state.lookup_state === 'unknown') {
-      email = (<span><i className='fa fa-fw fa-spin fa-question'></i> Unknown</span>)
+      email = (<span><i className='fa fa-fw fa-spin fa-question'></i> {this.props.translate('Unknown')}</span>)
     } else {
-      email = (<span><i className='fa fa-fw fa-times'></i> Failure</span>)
+      email = (<span><i className='fa fa-fw fa-times'></i> {this.props.translate('Failure')}</span>)
     }
 
     return (
@@ -56,7 +61,7 @@ export default class Entry extends Component {
           <div className='col-12 col-sm-6'>
             <span className='lookup-listing-position'>
               <i className='fa fa-fw fa-briefcase'></i>
-              {this.state.position || (<i className='lookup-unknown'>Unknown</i>)}
+              {this.state.position || (<i className='lookup-unknown'>{this.props.translate('Unknown')}</i>)}
             </span><br />
             <span className='lookup-listing-company'>
               <i className='fa fa-fw fa-building'></i>
@@ -77,3 +82,5 @@ export default class Entry extends Component {
     );
   }
 }
+
+export default translate('Entry')(Entry);

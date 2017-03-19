@@ -1,0 +1,22 @@
+de:
+  leadfinder:
+    title: 'Bleifinder'
+
+    page:
+      settings:
+        title: 'Einstellungen'
+
+    alert:
+      save_success: 'Erfolgreich gespeichert.'
+      save_failure: 'Konnte nicht gespeichert werden.'
+
+    component:
+      save_button: 'Speichern'
+
+    model:
+      user:
+        first_name: 'Vorname'
+        last_name: 'Nachname'
+        email: 'E-Mail'
+        password: 'Passwort'
+        language: 'Sprache'

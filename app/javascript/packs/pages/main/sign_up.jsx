@@ -85,7 +85,7 @@ export default class SignUp extends Component {
               <label>First Name</label>
               <input className='is-large' type='text' name='first_name' autoFocus
                      value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
-                     placeholder='Peter'/>
+                     placeholder='Peter' />
             </div>
           </div>
           <div className='col-12 col-lg-6'>
@@ -93,7 +93,7 @@ export default class SignUp extends Component {
               <label>Last Name</label>
               <input className='is-large' type='text' name='last_name'
                      value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
-                     placeholder='Miller'/>
+                     placeholder='Miller' />
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default class SignUp extends Component {
           <label>E-Mail</label>
           <input className='is-large' type='email' name='email'
                  value={this.state.email} onChange={this.handleInputChange.bind(this)}
-                 placeholder='peter.miller@example.com'/>
+                 placeholder='peter.miller@example.com' />
         </div>
         <div className='form-control'>
           <label>

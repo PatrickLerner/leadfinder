@@ -3,9 +3,10 @@ import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
 import LeadModal from '../../components/lead_modal.jsx';
+import translate from '../../helpers/translate.js';
 import { apiFetch } from '../../helpers/api_fetch.js';
 
-export default class EntryListLink extends Component {
+class EntryListLink extends Component {
   setEntry(props) {
     this.state = {
       entryId: props.entryId,
@@ -94,22 +95,24 @@ export default class EntryListLink extends Component {
     return (
       <span>
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
-          <h1>Assign to lists</h1>
-          <p>Assign this lead to lists. If a lead is not assigned to any lists, then it will appear in your inbox.</p>
+          <h1>{this.props.translate('Assign to lists')}</h1>
+          <p>{this.props.translate('Assign this lead to lists. If a lead is not assigned to any lists, then it will appear in your inbox.')}</p>
           <div className='checkmark-list'>
             {lists}
           </div>
           <a className='button is-large is-full-width'
              onClick={this.handleListConfirmClick.bind(this)}>
             <i className='fa fa-fw fa-arrow-right'></i>
-            Assign
+            {this.props.translate('Assign')}
           </a>
         </LeadModal>
         <a onClick={this.handleListClick.bind(this)} className='button is-small is-light'>
           <i className='fa fa-list'></i>
-          In Lists
+          {this.props.translate('In Lists')}
         </a>
       </span>
     );
   }
 }
+
+export default translate('EntryListLink')(EntryListLink);

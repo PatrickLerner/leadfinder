@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
+import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 
-export default class MenuSignout extends Component {
+class MenuSignout extends Component {
   signOut() {
     apiFetch('/api/v1/sign_out', {
       method: 'DELETE'
@@ -15,8 +16,10 @@ export default class MenuSignout extends Component {
     return (
       <a onClick={this.signOut.bind(this)}>
         <i className='fa fa-fw fa-sign-out'></i>
-        Sign out
+        {this.props.translate('Sign Out')}
       </a>
     );
   }
 }
+
+export default translate('MenuSignout')(MenuSignout);
