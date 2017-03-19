@@ -20,6 +20,8 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
     end
   end
 
+  protected
+
   def find_user_by_id_and_confirmation_token
     User.find_by(confirmation_token: params[:token])
   end
@@ -27,8 +29,6 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
   def ensure_existing_user
     render json: { errors: :invalid_token } unless find_user_by_id_and_confirmation_token
   end
-
-  protected
 
   def find_user_for_create
     return unless params.key?(:password) && params[:password].key?(:email)

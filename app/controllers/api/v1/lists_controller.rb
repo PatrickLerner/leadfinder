@@ -19,7 +19,7 @@ class Api::V1::ListsController < Api::V1::BaseController
     @list = current_user.lists.create(list_params)
     if @list.save
       send_update
-      render json: @list
+      render json: @list, include: []
     else
       render json: { errors: @list.errors }
     end
@@ -30,7 +30,7 @@ class Api::V1::ListsController < Api::V1::BaseController
     @list.update_attributes(list_params)
     if @list.save
       send_update
-      render json: @list
+      render json: @list, include: []
     else
       render json: { errors: @list.errors }
     end

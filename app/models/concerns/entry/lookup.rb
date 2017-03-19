@@ -4,7 +4,7 @@ class Entry < ApplicationRecord
 
     included do
       before_save :determine_next_action, unless: -> { Rails.env.test? }
-      after_save :schedule_next_action, unless: -> { Rails.env.test? }
+      after_commit :schedule_next_action, on: [:create, :update], unless: -> { Rails.env.test? }
     end
 
     def determine_company!
@@ -40,9 +40,9 @@ class Entry < ApplicationRecord
     def schedule_next_action
       case lookup_state
       when Entry::LOOKUP_STATE_SEARCHING_COMPANY
-        EntryWorker.perform_in(2.seconds, id, :determine_company!)
+        EntryWorker.perform_async(id, :determine_company!)
       when Entry::LOOKUP_STATE_SEARCHING_EMAIL
-        EntryWorker.perform_in(2.seconds, id, :determine_email!)
+        EntryWorker.perform_async(id, :determine_email!)
       end
     end
 
