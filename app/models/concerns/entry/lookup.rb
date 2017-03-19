@@ -38,8 +38,12 @@ class Entry < ApplicationRecord
     protected
 
     def schedule_next_action
-      EntryWorker.perform_async(id, :determine_company!) if lookup_state == Entry::LOOKUP_STATE_SEARCHING_COMPANY
-      EntryWorker.perform_async(id, :determine_email!) if lookup_state == Entry::LOOKUP_STATE_SEARCHING_EMAIL
+      case lookup_state
+      when Entry::LOOKUP_STATE_SEARCHING_COMPANY
+        EntryWorker.perform_in(2.seconds, id, :determine_company!)
+      when Entry::LOOKUP_STATE_SEARCHING_EMAIL
+        EntryWorker.perform_in(2.seconds, id, :determine_email!)
+      end
     end
 
     def determine_next_action
