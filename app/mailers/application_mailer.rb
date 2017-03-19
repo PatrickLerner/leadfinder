@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'Lead Finder <app@leadfinder.com>'
+  default from: 'Lead Finder <leadfinderdev@gmail.com>'
   layout 'mailer'
 end
