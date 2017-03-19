@@ -22,7 +22,7 @@ class Entry extends Component {
   }
 
   pictureUrl(email) {
-    return gravatar.url(email, { s: 128, d: encodeURI('http://i.imgur.com/miGjkZS.png') });
+    return gravatar.url(email, { s: 128, d: encodeURI('https://i.imgur.com/miGjkZS.png') });
   }
 
   render() {
