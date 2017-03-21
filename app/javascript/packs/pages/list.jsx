@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 
 import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
+import ExportListLink from './list/export-list-link.jsx';
 import DeleteListLink from './list/delete-list-link.jsx';
 import RenameListLink from './list/rename-list-link.jsx';
 import EntrySearch from './list/entry_search.jsx';
@@ -127,15 +128,12 @@ class List extends Component {
       return (<Entry entry={entry} key={entry.id} />);
     });
 
-    let actions = null;
+    let actions = [];
+    actions.push(<ExportListLink key='export' className='page-title-action' listId={this.state.listId} />);
     if (this.state.list.id) {
-      actions = (
-        <span>
-          <DeleteListLink className='page-title-action' listId={this.state.listId} />
-          <RenameListLink className='page-title-action' listId={this.state.listId}
-                          listName={this.state.list.name} />
-        </span>
-      );
+      actions.push(<DeleteListLink key='delete' className='page-title-action' listId={this.state.listId} />);
+      actions.push(<RenameListLink key='rename' className='page-title-action' listId={this.state.listId}
+                                   listName={this.state.list.name} />);
     }
 
     let name = this.state.list.name;

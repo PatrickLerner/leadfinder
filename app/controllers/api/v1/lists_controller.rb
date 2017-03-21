@@ -10,6 +10,10 @@ class Api::V1::ListsController < Api::V1::BaseController
     render json: { list: list.to_api(include: %i(entries)) }
   end
 
+  def export
+    send_data list.to_csv, filename: list.filename(extension: 'csv')
+  end
+
   def show
     render json: { list: list.to_api(include: %i(entries)) }
   end

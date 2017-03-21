@@ -1,22 +1,8 @@
 en:
-  leadfinder:
-    title: 'Lead Finder'
-
-    page:
-      settings:
-        title: 'Settings'
-
-    alert:
-      save_success: 'Successfully saved.'
-      save_failure: 'Could not save settings.'
-
-    component:
-      save_button: 'Save'
-
-    model:
-      user:
-        first_name: 'First Name'
-        last_name: 'Last Name'
-        email: 'E-Mail'
-        password: 'Password'
-        language: 'Language'
+  model:
+    entry:
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      email: 'E-Mail'
+      password: 'Password'
+      language: 'Language'

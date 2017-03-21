@@ -17,6 +17,25 @@ class List < ApplicationRecord
       .select('lists.*, (el.entry_id IS NOT NULL) AS included')
   }
 
+  def to_csv(options = {})
+    columns = %i(first_name last_name position company_name email)
+    CSV.generate(options) do |csv|
+      csv << columns
+
+      entries.each do |entry|
+        csv << columns.map do |column|
+          entry.send(column)
+        end
+      end
+    end
+  end
+
+  def filename(extension: nil)
+    filename = "#{name.tr(' ', '_').downcase}-#{Date.today.strftime('%Y-%m-%d')}"
+    filename += ".#{extension}" if extension.present?
+    filename
+  end
+
   protected
 
   def generate_defaults

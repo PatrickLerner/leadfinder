@@ -76,5 +76,11 @@ export default {
     'Delete this list?': 'Diese Liste löschen?',
     'This list will be deleted and all leads not contained in any other list will be moved to your inbox.': 'Diese Liste wird gelöscht und alle in ihr enthaltenen Leads werden in den Eingang verschoben.',
     'Delete': 'Löschen'
+  },
+  ExportListLink: {
+    'Export this list?': 'Diese Liste exportieren?',
+    'Exporting the list might take a few moments.': 'Der Export der Liste kann einen Moment dauern.',
+    'Export': 'Exportieren',
+    'Exporting...': 'Exportiert...'
   }
 };

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
         collection do
           get :inbox
         end
+        member do
+          get :export
+        end
       end
       resources :entries, only: [:create, :destroy] do
         member do
