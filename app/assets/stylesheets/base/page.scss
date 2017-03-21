@@ -18,10 +18,16 @@
   }
 
   .page-title-action {
+    color: lead-color-level('foreground', 3);
     cursor: pointer;
     float: right;
-    font-size: 2rem;
-    margin-left: 1rem;
+    font-size: 1.6rem;
+    margin-left: 2rem;
+    transition: color 200ms ease-in-out;
+
+    &:hover {
+      color: lead-color-level('foreground', 1);
+    }
   }
 
   .page-content {

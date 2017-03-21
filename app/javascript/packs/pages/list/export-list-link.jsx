@@ -83,7 +83,7 @@ class ExportListLink extends Component {
           {button}
         </LeadModal>
         <a onClick={this.handleExportClick.bind(this)}>
-          <i className='fa fa-fw fa-download'></i>
+          <i className='fa fa-fw fa-download'></i> {this.props.translate('Export')}
         </a>
       </span>
     );

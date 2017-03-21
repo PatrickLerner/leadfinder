@@ -59,7 +59,7 @@ class DeleteListLink extends Component {
           </a>
         </LeadModal>
         <a onClick={this.handleDeleteClick.bind(this)}>
-          <i className='fa fa-fw fa-trash-o'></i>
+          <i className='fa fa-fw fa-trash-o'></i> {this.props.translate('Delete')}
         </a>
       </span>
     );

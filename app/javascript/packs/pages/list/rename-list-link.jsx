@@ -79,7 +79,7 @@ class RenameListLink extends Component {
           </a>
         </LeadModal>
         <a onClick={this.handleRenameClick.bind(this)}>
-          <i className='fa fa-fw fa-pencil'></i>
+          <i className='fa fa-fw fa-pencil'></i> {this.props.translate('Rename')}
         </a>
       </span>
     );
