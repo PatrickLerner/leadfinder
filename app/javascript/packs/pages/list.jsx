@@ -143,10 +143,8 @@ class List extends Component {
 
     return (
       <div>
-        <h1 className='page-title'>
-          {name}
-          {actions}
-        </h1>
+        {actions}
+        <h1 className='page-title'>{name}</h1>
         <div className='lookup'>
           <EntrySearch />
           {entries}

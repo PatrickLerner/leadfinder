@@ -50,7 +50,8 @@ class ExportListLink extends Component {
       res.blob().then(blob => {
         FileSaver.saveAs(blob, filename);
         this.setState(Object.assign({}, this.state, {
-          loading: false
+          loading: false,
+          modalOpen: false
         }));
       });
     });
