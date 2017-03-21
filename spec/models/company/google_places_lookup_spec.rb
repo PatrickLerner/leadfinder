@@ -3,8 +3,9 @@ require 'rails_helper'
 describe Company::GooglePlacesLookup, type: :model do
   let(:spots) do
     [
-      { name: 'Launchwerk', reference: :no_website },
-      { name: 'Launchwerk GmbH', reference: :website }
+      { name: 'Launchwerk', place_id: :no_website },
+      { name: 'Launchwerk GmbH', place_id: :website },
+      { name: 'Launchwerk', place_id: :no_website_2 }
     ]
   end
 
@@ -15,10 +16,21 @@ describe Company::GooglePlacesLookup, type: :model do
       spots
     end
     allow(api).to receive(:spot) do |ref|
+      response = {
+        name: 'Launchwerk GmbH',
+        street_number: '130',
+        street: 'Wendenstraße',
+        city: 'Hamburg',
+        region: 'Hamburg',
+        postal_code: '20537',
+        country: 'Germany'
+      }
       if ref == :no_website
-        { name: 'Launchwerk GmbH', website: nil }
+        response.merge(website: nil, city: 'Darmstadt')
+      elsif ref == :no_website_2
+        response.merge(website: nil, city: 'Berlin')
       else
-        { name: 'Launchwerk GmbH', website: 'http://launchwerk.de/' }
+        response.merge(website: 'http://launchwerk.de/')
       end
     end
     api
@@ -36,8 +48,13 @@ describe Company::GooglePlacesLookup, type: :model do
 
   it 'returns nil if google api messes up' do
     exception = GooglePlaces::NotFoundError.new(nil)
-    allow(Company::GooglePlacesLookup).to receive(:find_spots).and_raise(exception)
+    allow(GooglePlaces::Client).to receive(:new).and_raise(exception)
     company = Company::GooglePlacesLookup.lookup('Launchwerk GmbH')
     expect(company).to be_nil
+  end
+
+  it 'adds addresses' do
+    company = Company::GooglePlacesLookup.lookup('Launchwerk GmbH')
+    expect(company.addresses.pluck(:city).sort).to eq(%w(Berlin Darmstadt Hamburg))
   end
 end

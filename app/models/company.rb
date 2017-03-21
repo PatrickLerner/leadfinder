@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
   has_many :entries
+  has_many :addresses, class_name: 'Company::Address'
 
   validates :name, presence: true
   validates :domain, presence: true

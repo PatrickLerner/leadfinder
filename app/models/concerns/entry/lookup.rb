@@ -56,17 +56,35 @@ class Entry < ApplicationRecord
     end
 
     def variants
-      [
-        "#{first_name}.#{last_name}@#{company.domain}",
-        "#{first_name}@#{company.domain}"
-      ].map(&:downcase)
+      %w(
+        %{fn}.%{ln}
+        %{fn}
+        %{fn}%{ln}
+        %{ln}
+        %{fi}%{ln}
+        %{ln}%{fn}
+        %{ln}.%{fn}
+        %{ln}%{fi}
+      ).map(&:downcase)
+    end
+
+    def email_from_variant(variant)
+      email = variant % {
+        fn: first_name,
+        ln: last_name,
+        fi: first_name[0],
+        li: last_name[0]
+      }
+      email += "@#{company.domain}"
+      email.downcase
     end
 
     def test_all_variants!
       return update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL) if test_allows_all?
-      variants.each do |email|
+      variants.each do |variant|
+        email = email_from_variant(variant)
         next unless EmailVerifier.check(email)
-        return update_attributes(lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND, email: email)
+        return update_attributes(lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND, email: email, email_format: variant)
       end
       update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_NONE_VALID)
     end

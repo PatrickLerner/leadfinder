@@ -3,10 +3,8 @@ require 'addressable/uri'
 class Company
   class GooglePlacesLookup
     def self.lookup(name)
-      spot = spot_with_website(find_spots(name))
-      return nil if spot.nil?
-      domain = ::Addressable::URI.parse(spot[:website]).domain
-      Company.find_or_create_by!(name: spot[:name], domain: domain)
+      lookup = GooglePlacesLookup.new(name)
+      lookup.company
     rescue GooglePlaces::RequestDeniedError, GooglePlaces::InvalidRequestError,
            GooglePlaces::RetryError, GooglePlaces::RetryTimeoutError,
            GooglePlaces::UnknownError, GooglePlaces::NotFoundError => e
@@ -14,24 +12,49 @@ class Company
       nil
     end
 
-    def self.spot_with_website(spots)
+    attr_accessor :name
+
+    def initialize(name)
+      @name = name
+    end
+
+    def company
+      return nil if spots.empty?
+      comp = Company.find_or_initialize_by(name: spots.first[:name], domain: domain)
+      return comp if comp.persisted?
+      return nil if comp.domain.nil?
+      add_addresses(comp, spots)
+      comp.save!
+      comp
+    end
+
+    protected
+
+    def domain
+      return @domain if @domain.present?
+      spot = spot_with_website(spots)
+      return if spot.nil?
+      @domain ||= ::Addressable::URI.parse(spot[:website]).domain
+    end
+
+    def add_addresses(company, spots)
       spots.each do |spot|
-        details = spot_details(spot)
-        return details if details[:website].present?
+        data = spot.as_json.slice(*%w(city postal_code country region street_name street_number))
+        company.addresses.build(data)
       end
-      nil
     end
 
-    def self.spot_details(spot)
-      client.spot(spot[:place_id])
+    def spot_with_website(spots)
+      spots.find { |spot| spot[:website].present? }
     end
 
-    def self.find_spots(name)
-      client.spots_by_query(name)
+    def spots
+      @spots ||= client.spots_by_query(name).map do |spot|
+        client.spot(spot[:place_id])
+      end
     end
 
-    def self.client
-      # TODO : FIX ME
+    def client
       @client = GooglePlaces::Client.new(Rails.application.secrets.google_places_api)
     end
   end

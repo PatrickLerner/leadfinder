@@ -80,6 +80,12 @@ describe Entry, type: :model do
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_EMAIL_FOUND)
     end
 
+    it 'sets the format on the entry if found' do
+      allow(EmailVerifier).to receive(:check) { |email| email == 'bbobson@bobington.bo' }
+      entry.determine_email!
+      expect(entry.email_format).to eq('%{fi}%{ln}')
+    end
+
     it 'does nothing if status is not `searching email`' do
       entry.assign_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_COMPANY, email: nil)
       entry.determine_email!

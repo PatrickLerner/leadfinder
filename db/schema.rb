@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317070457) do
+ActiveRecord::Schema.define(version: 20170321210903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,22 @@ ActiveRecord::Schema.define(version: 20170317070457) do
     t.index ["name"], name: "index_companies_on_name"
   end
 
+  create_table "company_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "company_id", null: false
+    t.string "city"
+    t.string "postal_code"
+    t.string "country"
+    t.string "region"
+    t.string "street_name"
+    t.string "street_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city"], name: "index_company_addresses_on_city"
+    t.index ["company_id"], name: "index_company_addresses_on_company_id"
+    t.index ["country"], name: "index_company_addresses_on_country"
+    t.index ["region"], name: "index_company_addresses_on_region"
+  end
+
   create_table "entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -36,7 +52,9 @@ ActiveRecord::Schema.define(version: 20170317070457) do
     t.datetime "updated_at", null: false
     t.string "lookup_state", default: "unknown", null: false
     t.uuid "company_id"
+    t.string "email_format"
     t.index ["company_id"], name: "index_entries_on_company_id"
+    t.index ["email_format"], name: "index_entries_on_email_format"
     t.index ["lookup_state"], name: "index_entries_on_lookup_state"
   end
 
@@ -71,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170317070457) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "company_addresses", "companies"
   add_foreign_key "entries", "companies"
   add_foreign_key "entries", "users"
   add_foreign_key "entries_lists", "entries"

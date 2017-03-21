@@ -49,6 +49,11 @@ class Entry extends Component {
       email = (<span><i className='fa fa-fw fa-times'></i> {this.props.translate('Failure')}</span>)
     }
 
+    let company = this.state.company;
+    if (this.state.company_cities.length > 0) {
+      company += ` (${this.state.company_cities.join(', ')})`
+    }
+
     return (
       <div className='lookup-listing'>
         <img src={this.state.pictureUrl} className='lookup-picture' />
@@ -65,7 +70,7 @@ class Entry extends Component {
             </span><br />
             <span className='lookup-listing-company'>
               <i className='fa fa-fw fa-building'></i>
-              {this.state.company}
+              {company}
             </span>
           </div>
           <div className='col-12 col-sm-6'>
