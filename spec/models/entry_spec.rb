@@ -80,6 +80,13 @@ describe Entry, type: :model do
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_EMAIL_FOUND)
     end
 
+    it 'replaces umlauts in names' do
+      entry.assign_attributes(first_name: 'Ädelbert', last_name: 'Übermann')
+      allow(EmailVerifier).to receive(:check) { |email| email == 'aedelbert.uebermann@bobington.bo' }
+      entry.determine_email!
+      expect(entry.email).to eq('aedelbert.uebermann@bobington.bo')
+    end
+
     it 'sets the format on the entry if found' do
       allow(EmailVerifier).to receive(:check) { |email| email == 'bbobson@bobington.bo' }
       entry.determine_email!

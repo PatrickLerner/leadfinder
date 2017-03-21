@@ -68,12 +68,18 @@ class Entry < ApplicationRecord
       ).map(&:downcase)
     end
 
+    def format_for_email(value)
+      value.downcase.gsub(/[äöüß]/) do |c|
+        { ä: 'ae', ö: 'oe', ü: 'ue', ß: 'ss' }[c.try(:to_sym)] || c
+      end
+    end
+
     def email_from_variant(variant)
       email = variant % {
-        fn: first_name,
-        ln: last_name,
-        fi: first_name[0],
-        li: last_name[0]
+        fn: format_for_email(first_name),
+        ln: format_for_email(last_name),
+        fi: format_for_email(first_name[0]),
+        li: format_for_email(last_name[0])
       }
       email += "@#{company.domain}"
       email.downcase
