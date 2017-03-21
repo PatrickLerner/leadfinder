@@ -1,6 +1,7 @@
 class Entry < ApplicationRecord
   include Entry::LookupState
   include Entry::Lookup
+  include Serializable
 
   belongs_to :user
   belongs_to :company, optional: true

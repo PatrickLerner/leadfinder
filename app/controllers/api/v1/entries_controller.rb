@@ -3,7 +3,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
     @entry = current_user.entries.create(entry_params)
     if entry.save
       ListChannel.add_entry_to_list(entry, 'inbox')
-      render json: entry
+      render json: { entry: entry.to_api }
     else
       render json: { errors: entry.errors }
     end
@@ -18,10 +18,9 @@ class Api::V1::EntriesController < Api::V1::BaseController
 
   def lists
     @lists = current_user.lists.included_for_entry(entry)
-    render json: ActiveModel::SerializableResource.new(
-      @lists,
-      each_serializer: EntryListSerializer
-    ).as_json
+    render json: {
+      lists: ActiveModel::SerializableResource.new(@lists, each_serializer: EntryListSerializer).as_json
+    }
   end
 
   def update_lists

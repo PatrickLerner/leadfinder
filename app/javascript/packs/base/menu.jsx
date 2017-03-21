@@ -18,8 +18,8 @@ class Menu extends Component {
     if (this.state.signedIn) {
       apiFetch('/api/v1/lists', {
         'method': 'GET'
-      }).then(res => res.json()).then(lists => {
-        this.setState(Object.assign({}, this.state, { lists }));
+      }).then(res => res.json()).then(data => {
+        this.setState(Object.assign({}, this.state, { lists: data.lists }));
         this.addChannelSubscription()
       });
     }

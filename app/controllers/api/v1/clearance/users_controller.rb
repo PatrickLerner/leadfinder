@@ -3,7 +3,7 @@ class Api::V1::Clearance::UsersController < ::Clearance::UsersController
     @user = User.create(user_params)
     if @user.errors.empty?
       sign_in @user
-      render json: { user: @user }
+      render json: { user: @user.to_api }
     else
       render json: { errors: @user.errors }
     end
@@ -11,19 +11,23 @@ class Api::V1::Clearance::UsersController < ::Clearance::UsersController
 
   def update
     if current_user.update_attributes(user_params)
-      render json: { user: current_user }
+      render json: { user: current_user.to_api }
     else
       render json: { errors: current_user.errors }
     end
   end
 
   def index
-    render json: { user: ActiveModelSerializers::SerializableResource.new(current_user).as_json }
+    render json: { user: current_user.try(:to_api) }
   end
 
   protected
 
   def user_params
     params.require(:user).permit(%i(gender first_name last_name email password language))
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    render json: { status: 404, errors: :not_found }, layout: false
   end
 end

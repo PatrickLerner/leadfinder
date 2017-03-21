@@ -13,4 +13,28 @@ describe Api::V1::Clearance::UsersController, type: :controller do
       expect(body[:user][:first_name]).to eq(user.first_name)
     end
   end
+
+  describe '#create' do
+    let(:user_params) do
+      {
+        gender: :male,
+        first_name: 'Bob',
+        last_name: 'Bobson',
+        email: 'bobby@bobington.bob',
+        password: 'bob12345'
+      }
+    end
+
+    let(:user) { User.find_by(email: 'bobby@bobington.bob') }
+
+    it 'can creae a new user' do
+      post :create, params: { user: user_params }
+      expect(user).to be_present
+    end
+
+    it 'fails if params are missing' do
+      post :create, params: { user: user_params.slice(:email, :password) }
+      expect(user).to_not be_present
+    end
+  end
 end

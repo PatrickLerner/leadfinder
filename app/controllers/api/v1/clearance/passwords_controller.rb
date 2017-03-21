@@ -11,23 +11,23 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
   def update
     @user = find_user_for_update
 
-    if @user.update_password password_reset_params
+    if @user.update_password(password_reset_params)
       sign_in @user
       session[:password_reset_token] = nil
-      render json: { status: :ok }
+      render json: { success: true }
     else
-      render json: { status: :failure, errors: :invalid_token }
+      render json: { success: false, errors: :invalid_token }
     end
   end
 
   protected
 
-  def find_user_by_id_and_confirmation_token
+  def find_user_for_update
     User.find_by(confirmation_token: params[:token])
   end
 
   def ensure_existing_user
-    render json: { errors: :invalid_token } unless find_user_by_id_and_confirmation_token
+    render json: { success: false, errors: :invalid_token } unless find_user_for_update
   end
 
   def find_user_for_create

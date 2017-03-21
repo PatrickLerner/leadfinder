@@ -4,9 +4,9 @@ class Api::V1::Clearance::SessionsController < ::Clearance::SessionsController
 
     sign_in(@user) do |status|
       if status.success?
-        render json: { user: @user }
+        render json: { user: @user.to_api }
       else
-        render json: { error: status.failure_message }, status: :unauthorized
+        render json: { errors: status.failure_message }, status: :unauthorized
       end
     end
   end
@@ -14,5 +14,9 @@ class Api::V1::Clearance::SessionsController < ::Clearance::SessionsController
   def destroy
     sign_out
     head :ok
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    render json: { status: 404, errors: :not_found }, layout: false
   end
 end

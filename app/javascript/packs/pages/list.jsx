@@ -20,10 +20,10 @@ class List extends Component {
 
     apiFetch(`/api/v1/lists/${listId}`, {
       'method': 'GET'
-    }).then(res => res.json()).then(list => {
+    }).then(res => res.json()).then(data => {
       this.setState(Object.assign({}, this.state, {
         loading: false,
-        list
+        list: data.list
       }));
     });
   }

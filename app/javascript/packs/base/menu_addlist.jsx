@@ -44,11 +44,11 @@ class MenuAddList extends Component {
     apiFetch('/api/v1/lists', {
       method: 'POST',
       body: JSON.stringify(data)
-    }).then(res => res.json()).then(res => {
-      if (res.errors) {
+    }).then(res => res.json()).then(data => {
+      if (data.errors) {
         alert('Could not create list');
       } else {
-        browserHistory.replace(`/lists/${res.id}`);
+        browserHistory.replace(`/lists/${data.list.id}`);
         this.handleClose();
       }
     });

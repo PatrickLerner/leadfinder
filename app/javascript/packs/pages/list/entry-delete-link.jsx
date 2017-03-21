@@ -28,9 +28,9 @@ class EntryDeleteLink extends Component {
   handleDeleteClick(ev) {
     apiFetch(`/api/v1/entries/${this.state.entryId}/lists`, {
       method: 'GET'
-    }).then(res => res.json()).then(lists => {
+    }).then(res => res.json()).then(data => {
       this.setState(Object.assign({}, this.state, {
-        lists,
+        lists: data.lists,
         modalOpen: true
       }));
     });

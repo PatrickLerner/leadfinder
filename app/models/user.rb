@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Serializable
   include Clearance::User
 
   has_many :lists, -> { order(:name) }
