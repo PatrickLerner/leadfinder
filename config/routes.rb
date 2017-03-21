@@ -14,9 +14,6 @@ Rails.application.routes.draw do
       delete '/sign_out', to: 'clearance/sessions#destroy'
 
       resources :lists, only: [:index, :show, :create, :destroy, :update] do
-        collection do
-          get :inbox
-        end
         member do
           get :export
         end

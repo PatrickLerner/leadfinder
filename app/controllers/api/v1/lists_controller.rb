@@ -4,12 +4,6 @@ class Api::V1::ListsController < Api::V1::BaseController
     render json: { lists: @lists.map(&:to_api) }
   end
 
-  def inbox
-    @list = List.new(name: 'Inbox', user: current_user)
-    list.entries = current_user.entries.unassigned
-    render json: { list: list.to_api(include: %i(entries)) }
-  end
-
   def export
     send_data list.to_csv, filename: list.filename(extension: 'csv')
   end
@@ -47,7 +41,11 @@ class Api::V1::ListsController < Api::V1::BaseController
   protected
 
   def list
-    @list ||= current_user.lists.find_by!(id: params[:id])
+    @list ||= if params[:id] == 'inbox'
+                List.new(name: 'Inbox', user: current_user, entries: current_user.entries.unassigned)
+              else
+                current_user.lists.find_by!(id: params[:id])
+              end
   end
 
   def send_update
