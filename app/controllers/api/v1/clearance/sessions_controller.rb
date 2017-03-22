@@ -15,8 +15,4 @@ class Api::V1::Clearance::SessionsController < ::Clearance::SessionsController
     sign_out
     head :ok
   end
-
-  rescue_from ActiveRecord::RecordNotFound do
-    render json: { status: 404, errors: :not_found }, layout: false
-  end
 end

@@ -60,4 +60,34 @@ describe Api::V1::EntriesController, type: :controller do
       delete :destroy, params: { id: entry.id }
     end
   end
+
+  describe '#update_lists' do
+    let(:list) { create(:list) }
+    let(:old_list) { create(:list) }
+    let(:entry) { build_stubbed(:entry) }
+
+    before(:each) do
+      allow(entry).to receive(:list_ids) { [old_list.id] }
+    end
+
+    it 'allows assigning an entry to a list' do
+      allow(subject).to receive(:entry) { entry }
+      expect(entry).to receive(:update_attributes) { |options|
+        expect(options).to eq(list_ids: [list.id])
+      }
+      patch :update_lists, params: { id: entry.id, entry: { lists: [list.id] } }
+    end
+
+    it 'sends update to lists' do
+      allow(subject).to receive(:entry) { entry }
+      expect(entry).to receive(:update_attributes)
+      expect(ListChannel).to receive(:remove_entry_from_list) { |_, id|
+        expect(id).to eq(old_list.id)
+      }
+      expect(ListChannel).to receive(:add_entry_to_list) { |_, id|
+        expect(id).to eq(list.id)
+      }
+      patch :update_lists, params: { id: entry.id, entry: { lists: [list.id] } }
+    end
+  end
 end
