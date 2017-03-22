@@ -3,4 +3,8 @@ class ListSerializer < ActiveModel::Serializer
 
   has_many :entries
   belongs_to :user
+
+  def entries
+    object.entries.to_a.sort_by(&:created_at).reverse
+  end
 end

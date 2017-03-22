@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321210903) do
+ActiveRecord::Schema.define(version: 20170322065351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,11 +58,11 @@ ActiveRecord::Schema.define(version: 20170321210903) do
     t.index ["lookup_state"], name: "index_entries_on_lookup_state"
   end
 
-  create_table "entries_lists", id: false, force: :cascade do |t|
-    t.uuid "entry_id", null: false
-    t.uuid "list_id", null: false
-    t.index ["entry_id", "list_id"], name: "index_entries_lists_on_entry_id_and_list_id"
-    t.index ["list_id", "entry_id"], name: "index_entries_lists_on_list_id_and_entry_id"
+  create_table "list_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "list_id"
+    t.uuid "entry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20170321210903) do
   add_foreign_key "company_addresses", "companies"
   add_foreign_key "entries", "companies"
   add_foreign_key "entries", "users"
-  add_foreign_key "entries_lists", "entries"
-  add_foreign_key "entries_lists", "lists"
+  add_foreign_key "list_entries", "entries"
+  add_foreign_key "list_entries", "lists"
   add_foreign_key "lists", "users"
 end

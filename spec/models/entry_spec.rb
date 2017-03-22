@@ -135,4 +135,92 @@ describe Entry, type: :model do
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_FAILURE_NONE_VALID)
     end
   end
+
+  describe '#destroy' do
+    let!(:entry_count) { 1 }
+    let!(:list_with_entries) { create(:list, with_entries: entry_count) }
+    let!(:entries) { list_with_entries.entries }
+    let!(:entry) { entries.first }
+
+    it 'unassigns entries when deleting last list' do
+      expect(entries.length).to eq(entry_count)
+      expect(entry.lists.count).to eq(1)
+      entry.destroy!
+      expect(entries.count).to eq(0)
+    end
+  end
+
+  describe '#filename' do
+    let(:list) { build(:list, name: 'Potential Customers') }
+
+    before(:each) { allow(Date).to receive(:today) { Date.parse('2017-03-22') } }
+
+    it 'allows generating a filename' do
+      expect(list.filename).to eq('potential_customers-2017-03-22')
+    end
+
+    it 'allows generating a filename with extension' do
+      expect(list.filename(extension: 'csv')).to eq('potential_customers-2017-03-22.csv')
+    end
+  end
+
+  describe '#schedule_next_action' do
+    let(:entry) { build_stubbed(:entry) }
+
+    it 'schedules company search after creation' do
+      entry.send(:determine_next_action)
+      expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_SEARCHING_COMPANY)
+    end
+
+    it 'schedules email search after company was found' do
+      entry.lookup_state = Entry::LOOKUP_STATE_COMPANY_FOUND
+      entry.send(:determine_next_action)
+      expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_SEARCHING_EMAIL)
+    end
+  end
+
+  describe 'schedule_next_action' do
+    let(:entry) { build_stubbed(:entry) }
+
+    it 'runs the worker for company determination' do
+      entry.lookup_state = Entry::LOOKUP_STATE_SEARCHING_COMPANY
+      expect(EntryWorker).to receive(:perform_async) { |id, action|
+        expect(action).to eq(:determine_company!)
+        expect(id).to eq(entry.id)
+      }
+      entry.send(:schedule_next_action)
+    end
+
+    it 'runs the worker for email determination' do
+      entry.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
+      expect(EntryWorker).to receive(:perform_async) { |id, action|
+        expect(action).to eq(:determine_email!)
+        expect(id).to eq(entry.id)
+      }
+      entry.send(:schedule_next_action)
+    end
+  end
+
+  describe 'lookup_info' do
+    let(:entry) { build(:entry) }
+    it 'reports if email was found' do
+      entry.lookup_state = Entry::LOOKUP_STATE_EMAIL_FOUND
+      expect(entry.lookup_info).to eq('email_found')
+    end
+
+    it 'reports if looking for mail' do
+      [
+        Entry::LOOKUP_STATE_UNKNOWN, Entry::LOOKUP_STATE_SEARCHING_COMPANY,
+        Entry::LOOKUP_STATE_COMPANY_FOUND, Entry::LOOKUP_STATE_SEARCHING_EMAIL
+      ].each do |state|
+        entry.lookup_state = state
+        expect(entry.lookup_info).to eq('processing')
+      end
+    end
+
+    it 'reports if failure' do
+      entry.lookup_state = Entry::LOOKUP_STATE_FAILURE_CONNECTION
+      expect(entry.lookup_info).to eq('failure')
+    end
+  end
 end

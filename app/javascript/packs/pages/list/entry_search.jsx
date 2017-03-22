@@ -11,6 +11,7 @@ class EntrySearch extends Component {
       first_name: '',
       last_name: '',
       company_name: '',
+      lists: [props.listId]
     };
   }
 

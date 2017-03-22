@@ -70,7 +70,7 @@ class List extends Component {
       received: ((update) => {
         const newState = Object.assign({}, this.state);
         if (update.add) {
-          newState.list.entries.push(update.add);
+          newState.list.entries.splice(0, 0, update.add);
           this.setState(newState);
         }
         if (update.remove) {
@@ -146,7 +146,7 @@ class List extends Component {
         {actions}
         <h1 className='page-title'>{name}</h1>
         <div className='lookup'>
-          <EntrySearch />
+          <EntrySearch listId={this.state.listId} />
           {entries}
         </div>
       </div>

@@ -7,17 +7,29 @@ describe Api::V1::EntriesController, type: :controller do
 
   describe '#create' do
     let(:entry) { Entry.find_by(id: body[:entry][:id]) }
+    let(:list) { create(:list) }
 
     it 'creates a new entry' do
       post :create, params: { entry: { first_name: 'Peter', last_name: 'Müller', company_name: 'Test GmbH' } }
       expect(entry.first_name).to eq('Peter')
       expect(entry.last_name).to eq('Müller')
+      expect(entry.lists).to be_empty
     end
 
     it 'returns failure if a param is missing' do
       post :create, params: { entry: { last_name: 'Müller', company_name: 'Test GmbH' } }
       expect(body.key?(:errors)).to be_truthy
       expect(body[:errors].key?(:first_name)).to be_truthy
+    end
+
+    it 'it automatically adds the item to the correct list' do
+      post :create, params: { entry: {
+        first_name: 'Peter',
+        last_name: 'Müller',
+        company_name: 'Test GmbH',
+        lists: [list.id]
+      } }
+      expect(entry.lists.pluck(:id).first).to eq(list.id)
     end
   end
 

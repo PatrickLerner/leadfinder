@@ -14,10 +14,10 @@ gem 'dotenv-rails'
 gem 'email_verifier'
 gem 'font-awesome-sass'
 gem 'google_places'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 gem 'neat'
-gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.7'
+gem 'pg'
+gem 'puma'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.0.beta1'
 gem 'responders'
@@ -25,16 +25,15 @@ gem 'sass-rails', github: 'rails/sass-rails'
 gem 'sidekiq'
 gem 'slim-rails'
 gem 'therubyracer'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'webpacker', github: 'rails/webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.7.0'
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'foreman'
-  gem 'letter_opener'
   gem 'rspec-rails', '~> 3.5'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
@@ -42,10 +41,13 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'spring-watcher-listen'
+  gem 'web-console'
+  gem 'binding_of_caller'
+  gem 'letter_opener'
+  gem 'better_errors'
   gem 'capistrano',         require: false
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-rails',   require: false

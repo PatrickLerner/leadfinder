@@ -2,7 +2,8 @@ class List < ApplicationRecord
   include Serializable
 
   belongs_to :user
-  has_and_belongs_to_many :entries
+  has_many :list_entries, class_name: 'List::Entry', dependent: :destroy
+  has_many :entries, through: :list_entries
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :sort_by, presence: true
