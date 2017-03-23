@@ -1,3 +1,21 @@
 .u-pull-right {
   float: right;
 }
+
+.u-centered {
+  text-align: center;
+}
+
+.u-item-centered {
+  display: block;
+  margin: 1rem auto;
+}
+
+.u-bordered {
+  border: .1rem solid lead-color-level('menu', -2);
+  padding: .2rem;
+}
+
+.u-max-full-width {
+  max-width: 100%;
+}
