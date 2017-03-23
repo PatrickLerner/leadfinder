@@ -51,10 +51,16 @@ class Find extends Component {
       'assistant', 'intern', 'secretary', 'vice', 'paralegal'
     ];
     this.state = {
-      role: this.roles[Object.keys(this.roles)[0]],
+      role: this.roleToString(this.roles[Object.keys(this.roles)[0]]),
       excludes: this.excludes,
       region: 'Heidelberg'
     }
+  }
+
+  roleToString(role) {
+    return '(' + role.map(subquery => {
+      return subquery.map(item => `"${item}"`).join(' OR ');
+    }).join(') AND (') + ')';
   }
 
   searchButton() {
@@ -81,12 +87,8 @@ class Find extends Component {
 
   render() {
     const roles = Object.keys(this.roles).map(name => {
-      const query = '(' + this.roles[name].map(subquery => {
-        return subquery.map(item => `"${item}"`).join(' OR ');
-      }).join(') AND (') + ')';
-      return (
-        <option value={query} key={name}>{name}</option>
-      );
+      const query = this.roleToString(this.roles[name]);
+      return (<option value={query} key={name}>{name}</option>);
     });
     return (
       <div className='panel panel-narrow'>
