@@ -33,7 +33,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   protected
 
   def build_new_entry
-    @entry = current_user.entries.build(entry_params)
+    @entry = current_user.entries.new(entry_params)
   end
 
   def entry_list_removed_ids
