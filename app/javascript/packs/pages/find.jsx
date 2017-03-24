@@ -51,7 +51,7 @@ class Find extends Component {
       'assistant', 'intern', 'secretary', 'vice', 'paralegal'
     ];
     this.state = {
-      role: this.roleToString(this.roles[Object.keys(this.roles)[0]]),
+      role: Object.keys(this.roles)[0],
       excludes: this.excludes,
       region: 'Heidelberg'
     }
@@ -64,7 +64,7 @@ class Find extends Component {
   }
 
   searchButton() {
-    const query = this.state.role;
+    const query = this.roleToString(this.roles[this.state.role]);
     const site = 'site:xing.com/profile';
     const region = this.state.region;
     const excludes = this.excludes.map(item => `-${item}`).join(' ');
@@ -87,11 +87,18 @@ class Find extends Component {
 
   render() {
     const roles = Object.keys(this.roles).map(name => {
-      const query = this.roleToString(this.roles[name]);
-      return (<option value={query} key={name}>{name}</option>);
+      return (<option value={name} key={name}>{name}</option>);
     });
+
+    const examples = [];
+    const current_role = this.roles[this.state.role];
+    const max_subrole_length = Math.max.apply(null, current_role.map(a => a.length));
+    for (let i = 0; i < max_subrole_length; i++) {
+      examples.push(current_role.map(a => a[i] || a[0]).join(' '));
+    }
+
     return (
-      <div className='panel panel-narrow'>
+      <div className='panel panel-narrow panel-find'>
         <h1 className='page-title'>
           {this.props.translate('Find Leads')}
         </h1>
@@ -100,6 +107,7 @@ class Find extends Component {
           <select onChange={this.roleSelected.bind(this)} className='is-large'>
             {roles}
           </select>
+          <small className='u-single-line'>{examples.join(', ')}</small>
         </div>
         <div className='form-control'>
           <label>{this.props.translate('Region')}</label>

@@ -7,16 +7,16 @@ export default class Dashboard extends Component {
         <h1 className='page-title'>
           Lead Finder
         </h1>
-        <div className='alert-box is-accent'>
+        <div className='alert-box is-accent is-large'>
           This project is in a closed developmental stage. If you somehow are here without knowing this, then you probably should not be here.
           <h1 style={{ textAlign: 'center', fontSize: '4rem', lineHeight: '6rem' }}>😜</h1>
         </div>
 
-        <div className='panel panel-dashboard'>
+        <div className='panel panel-dashboard is-large'>
           <h1 className='panel-header-title'>Install 'Lead Finder DEV' Chrome Extension</h1>
           <p className='panel-header-subtitle'>To make adding new Leads a breeze, install the free Chrome Extension.</p>
 
-          <p>In order to install the extension please download it using the link below. Chrome will display a warning that it will not automatically install the extension.</p>
+          <p>In order to install the extension please download it using the link below. Chrome will display a warning that it will not automatically install the extension, you will therefore have to follow the steps below to install it manually.</p>
 
           <div className='u-centered panel-dashboard-download-container'>
             <a className='button' href='https://leadfinder.patricklerner.com/extension/leadfinder_chrome_1.crx'>

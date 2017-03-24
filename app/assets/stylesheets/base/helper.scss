@@ -19,3 +19,10 @@
 .u-max-full-width {
   max-width: 100%;
 }
+
+.u-single-line {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
