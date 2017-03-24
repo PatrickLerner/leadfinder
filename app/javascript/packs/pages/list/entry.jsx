@@ -30,7 +30,7 @@ class Entry extends Component {
       'searching_company', 'company_found', 'searching_email'
     ];
     let email = null;
-    if (this.state.lookup_state === 'email_found') {
+    if (this.state.email !== null) {
       email = (
         <span>
           <i className='fa fa-fw fa-envelope'></i>

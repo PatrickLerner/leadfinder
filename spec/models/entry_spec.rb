@@ -77,6 +77,7 @@ describe Entry, type: :model do
       allow(EmailVerifier).to receive(:check) { |email| email == 'bob.bobson@bobington.bo' }
       entry.determine_email!
       expect(entry.email).to eq('bob.bobson@bobington.bo')
+      expect(entry.email_confidence).to eq(100)
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_EMAIL_FOUND)
     end
 
@@ -221,6 +222,66 @@ describe Entry, type: :model do
     it 'reports if failure' do
       entry.lookup_state = Entry::LOOKUP_STATE_FAILURE_CONNECTION
       expect(entry.lookup_info).to eq('failure')
+    end
+  end
+
+  describe '#most_common_format' do
+    let(:company) { create(:company) }
+    let(:other_company) { create(:company) }
+    let(:company_format) { '%{fn}' }
+    let(:common_format) { '%{fn}%{ln}' }
+    before(:each) do
+      8.times do |i|
+        create(
+          :entry,
+          company: i < 3 ? company : other_company,
+          email_format: i < 3 ? company_format : common_format,
+          lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND
+        )
+      end
+    end
+
+    it 'knows the most common format in general' do
+      expect(described_class.most_common_format).to eq(common_format)
+    end
+
+    it 'knows the most common format for the company' do
+      expect(described_class.most_common_format(company)).to eq(company_format)
+    end
+  end
+
+  describe '#guess_email!' do
+    let(:company) { build_stubbed(:company, domain: 'example.com') }
+    let(:entry) { build_stubbed(:entry, company: company) }
+
+    before(:each) { allow(entry).to receive(:update_attributes) { |*args| entry.assign_attributes(*args) } }
+
+    it 'does not overwrite an existing email' do
+      entry.email = 'already@set'
+      entry.guess_email!
+      expect(entry.email).to eq('already@set')
+    end
+
+    it 'does not set if base confidence is already zero' do
+      allow(entry).to receive(:base_confidence) { 0 }
+      entry.guess_email!
+      expect(entry.email).to be_nil
+    end
+
+    it 'builds on previously existing email to this company' do
+      allow(entry).to receive(:base_confidence) { 50 }
+      allow(Entry).to receive(:most_common_format) { '%{fn}' }
+      entry.guess_email!
+      expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
+      expect(entry.email_confidence).to eq(50 * 1.5)
+    end
+
+    it 'builds on most common mail format' do
+      allow(entry).to receive(:base_confidence) { 50 }
+      allow(Entry).to receive(:most_common_format) { |company| company.nil? ? '%{fn}' : nil }
+      entry.guess_email!
+      expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
+      expect(entry.email_confidence).to eq(50)
     end
   end
 end

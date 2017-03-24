@@ -21,6 +21,12 @@ class EntrySearch extends Component {
     this.setState(nextState);
   }
 
+  handleKeyPress(ev) {
+    if (ev.key === 'Enter') {
+      this.handleSearchClick(ev);
+    }
+  }
+
   handleSearchClick(ev) {
     ev.preventDefault();
 
@@ -45,43 +51,41 @@ class EntrySearch extends Component {
   render() {
     return (
       <div className='panel panel-entry-search'>
-        <form onSubmit={this.handleSearchClick.bind(this)}>
-          <div className='row'>
-            <div className='col-12 col-lg-3'>
-              <div className='form-control'>
-                <label>{this.props.translate('user', 'First Name')}</label>
-                <input className='is-large' type='text' name='first_name' autoFocus
-                       value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Peter' />
-              </div>
-            </div>
-            <div className='col-12 col-lg-3'>
-              <div className='form-control'>
-                <label>{this.props.translate('user', 'Last Name')}</label>
-                <input className='is-large' type='text' name='last_name'
-                       value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Miller' />
-              </div>
-            </div>
-            <div className='col-12 col-lg-3'>
-              <div className='form-control'>
-                <label>{this.props.translate('user', 'Company')}</label>
-                <input className='is-large' type='text' name='company_name'
-                       value={this.state.company_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Miller & Son Corp.' />
-              </div>
-            </div>
-            <div className='col-12 col-lg-3'>
-              <div className='form-control'>
-                <label>&nbsp;</label>
-                <button className='button is-large is-full-width' type='submit'>
-                  <i className='fa fa-fw fa-search'></i>
-                  {this.props.translate('Search')}
-                </button>
-              </div>
+        <div className='row'>
+          <div className='col-12 col-lg-3'>
+            <div className='form-control'>
+              <label>{this.props.translate('user', 'First Name')}</label>
+              <input className='is-large' type='text' name='first_name' autoFocus
+                     value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Peter' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
           </div>
-        </form>
+          <div className='col-12 col-lg-3'>
+            <div className='form-control'>
+              <label>{this.props.translate('user', 'Last Name')}</label>
+              <input className='is-large' type='text' name='last_name'
+                     value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Miller' onKeyPress={this.handleKeyPress.bind(this)} />
+            </div>
+          </div>
+          <div className='col-12 col-lg-3'>
+            <div className='form-control'>
+              <label>{this.props.translate('user', 'Company')}</label>
+              <input className='is-large' type='text' name='company_name'
+                     value={this.state.company_name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Miller & Son Corp.' onKeyPress={this.handleKeyPress.bind(this)} />
+            </div>
+          </div>
+          <div className='col-12 col-lg-3'>
+            <div className='form-control'>
+              <label>&nbsp;</label>
+              <a className='button is-large is-full-width' onClick={this.handleSearchClick.bind(this)}>
+                <i className='fa fa-fw fa-search'></i>
+                {this.props.translate('Search')}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

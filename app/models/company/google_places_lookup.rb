@@ -39,7 +39,8 @@ class Company
 
     def add_addresses(company, spots)
       spots.each do |spot|
-        data = spot.as_json.slice(*%w(city postal_code country region street_name street_number))
+        data = spot.as_json.slice(*%w(city postal_code country region street street_number))
+        data['street_name'] = data.delete('street')
         company.addresses.build(data)
       end
     end

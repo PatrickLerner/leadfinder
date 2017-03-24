@@ -52,6 +52,8 @@ class Entry < ApplicationRecord
         self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_COMPANY
       when Entry::LOOKUP_STATE_COMPANY_FOUND
         self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
+      else
+        guess_email!
       end
     end
 
@@ -90,7 +92,10 @@ class Entry < ApplicationRecord
       variants.each do |variant|
         email = email_from_variant(variant)
         next unless EmailVerifier.check(email)
-        return update_attributes(lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND, email: email, email_format: variant)
+        return update_attributes(
+          lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND,
+          email: email, email_format: variant, email_confidence: 100
+        )
       end
       update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_NONE_VALID)
     end
