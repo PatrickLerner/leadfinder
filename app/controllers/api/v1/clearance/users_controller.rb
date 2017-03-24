@@ -26,8 +26,4 @@ class Api::V1::Clearance::UsersController < ::Clearance::UsersController
   def user_params
     params.require(:user).permit(%i(gender first_name last_name email password language))
   end
-
-  rescue_from ActiveRecord::RecordNotFound do
-    render json: { status: 404, errors: :not_found }, layout: false
-  end
 end

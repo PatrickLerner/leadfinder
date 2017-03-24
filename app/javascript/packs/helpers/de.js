@@ -9,7 +9,7 @@ export default {
     'Company': 'Unternehmen'
   },
   Header: {
-    'Lead Finder': 'Bleifinder'
+    'Lead Finder': 'Lead Finder'
   },
   Menu: {
     'Dashboard': 'Dashboard',

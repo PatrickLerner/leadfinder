@@ -1,13 +1,15 @@
 $lead-colors: (
-  'primary': #3bbf91,
+  'primary': #546a7b,
+  'button': #62929e,
   'menu': #fafafa,
   'accent': #d4f1f9,
   'result': #f7f3c5,
   'secondary': #5a1321,
-  'foreground': #333,
-  'background': #f6f6f6,
+  'foreground': #393d3f,
+  'background': #fdfdff,
   'delete': #e05050,
   'abort': #a5a5a5,
+  'logo': #c6c5b9,
 );
 
 @function lead-color($key: 'primary') {

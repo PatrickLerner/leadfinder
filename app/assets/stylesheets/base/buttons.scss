@@ -1,8 +1,9 @@
 .button {
-  background-color: lead-color('primary');
+  background-color: lead-color('button');
   color: lead-color('background');
   cursor: pointer;
   display: inline-block;
+  font-size: 1.6rem;
   margin: 0 .5rem;
   min-width: 10rem;
   padding: .5rem 2rem;
@@ -10,12 +11,12 @@
   text-decoration: none;
 
   &[disabled] {
-    background-color: lead-color-level('primary', 1);
+    background-color: lead-color-level('button', 1);
     cursor: not-allowed;
   }
 
   &:hover {
-    background-color: lead-color-level('primary', 1);
+    background-color: lead-color-level('button', 1);
   }
 
   .fa {

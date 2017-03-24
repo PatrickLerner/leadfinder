@@ -1,20 +1,24 @@
 .header {
   $header-padding: 2rem;
 
+  align-items: center;
   background-color: lead-color('primary');
   border-bottom: .1rem solid lead-color-level('primary', -2);
   color: lead-color('background');
+  display: flex;
   height: $header-height;
+  left: 0;
   margin: auto;
   padding: 0 $header-padding;
   position: fixed;
-  left: 0;
   right: 0;
   top: 0;
 
   h1 {
     display: inline-block;
-    font-size: 2rem;
+    font-size: 2.4rem;
+    font-weight: 200;
+    letter-spacing: .6rem;
     line-height: 6rem;
     vertical-align: middle;
   }

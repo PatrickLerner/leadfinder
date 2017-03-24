@@ -12,7 +12,7 @@ class List < ApplicationRecord
   before_validation :generate_defaults
 
   scope :included_for_entry, lambda { |entry|
-    joins('LEFT JOIN entries_lists AS el ON el.list_id = lists.id AND ' \
+    joins('LEFT JOIN list_entries AS el ON el.list_id = lists.id AND ' \
           "el.entry_id = '#{entry.try(:id) || entry}'")
       .group('lists.id, el.entry_id')
       .select('lists.*, (el.entry_id IS NOT NULL) AS included')

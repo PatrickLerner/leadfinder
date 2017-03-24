@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe Api::V1::Clearance::UsersController, type: :controller do
+  let(:user_params) do
+    {
+      gender: :male,
+      first_name: 'Bob',
+      last_name: 'Bobson',
+      email: 'bobby@bobington.bob',
+      password: 'bob12345'
+    }
+  end
   let(:body) { JSON.parse(response.body).with_indifferent_access }
 
   describe '#index' do
@@ -15,16 +24,6 @@ describe Api::V1::Clearance::UsersController, type: :controller do
   end
 
   describe '#create' do
-    let(:user_params) do
-      {
-        gender: :male,
-        first_name: 'Bob',
-        last_name: 'Bobson',
-        email: 'bobby@bobington.bob',
-        password: 'bob12345'
-      }
-    end
-
     let(:user) { User.find_by(email: 'bobby@bobington.bob') }
 
     it 'can creae a new user' do
@@ -35,6 +34,23 @@ describe Api::V1::Clearance::UsersController, type: :controller do
     it 'fails if params are missing' do
       post :create, params: { user: user_params.slice(:email, :password) }
       expect(user).to_not be_present
+    end
+  end
+
+  describe '#update' do
+    let(:user) { create(:user) }
+    before(:each) { sign_in_as(user) }
+
+    it 'allows updating the user' do
+      post :update, params: { user: user_params.merge(first_name: 'Peter') }
+      expect(body.key?(:user)).to be_truthy
+      expect(user.reload.first_name).to eq('Peter')
+    end
+
+    it 'fails if parameters are not allowed' do
+      post :update, params: { user: user_params.merge(first_name: '') }
+      expect(body.key?(:errors)).to be_truthy
+      expect(user.reload.first_name).to_not eq('')
     end
   end
 end
