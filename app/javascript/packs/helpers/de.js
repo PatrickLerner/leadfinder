@@ -28,7 +28,7 @@ export default {
   MenuSignout: {
     'Sign Out': 'Abmelden'
   },
-  RenameListLink: {
+  ListRenameLink: {
     'Rename List': 'Liste umbenennen',
     'Enter the new name for the list here.': 'Geben Sie hier einen neuen Namen für die Liste an.',
     'Name': 'Name',

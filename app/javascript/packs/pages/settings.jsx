@@ -38,7 +38,9 @@ class Settings extends Component {
     this.setState(nextState);
   }
 
-  handleSubmitClick() {
+  handleSubmitClick(ev) {
+    ev.preventDefault();
+
     const data = { user: this.state.user };
 
     apiFetch('/api/v1/users', {
@@ -91,42 +93,44 @@ class Settings extends Component {
         {success}
 
         <div className='panel'>
-          <div className='row'>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <label>{this.props.translate('user', 'First Name')}</label>
-                <input className='is-large' type='text' name='first_name' autoFocus
-                       value={this.state.user.first_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Peter' />
+          <form onSubmit={this.handleSubmitClick.bind(this)}>
+            <div className='row'>
+              <div className='col-12 col-lg-6'>
+                <div className='form-control'>
+                  <label>{this.props.translate('user', 'First Name')}</label>
+                  <input className='is-large' type='text' name='first_name' autoFocus
+                         value={this.state.user.first_name} onChange={this.handleInputChange.bind(this)}
+                         placeholder='Peter' />
+                </div>
+              </div>
+              <div className='col-12 col-lg-6'>
+                <div className='form-control'>
+                  <label>{this.props.translate('user', 'Last Name')}</label>
+                  <input className='is-large' type='text' name='last_name'
+                         value={this.state.user.last_name} onChange={this.handleInputChange.bind(this)}
+                         placeholder='Miller' />
+                </div>
               </div>
             </div>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <label>{this.props.translate('user', 'Last Name')}</label>
-                <input className='is-large' type='text' name='last_name'
-                       value={this.state.user.last_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Miller' />
+            <div className='form-control'>
+              <label>{this.props.translate('user', 'E-Mail')}</label>
+              <input className='is-large' type='email' name='email'
+                     value={this.state.user.email} onChange={this.handleInputChange.bind(this)}
+                     placeholder='peter.miller@example.com' />
+            </div>
+            <div className='form-control'>
+              <label>{this.props.translate('Languages')}</label>
+              <div>
+                {languages}
               </div>
             </div>
-          </div>
-          <div className='form-control'>
-            <label>{this.props.translate('user', 'E-Mail')}</label>
-            <input className='is-large' type='email' name='email'
-                   value={this.state.user.email} onChange={this.handleInputChange.bind(this)}
-                   placeholder='peter.miller@example.com' />
-          </div>
-          <div className='form-control'>
-            <label>{this.props.translate('Languages')}</label>
-            <div>
-              {languages}
+            <div className='panel-button-container'>
+              <button className='button is-large is-full-width' type='submit'>
+                <i className='fa fa-fw fa-save'></i>
+                {this.props.translate('Save')}
+              </button>
             </div>
-          </div>
-          <div className='panel-button-container'>
-            <a className='button is-large is-full-width' onClick={this.handleSubmitClick.bind(this)}>
-              <i className='fa fa-fw fa-save'></i>
-              {this.props.translate('Save')}
-            </a>
-          </div>
+          </form>
         </div>
       </div>
     );

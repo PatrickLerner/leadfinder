@@ -18,7 +18,9 @@ export default class SignIn extends Component {
     this.setState(nextState);
   }
 
-  handleLoginClick() {
+  handleLoginClick(ev) {
+    ev.preventDefault();
+
     const data = {
       session: this.state
     };
@@ -27,7 +29,11 @@ export default class SignIn extends Component {
       method: 'POST',
       body: JSON.stringify(data)
     }).then(res => {
-      browserHistory.replace('/dashboard');
+      if (res.status === 200) {
+        browserHistory.replace('/dashboard');
+      } else {
+        alert('Login failed');
+      }
     });
   }
 
@@ -36,25 +42,27 @@ export default class SignIn extends Component {
       <div className='panel panel-narrow panel-sign-in'>
         <h1 className='panel-header-title'>Login</h1>
         <p className='panel-header-subtitle'>Great to have you back.</p>
-        <div className='form-control'>
-          <label>E-Mail</label>
-          <input className='is-large' type='email' name='email' autoFocus
-                 value={this.state.email} onChange={this.handleInputChange.bind(this)}
-                 placeholder='peter.miller@example.com'/>
-        </div>
-        <div className='form-control'>
-          <label>Password</label>
-          <input className='is-large' type='password' name='password'
-                 value={this.state.password} onChange={this.handleInputChange.bind(this)}
-                 placeholder='*********' />
-        </div>
-        <a className='forgot-password-link' onClick={this.props.resetPassword}>Forgot your password?</a>
-        <div className='panel-button-container'>
-          <a className='button is-large is-full-width' onClick={this.handleLoginClick.bind(this)}>
-            <i className='fa fa-fw fa-sign-in'></i>
-            Login
-          </a>
-        </div>
+        <form onSubmit={this.handleLoginClick.bind(this)}>
+          <div className='form-control'>
+            <label>E-Mail</label>
+            <input className='is-large' type='email' name='email' autoFocus
+                   value={this.state.email} onChange={this.handleInputChange.bind(this)}
+                   placeholder='peter.miller@example.com'/>
+          </div>
+          <div className='form-control'>
+            <label>Password</label>
+            <input className='is-large' type='password' name='password'
+                   value={this.state.password} onChange={this.handleInputChange.bind(this)}
+                   placeholder='*********' />
+          </div>
+          <a className='forgot-password-link' onClick={this.props.resetPassword}>Forgot your password?</a>
+          <div className='panel-button-container'>
+            <button className='button is-large is-full-width' type='submit'>
+              <i className='fa fa-fw fa-sign-in'></i>
+              Login
+            </button>
+          </div>
+        </form>
         <footer>
           <a onClick={this.props.switchTab}>Not a member yet? Register now.</a>
         </footer>

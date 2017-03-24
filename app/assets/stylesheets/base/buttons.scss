@@ -1,5 +1,10 @@
+button {
+  appearance: none;
+}
+
 .button {
   background-color: lead-color('button');
+  border: 0;
   color: lead-color('background');
   cursor: pointer;
   display: inline-block;

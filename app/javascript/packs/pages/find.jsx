@@ -63,7 +63,9 @@ class Find extends Component {
     }).join(') AND (') + ')';
   }
 
-  searchButton() {
+  handleSearchButton(ev) {
+    ev.preventDefault();
+
     const query = this.roleToString(this.roles[this.state.role]);
     const site = 'site:xing.com/profile';
     const region = this.state.region;
@@ -102,24 +104,26 @@ class Find extends Component {
         <h1 className='page-title'>
           {this.props.translate('Find Leads')}
         </h1>
-        <div className='form-control'>
-          <label>{this.props.translate('Role / Function')}</label>
-          <select onChange={this.roleSelected.bind(this)} className='is-large'>
-            {roles}
-          </select>
-          <small className='u-single-line'>{examples.join(', ')}</small>
-        </div>
-        <div className='form-control'>
-          <label>{this.props.translate('Region')}</label>
-          <input className='is-large' type='text' name='region'
-                   value={this.state.region} onChange={this.handleInputChange.bind(this)}
-                   placeholder={this.props.translate('Region')}/>
-        </div>
+        <form onSubmit={this.handleSearchButton.bind(this)}>
+          <div className='form-control'>
+            <label>{this.props.translate('Role / Function')}</label>
+            <select onChange={this.roleSelected.bind(this)} className='is-large'>
+              {roles}
+            </select>
+            <small className='u-single-line'>{examples.join(', ')}</small>
+          </div>
+          <div className='form-control'>
+            <label>{this.props.translate('Region')}</label>
+            <input className='is-large' type='text' name='region'
+                     value={this.state.region} onChange={this.handleInputChange.bind(this)}
+                     placeholder={this.props.translate('Region')}/>
+          </div>
 
-        <a className='button is-large is-full-width' onClick={this.searchButton.bind(this)}>
-          <i className='fa fa-search fa-fw'></i>
-          {this.props.translate('Search')}
-        </a>
+          <button className='button is-large is-full-width' type='submit'>
+            <i className='fa fa-search fa-fw'></i>
+            {this.props.translate('Search')}
+          </button>
+        </form>
       </div>
     );
   }

@@ -6,7 +6,7 @@ import LeadModal from '../../components/lead_modal.jsx';
 import translate from '../../helpers/translate.js';
 import { apiFetch } from '../../helpers/api_fetch.js';
 
-class RenameListLink extends Component {
+class ListRenameLink extends Component {
   setList(props) {
     this.state = {
       listId: props.listId,
@@ -46,6 +46,8 @@ class RenameListLink extends Component {
   }
 
   handleRenameConfirmClick(ev) {
+    ev.preventDefault();
+
     const data = {
       list: {
         name: this.state.name
@@ -66,17 +68,18 @@ class RenameListLink extends Component {
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>{this.props.translate('Rename List')}</h1>
           <p>{this.props.translate('Enter the new name for the list here.')}</p>
-          <div className='form-control'>
-            <label>{this.props.translate('Name')}</label>
-            <input className='is-large' type='text' name='name' autoFocus
-                   value={this.state.name} onChange={this.handleInputChange.bind(this)}
-                   placeholder={this.props.translate('example', 'list name')} />
-          </div>
-          <a className='button is-large is-full-width'
-             onClick={this.handleRenameConfirmClick.bind(this)}>
-            <i className='fa fa-fw fa-pencil'></i>
-            {this.props.translate('Rename')}
-          </a>
+          <form onSubmit={this.handleRenameConfirmClick.bind(this)}>
+            <div className='form-control'>
+              <label>{this.props.translate('Name')}</label>
+              <input className='is-large' type='text' name='name' autoFocus
+                     value={this.state.name} onChange={this.handleInputChange.bind(this)}
+                     placeholder={this.props.translate('example', 'list name')} />
+            </div>
+            <button className='button is-large is-full-width' type='submit'>
+              <i className='fa fa-fw fa-pencil'></i>
+              {this.props.translate('Rename')}
+            </button>
+          </form>
         </LeadModal>
         <a onClick={this.handleRenameClick.bind(this)}>
           <i className='fa fa-fw fa-pencil'></i> {this.props.translate('Rename')}
@@ -86,4 +89,4 @@ class RenameListLink extends Component {
   }
 }
 
-export default translate('RenameListLink')(RenameListLink);
+export default translate('ListRenameLink')(ListRenameLink);

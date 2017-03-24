@@ -8,7 +8,7 @@ import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 import ExportListLink from './list/export-list-link.jsx';
 import DeleteListLink from './list/delete-list-link.jsx';
-import RenameListLink from './list/rename-list-link.jsx';
+import ListRenameLink from './list/list-rename-link.jsx';
 import EntrySearch from './list/entry_search.jsx';
 import Entry from './list/entry.jsx';
 
@@ -132,7 +132,7 @@ class List extends Component {
     actions.push(<ExportListLink key='export' className='page-title-action' listId={this.state.listId} />);
     if (this.state.list.id) {
       actions.push(<DeleteListLink key='delete' className='page-title-action' listId={this.state.listId} />);
-      actions.push(<RenameListLink key='rename' className='page-title-action' listId={this.state.listId}
+      actions.push(<ListRenameLink key='rename' className='page-title-action' listId={this.state.listId}
                                    listName={this.state.list.name} />);
     }
 

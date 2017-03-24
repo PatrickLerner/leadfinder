@@ -35,6 +35,8 @@ class MenuAddList extends Component {
   }
 
   handleAddConfirmClick(ev) {
+    ev.preventDefault();
+
     const data = {
       list: {
         name: this.state.name
@@ -60,16 +62,18 @@ class MenuAddList extends Component {
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>{this.props.translate('Add new list...')}</h1>
           <p>{this.props.translate('Lists are a way for you to organize your leads.')}</p>
-          <div className='form-control'>
-            <label>{this.props.translate('Name')}</label>
-            <input className='is-large' type='text' name='name' autoFocus
-                   value={this.state.name} onChange={this.handleInputChange.bind(this)}
-                   placeholder={this.props.translate('example', 'list name')}/>
-          </div>
-          <a className='button is-large is-full-width' onClick={this.handleAddConfirmClick.bind(this)}>
-            <i className='fa fa-fw fa-plus'></i>
-            {this.props.translate('Add List')}
-          </a>
+          <form onSubmit={this.handleAddConfirmClick.bind(this)}>
+            <div className='form-control'>
+              <label>{this.props.translate('Name')}</label>
+              <input className='is-large' type='text' name='name' autoFocus
+                     value={this.state.name} onChange={this.handleInputChange.bind(this)}
+                     placeholder={this.props.translate('example', 'list name')}/>
+            </div>
+            <button className='button is-large is-full-width' type='submit'>
+              <i className='fa fa-fw fa-plus'></i>
+              {this.props.translate('Add List')}
+            </button>
+          </form>
         </LeadModal>
         <Link className='page-menu-subitem' onClick={this.handleAddClick.bind(this)}>
           <i className='fa fa-fw fa-plus'></i>

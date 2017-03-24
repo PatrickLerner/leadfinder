@@ -18,7 +18,9 @@ export default class PasswordReset extends Component {
     this.setState(nextState);
   }
 
-  handleResetClick() {
+  handleResetClick(ev) {
+    ev.preventDefault();
+
     if (this.state.email.indexOf('@') === -1) {
       return;
     }
@@ -48,7 +50,7 @@ export default class PasswordReset extends Component {
       )
     } else {
       content = (
-        <div>
+        <form onSubmit={this.handleResetClick.bind(this)}>
           <div className='form-control'>
             <label>E-Mail</label>
             <input className='is-large' type='email' name='email' autoFocus
@@ -56,12 +58,12 @@ export default class PasswordReset extends Component {
                    placeholder='peter.miller@example.com'/>
           </div>
           <div className='panel-button-container'>
-            <a className='button is-large is-full-width' onClick={this.handleResetClick.bind(this)}>
+            <button className='button is-large is-full-width' onClick={this.handleResetClick.bind(this)}>
               <i className='fa fa-fw fa-key'></i>
               Reset
-            </a>
+            </button>
           </div>
-        </div>
+        </form>
       )
     }
     return (
