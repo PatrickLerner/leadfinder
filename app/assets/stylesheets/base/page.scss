@@ -75,7 +75,7 @@
 
     .page-menu + .page-content {
       margin-left: $menu-width;
-      width: calc(100vw - #{$menu-width});
+      width: calc(100vw - #{$menu-width} - 2rem);
     }
 
     .page-menu {

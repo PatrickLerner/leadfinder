@@ -1,6 +1,7 @@
 class Entry < ApplicationRecord
   include Entry::LookupState
   include Entry::Lookup
+  include Entry::Guess
   include Serializable
 
   belongs_to :user
