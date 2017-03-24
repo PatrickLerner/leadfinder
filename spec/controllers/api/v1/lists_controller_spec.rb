@@ -14,6 +14,12 @@ describe Api::V1::ListsController, type: :controller do
       expect(list.user).to eq(user)
       expect(list.name).to eq('New customers')
     end
+
+    it 'fails to create if params are missing' do
+      post :create, params: { list: { name: '' } }
+      expect(body.key?(:errors)).to be_truthy
+      expect(List.where(name: '')).to be_empty
+    end
   end
 
   describe '#update' do
@@ -45,6 +51,40 @@ describe Api::V1::ListsController, type: :controller do
       allow(user).to receive(:lists) { lists }
       get :index
       expect(body[:lists].length).to eq(3)
+    end
+  end
+
+  describe '#export' do
+    it 'sends the data' do
+      get :export, params: { id: 'inbox' }
+      expect(response.headers['Content-Type']).to eq('text/csv')
+    end
+  end
+
+  describe '#destroy' do
+    let(:list) { build_stubbed(:list) }
+
+    it 'allows destroying a list' do
+      allow(subject).to receive(:list) { list }
+      expect(list).to receive(:destroy)
+      expect(ListsChannel).to receive(:update_lists_for) do |current_user|
+        expect(current_user.id).to eq(user.id)
+      end
+
+      delete :destroy, params: { id: list.id }
+    end
+
+    it 'does not fail to destroy the inbox' do
+      delete :destroy, params: { id: 'inbox' }
+      expect(response).to be_success
+    end
+  end
+
+  describe '#show' do
+    it 'allows showing a list' do
+      get :show, params: { id: 'inbox' }
+      expect(response).to be_success
+      expect(body[:list].keys.sort).to eq(%w(entries id name sort_by))
     end
   end
 end
