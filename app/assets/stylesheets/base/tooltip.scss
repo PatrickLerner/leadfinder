@@ -22,7 +22,7 @@
       opacity: 1;
       padding: .3rem 1.7rem;
       position: absolute;
-      z-index: 98;
+      z-index: $z-index-7;
     }
 
     &::before {
@@ -33,7 +33,7 @@
       left: 50%;
       opacity: 1;
       position: absolute;
-      z-index: 99;
+      z-index: $z-index-8;
     }
   }
 }
