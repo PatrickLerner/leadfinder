@@ -284,4 +284,51 @@ describe Entry, type: :model do
       expect(entry.email_confidence).to eq(50)
     end
   end
+
+  describe '#name=' do
+    it 'allows assigning a name' do
+      entry = build_stubbed(:entry, name: 'Peter Miller')
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.last_name).to eq('Miller')
+    end
+
+    it 'splits out titles' do
+      ['Dr.', 'Dr.', 'Doctor', 'Prof.', 'Professor', 'Rev.'].each do |title|
+        entry = build_stubbed(:entry, name: "#{title} Peter Miller")
+        expect(entry.title).to eq(title)
+        expect(entry.first_name).to eq('Peter')
+        expect(entry.last_name).to eq('Miller')
+      end
+    end
+
+    it 'splits multiple middle names' do
+      entry = build_stubbed(:entry, name: 'Peter Martin Simon Miller')
+      expect(entry.title).to eq('')
+      expect(entry.middle_name).to eq('Martin Simon')
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.last_name).to eq('Miller')
+    end
+
+    it 'splits multiple titles' do
+      entry = build_stubbed(:entry, name: 'Prof. Dr. Peter Miller')
+      expect(entry.title).to eq('Prof. Dr.')
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.last_name).to eq('Miller')
+    end
+
+    it 'splits out middle names' do
+      entry = build_stubbed(:entry, name: 'Peter Martin Miller')
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.middle_name).to eq('Martin')
+      expect(entry.last_name).to eq('Miller')
+    end
+
+    it 'parses unnecessairily complex names' do
+      entry = build_stubbed(:entry, name: 'Prof. Dr Peter Martin Simon Miller')
+      expect(entry.title).to eq('Prof. Dr')
+      expect(entry.middle_name).to eq('Martin Simon')
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.last_name).to eq('Miller')
+    end
+  end
 end

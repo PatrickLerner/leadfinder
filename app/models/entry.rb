@@ -19,4 +19,28 @@ class Entry < ApplicationRecord
       .group('entries.id')
       .where('el.list_id IS NULL')
   }
+
+  TITLES = %w(PROF PROFESSOR DR DOC DOCTOR MR MRS MISS FRAU HERR REVERREND REV).freeze
+
+  def name=(name)
+    parts = name.split(' ').reverse
+    parts = extract_title(parts)
+    self.first_name = parts.pop
+    self.last_name = parts[0]
+    self.middle_name = parts[1..-1].reverse.join(' ')
+  end
+
+  protected
+
+  def extract_title(parts)
+    titles = []
+    loop do
+      last_part = parts.last.upcase.gsub(/\.$/, '')
+      break unless last_part.in?(TITLES)
+      titles << parts.last
+      parts.pop
+    end
+    self.title = titles.join(' ')
+    parts
+  end
 end

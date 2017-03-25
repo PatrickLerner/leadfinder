@@ -69,7 +69,7 @@ export default {
   },
   Settings: {
     'Settings': 'Einstellungen',
-    'Languages': 'Sprachen',
+    'Language': 'Sprache',
     'Save': 'Speichern',
     'Successfully saved.': 'Erfolgreich gespeichert.',
     'Could not save settings.': 'Konnte Einstellungen nicht speichern.'

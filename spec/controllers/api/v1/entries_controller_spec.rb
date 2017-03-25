@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe Api::V1::EntriesController, type: :controller do
   let(:body) { JSON.parse(response.body).with_indifferent_access }
+  let(:user) { create(:user) }
 
-  before(:each) { sign_in }
+  before(:each) { sign_in_as(user) }
 
   describe '#create' do
     let(:entry) { Entry.find_by(id: body[:entry][:id]) }
@@ -88,6 +89,18 @@ describe Api::V1::EntriesController, type: :controller do
         expect(id).to eq(list.id)
       }
       patch :update_lists, params: { id: entry.id, entry: { lists: [list.id] } }
+    end
+  end
+
+  describe '#lists' do
+    let!(:list_count) { 3 }
+    let!(:entry) { create(:entry, with_lists: list_count, user: user) }
+
+    it 'returns a list of the lists of the user' do
+      get :lists, params: { id: entry.id }
+      expect(body[:lists].count).to eq(user.lists.count)
+      included_lists = body[:lists].select { |list| list[:included] }
+      expect(included_lists.count).to eq(list_count)
     end
   end
 end

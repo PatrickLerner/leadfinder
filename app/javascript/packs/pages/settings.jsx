@@ -8,6 +8,7 @@ class Settings extends Component {
     super(props);
     this.state = {
       success: null,
+      loaded: false,
       user: {
         language: 'en',
         first_name: '',
@@ -22,7 +23,7 @@ class Settings extends Component {
     apiFetch('/api/v1/users', {
       method: 'GET'
     }).then(res => res.json()).then(data => {
-      this.setState(Object.assign({}, this.state, { user: data.user }));
+      this.setState(Object.assign({}, this.state, { user: data.user, loaded: true }));
     });
   }
 
@@ -57,6 +58,10 @@ class Settings extends Component {
   }
 
   render() {
+    if (!this.state.loaded) {
+      return null;
+    }
+
     const languages = this.languages.map(language => {
       const classes = ['flag', `flag-${language}`];
       classes.push(this.state.user.language === language ? 'flag-active' : 'flag-inactive');
@@ -119,7 +124,7 @@ class Settings extends Component {
                      placeholder='peter.miller@example.com' />
             </div>
             <div className='form-control'>
-              <label>{this.props.translate('Languages')}</label>
+              <label>{this.props.translate('Language')}</label>
               <div>
                 {languages}
               </div>

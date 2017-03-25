@@ -18,7 +18,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   def lists
     @lists = current_user.lists.included_for_entry(entry)
     render json: {
-      lists: ActiveModel::SerializableResource.new(@lists, each_serializer: EntryListSerializer).as_json
+      lists: ActiveModelSerializers::SerializableResource.new(@lists, each_serializer: EntryListSerializer).as_json
     }
   end
 
