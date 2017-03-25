@@ -5,6 +5,7 @@ import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';
 import MenuSignout from './menu_signout.jsx'
 import MenuAddList from './menu_addlist.jsx'
+import MenuListItem from './menu_listitem.jsx'
 
 class Menu extends Component {
   constructor(props) {
@@ -56,19 +57,10 @@ class Menu extends Component {
 
   render() {
     if (!this.state.signedIn) {
-      return (
-        <div></div>
-      );
+      return (<div></div>);
     }
 
-    const listLinks = this.state.lists.map(list => {
-      return (
-        <Link className="page-menu-subitem" to={`/lists/` + list.id} key={list.id}>
-          <i className='fa fa-fw fa-list'></i>
-          {list.name}
-        </Link>
-      );
-    });
+    const listLinks = this.state.lists.map(list => <MenuListItem id={list.id} name={list.name} key={list.id} />);
 
     return (
       <div className='page-menu'>

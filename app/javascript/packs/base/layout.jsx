@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 import { Link } from 'react-router';
 
 import Header from './header.jsx'
 
-export default class Layout extends Component {
+class Layout extends Component {
   render() {
     const { children } = this.props;
 
@@ -15,3 +17,5 @@ export default class Layout extends Component {
     );
   }
 }
+
+export default DragDropContext(HTML5Backend)(Layout);

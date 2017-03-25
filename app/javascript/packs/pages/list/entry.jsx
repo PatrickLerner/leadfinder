@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { DragSource } from 'react-dnd';
 import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
@@ -6,6 +7,27 @@ import gravatar from 'gravatar';
 import translate from '../../helpers/translate.js';
 import EntryDeleteLink from './entry-delete-link.jsx'
 import EntryListLink from './entry-list-link.jsx'
+
+const entrySource = {
+  beginDrag(props) {
+    return {
+      entry: props.entry
+    };
+  }
+};
+
+const propTypes = {
+  entry: PropTypes.object.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 class Entry extends Component {
   constructor(props) {
@@ -56,8 +78,11 @@ class Entry extends Component {
       company += ` (${this.state.company_cities.join(', ')})`
     }
 
-    return (
-      <div className='lookup-listing'>
+    const { isDragging, connectDragSource } = this.props;
+    const lookupStyle = { opacity: isDragging ? 0.5 : 1 };
+
+    return connectDragSource(
+      <div className='lookup-listing' style={lookupStyle}>
         <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
         <div className='row'>
           <div className='col-12'>
@@ -90,4 +115,6 @@ class Entry extends Component {
   }
 }
 
-export default translate('Entry')(Entry);
+Entry.propTypes = propTypes;
+
+export default translate('Entry')(DragSource('entry', entrySource, collect)(Entry));
