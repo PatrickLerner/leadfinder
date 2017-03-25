@@ -19,7 +19,7 @@ class List < ApplicationRecord
   }
 
   def to_csv(options = {})
-    columns = %i(first_name last_name position company_name email)
+    columns = %i(first_name last_name position company_name email email_confidence)
     # required for excel to not be retarded about encoding
     magic_unicode_char = "\uFEFF".encode('utf-8')
     magic_unicode_char + CSV.generate(options) do |csv|
