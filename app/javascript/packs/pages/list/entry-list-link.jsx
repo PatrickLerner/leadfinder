@@ -84,7 +84,7 @@ class EntryListLink extends Component {
         <i className={classes.join(' ')}></i>
       );
       return (
-        <div className='checkmark-list-itme' key={list.id}
+        <div className='checkmark-list-item' key={list.id}
              onClick={this.handleCheckedToggleClick.bind(this, list.id)}>
           {check}
           {list.name}

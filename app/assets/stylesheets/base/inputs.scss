@@ -2,7 +2,7 @@ input,
 select,
 textarea {
   border: .1rem lead-color-level('foreground', 6) solid;
-  border-radius: 0;
+  border-radius: $border-radius;
   outline: none;
 
   &.is-large {
@@ -20,6 +20,7 @@ select {
   background-image: asset-url('dropdown_arrow.gif');
   background-position: 97%;
   background-repeat: no-repeat;
+  border-radius: $border-radius;
 }
 
 label {

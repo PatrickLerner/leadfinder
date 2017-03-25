@@ -35,6 +35,7 @@
 .modal {
   background-color: lead-color('menu');
   border: .1rem solid lead-color-level('menu', -2);
+  border-radius: $border-radius;
   margin-top: 2rem;
   max-width: 70rem;
   outline: none;

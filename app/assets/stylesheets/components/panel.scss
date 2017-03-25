@@ -1,6 +1,7 @@
 .panel {
   background-color: lead-color('menu');
   border: .1rem solid lead-color-level('menu', -2);
+  border-radius: $border-radius;
   margin: 2rem auto 0;
   max-width: 70rem;
   padding: 2rem;
@@ -11,6 +12,7 @@
 
   .panel-header-title {
     color: lead-color-level('foreground', 3);
+    font-weight: 400;
     margin-bottom: 1rem;
   }
 

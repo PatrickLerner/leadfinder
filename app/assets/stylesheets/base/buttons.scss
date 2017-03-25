@@ -5,6 +5,7 @@ button {
 .button {
   background-color: lead-color('button');
   border: 0;
+  border-radius: $border-radius;
   color: lead-color('background');
   cursor: pointer;
   display: inline-block;

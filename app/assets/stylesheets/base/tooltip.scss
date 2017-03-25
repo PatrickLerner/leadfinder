@@ -1,0 +1,39 @@
+[data-tooltip] {
+  display: inline;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    opacity: 0;
+    transition: opacity .2s;
+    transition-delay: .1s;
+  }
+
+  &:hover {
+    &::after {
+      background: lead-color('primary');
+      border-radius: 5px;
+      bottom: 2.6rem;
+      color: lead-color('background');
+      content: attr(data-tooltip);
+      font-size: 1.3rem;
+      left: 20%;
+      opacity: 1;
+      padding: .3rem 1.7rem;
+      position: absolute;
+      z-index: 98;
+    }
+
+    &::before {
+      border-color: lead-color('primary') transparent;
+      border-style: solid;
+      border-width: .6rem .6rem 0;
+      bottom: 2rem;
+      left: 50%;
+      opacity: 1;
+      position: absolute;
+      z-index: 99;
+    }
+  }
+}

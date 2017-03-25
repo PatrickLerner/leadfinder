@@ -37,7 +37,9 @@ export default {
   Entry: {
     'Unknown': 'Unbekannt',
     'Processing': 'Wird ermittelt',
-    'Failure': 'Fehlgeschlagen'
+    'Failure': 'Fehlgeschlagen',
+    'The profile image of the lead': 'Das Profilbild des Benutzers',
+    'Confidence': 'Konfidenz'
   },
   EntrySearch: {
     'Search': 'Suchen'

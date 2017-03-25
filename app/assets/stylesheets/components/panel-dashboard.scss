@@ -1,13 +1,18 @@
 .panel {
-  &.panel-dashboard {
-    img {
-      margin-bottom: 3rem;
-      margin-top: 3rem;
+  &.panel-dashboard-banner {
+    -background-color: lead-color('primary');
+
+    .panel-header-subtitle {
+      margin-bottom: 0;
     }
 
-    .panel-dashboard-download-container {
-      margin-bottom: 5rem;
-      margin-top: 5rem;
+    .button {
+      background-color: lead-color-level('delete', 2);
+      margin-top: 1.5rem;
+
+      &:hover {
+        background-color: lead-color-level('delete', 3);
+      }
     }
   }
 }

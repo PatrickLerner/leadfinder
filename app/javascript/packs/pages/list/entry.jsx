@@ -31,10 +31,12 @@ class Entry extends Component {
     ];
     let email = null;
     if (this.state.email !== null) {
+      const tooltip = `${this.props.translate('Confidence')}: ${this.state.email_confidence}%`;
+      let mailLink = `mailto:${this.state.email}`;
       email = (
-        <span>
+        <span data-tooltip={tooltip}>
           <i className='fa fa-fw fa-envelope'></i>
-          {this.state.email || (<i className='lookup-unknown'>{this.props.translate('Unknown')}</i>)}
+          <a className='lookup-listing-email-link' href={mailLink}>{this.state.email}</a>
         </span>
       )
     } else if (failure_states.indexOf(this.state.lookup_state) !== -1) {
@@ -56,7 +58,7 @@ class Entry extends Component {
 
     return (
       <div className='lookup-listing'>
-        <img src={this.state.pictureUrl} className='lookup-picture' />
+        <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
         <div className='row'>
           <div className='col-12'>
             <strong className='lookup-listing-name'>

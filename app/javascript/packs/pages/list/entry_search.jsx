@@ -54,24 +54,24 @@ class EntrySearch extends Component {
         <div className='row'>
           <div className='col-12 col-lg-3'>
             <div className='form-control'>
-              <label>{this.props.translate('user', 'First Name')}</label>
-              <input className='is-large' type='text' name='first_name' autoFocus
+              <label htmlFor='entry_search_first_name'>{this.props.translate('user', 'First Name')}</label>
+              <input className='is-large' type='text' name='first_name' autoFocus id='entry_search_first_name'
                      value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Peter' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
           </div>
           <div className='col-12 col-lg-3'>
             <div className='form-control'>
-              <label>{this.props.translate('user', 'Last Name')}</label>
-              <input className='is-large' type='text' name='last_name'
+              <label htmlFor='entry_search_last_name'>{this.props.translate('user', 'Last Name')}</label>
+              <input className='is-large' type='text' name='last_name' id='entry_search_last_name'
                      value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Miller' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
           </div>
           <div className='col-12 col-lg-3'>
             <div className='form-control'>
-              <label>{this.props.translate('user', 'Company')}</label>
-              <input className='is-large' type='text' name='company_name'
+              <label htmlFor='entry_search_company_name'>{this.props.translate('user', 'Company')}</label>
+              <input className='is-large' type='text' name='company_name' id='entry_search_company_name'
                      value={this.state.company_name} onChange={this.handleInputChange.bind(this)}
                      placeholder='Miller & Son Corp.' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
