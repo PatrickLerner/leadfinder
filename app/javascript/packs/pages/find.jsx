@@ -71,7 +71,7 @@ class Find extends Component {
     const region = this.state.region;
     const excludes = this.excludes.map(item => `-${item}`).join(' ');
     const param = encodeURIComponent(`${query} ${region} ${excludes} ${site}`);
-    const url = `https://www.google.com/search?q=${param}`;
+    const url = `https://www.google.com/search?q=${param}&num=100`;
     window.open(url);
   }
 
