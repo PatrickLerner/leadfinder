@@ -123,7 +123,9 @@ export default class SignUp extends Component {
           </div>
         </form>
         <footer>
-          <a onClick={this.props.switchTab}>Already a member? Login now.</a>
+          <a onClick={this.props.switchTab} className='button is-large is-full-width is-delete'>
+            Already a member? Login now.
+          </a>
         </footer>
       </div>
     );

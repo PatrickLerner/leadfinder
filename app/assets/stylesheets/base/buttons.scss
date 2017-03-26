@@ -49,6 +49,10 @@ button {
   &.is-delete {
     background-color: lead-color('delete');
     color: lead-color('background');
+
+    &:hover {
+      background-color: lead-color-level('delete', 1);
+    }
   }
 
   &.is-abort {

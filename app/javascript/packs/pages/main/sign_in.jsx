@@ -40,8 +40,14 @@ export default class SignIn extends Component {
   render() {
     return (
       <div className='panel panel-narrow panel-sign-in'>
-        <h1 className='panel-header-title'>Login</h1>
-        <p className='panel-header-subtitle'>Great to have you back.</p>
+        <div className='row'>
+          <div className='col-5'>
+            <div className='lead-logo-md'></div>
+          </div>
+          <div className='col-7'>
+            <div className='lead-title-md'>Lead Finder</div>
+          </div>
+        </div>
         <form onSubmit={this.handleLoginClick.bind(this)}>
           <div className='form-control'>
             <label>E-Mail</label>
@@ -64,7 +70,9 @@ export default class SignIn extends Component {
           </div>
         </form>
         <footer>
-          <a onClick={this.props.switchTab}>Not a member yet? Register now.</a>
+          <a onClick={this.props.switchTab} className='button is-large is-full-width is-delete'>
+            Not a member yet? Register now.
+          </a>
         </footer>
       </div>
     );

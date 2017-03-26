@@ -1,0 +1,28 @@
+@mixin lead-logo($size) {
+  background-image: asset-url('logo.svg');
+  background-position: 50% 50%;
+  background-size: cover;
+  display: block;
+  height: $size;
+  margin: auto;
+  vertical-align: middle;
+  width: $size;
+}
+
+.lead-logo-sm {
+  @include lead-logo(10rem);
+}
+
+.lead-logo-md {
+  @include lead-logo(15rem);
+}
+
+.lead-logo-lg {
+  @include lead-logo(30rem);
+}
+
+.lead-title-md {
+  font-size: 3rem;
+  font-weight: 200;
+  line-height: 15rem;
+}
