@@ -178,6 +178,12 @@ describe Entry, type: :model do
       entry.send(:determine_next_action)
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_SEARCHING_EMAIL)
     end
+
+    it 'otherwise simply tries to guess the email' do
+      entry.lookup_state = Entry::LOOKUP_STATE_FAILURE_CONNECTION
+      expect(entry).to receive(:guess_email!)
+      entry.send(:determine_next_action)
+    end
   end
 
   describe 'schedule_next_action' do
@@ -329,6 +335,24 @@ describe Entry, type: :model do
       expect(entry.middle_name).to eq('Martin Simon')
       expect(entry.first_name).to eq('Peter')
       expect(entry.last_name).to eq('Miller')
+    end
+  end
+
+  describe '#base_confidence' do
+    it 'returns full confidence if actually found' do
+      expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND).send(:base_confidence)).to eq(100)
+    end
+
+    it 'returns confidence for connection failure' do
+      expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_CONNECTION).send(:base_confidence)).to be > 0
+    end
+
+    it 'returns confidence for accepts all failure' do
+      expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL).send(:base_confidence)).to be > 0
+    end
+
+    it 'returns no confidence for other state' do
+      expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_COMPANY).send(:base_confidence)).to eq(0)
     end
   end
 end
