@@ -14,9 +14,10 @@ $screen-size-sm: 70rem;
 $screen-size-md: 90rem;
 $screen-size-lg: 110rem;
 
-$z-index-9: 9;
-$z-index-8: 8;
-$z-index-7: 7;
+$z-index-10: 10; // overlay
+$z-index-9: 9;   // menu
+$z-index-8: 8;   // tooltip
+$z-index-7: 7;   // tooltip
 $z-index-6: 6;
 $z-index-5: 5;
 $z-index-4: 4;
