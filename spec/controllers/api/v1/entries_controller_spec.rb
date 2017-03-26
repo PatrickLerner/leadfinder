@@ -23,6 +23,19 @@ describe Api::V1::EntriesController, type: :controller do
       expect(body[:errors].key?(:first_name)).to be_truthy
     end
 
+    it 'allows to only specify a name' do
+      post :create, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
+      expect(entry.first_name).to eq('Peter')
+      expect(entry.last_name).to eq('Müller')
+      expect(entry.lists).to be_empty
+    end
+
+    it 'throws an error if only specifies insufficient name' do
+      post :create, params: { entry: { name: 'Peter', company_name: 'Test GmbH' } }
+      expect(body.key?(:errors)).to be_truthy
+      expect(body[:errors].key?(:last_name)).to be_truthy
+    end
+
     it 'it automatically adds the item to the correct list' do
       post :create, params: { entry: {
         first_name: 'Peter',

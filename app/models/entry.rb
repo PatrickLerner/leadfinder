@@ -27,7 +27,8 @@ class Entry < ApplicationRecord
     parts = extract_title(parts)
     self.first_name = parts.pop
     self.last_name = parts[0]
-    self.middle_name = parts[1..-1].reverse.join(' ')
+    middle_parts = parts[1..-1] || []
+    self.middle_name = middle_parts.reverse.join(' ')
   end
 
   protected
