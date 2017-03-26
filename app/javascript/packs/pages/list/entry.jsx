@@ -81,13 +81,20 @@ class Entry extends Component {
     const { isDragging, connectDragSource } = this.props;
     const lookupStyle = { opacity: isDragging ? 0.5 : 1 };
 
+    const name = [
+      this.state.title,
+      this.state.first_name,
+      this.state.middle_name,
+      this.state.last_name
+    ].filter(p => p !== null && p.length > 0).join(' ');
+
     return connectDragSource(
       <div className='lookup-listing' style={lookupStyle}>
         <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
         <div className='row'>
           <div className='col-12'>
             <strong className='lookup-listing-name'>
-              {this.state.first_name} {this.state.last_name}
+              {name}
             </strong>
           </div>
           <div className='col-12 col-sm-6'>

@@ -1,5 +1,5 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :position
+  attributes :id, :title, :first_name, :middle_name, :last_name, :position
   attributes :company, :company_cities, :email, :email_confidence
   attributes :lookup_state
 
