@@ -71,9 +71,10 @@ class Entry < ApplicationRecord
     end
 
     def format_for_email(value)
-      value.downcase.gsub(/[äöüß]/) do |c|
-        { ä: 'ae', ö: 'oe', ü: 'ue', ß: 'ss' }[c.try(:to_sym)] || c
+      value = value.downcase.gsub(/[äöü]/) do |c|
+        { ä: 'ae', ö: 'oe', ü: 'ue' }[c.try(:to_sym)] || c
       end
+      I18n.transliterate(value)
     end
 
     def email_from_variant(variant)

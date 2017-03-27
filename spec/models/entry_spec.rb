@@ -88,6 +88,13 @@ describe Entry, type: :model do
       expect(entry.email).to eq('aedelbert.uebermann@bobington.bo')
     end
 
+    it 'replaces other accented characters with ascii equivalents' do
+      entry.assign_attributes(first_name: 'Álfrêdō', last_name: 'MçŹïłbert')
+      allow(EmailVerifier).to receive(:check) { |email| email == 'alfredo.mczilbert@bobington.bo' }
+      entry.determine_email!
+      expect(entry.email).to eq('alfredo.mczilbert@bobington.bo')
+    end
+
     it 'sets the format on the entry if found' do
       allow(EmailVerifier).to receive(:check) { |email| email == 'bbobson@bobington.bo' }
       entry.determine_email!
