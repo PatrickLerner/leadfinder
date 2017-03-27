@@ -16,10 +16,6 @@
     }
   }
 
-  .lookup-buttons {
-    text-align: right;
-  }
-
   .lookup-listings {
     font-size: 2rem;
   }
@@ -31,24 +27,17 @@
     border-style: solid;
     border-width: .1rem;
     display: flex;
+    flex-wrap: wrap;
     font-size: 1.5rem;
     margin: 2rem 0 0;
     padding: 2rem;
 
-    .fa-fw {
-      margin: 0 .2rem;
-      width: 2.5rem;
+    .lookup-listing-profile-link {
+      margin-right: 1rem;
     }
 
-    .row {
-      flex-grow: 1;
-    }
-
-    .lookup-listing-company {
-      font-size: 1.4rem;
-    }
-
-    .lookup-listing-email-link {
+    .lookup-listing-email-link,
+    .lookup-listing-profile-link {
       color: lead-color('foreground');
       text-decoration: none;
       transition: color .5s;
@@ -56,6 +45,25 @@
       &:hover {
         color: lead-color('primary');
       }
+    }
+
+    .fa-fw {
+      margin: 0 .2rem;
+      width: 2.5rem;
+    }
+
+    .row {
+      flex: 1;
+    }
+
+    .lookup-buttons {
+      flex: 1 100%;
+      margin-top: 1rem;
+      text-align: right;
+    }
+
+    .lookup-listing-company {
+      font-size: 1.4rem;
     }
   }
 

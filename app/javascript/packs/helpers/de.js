@@ -39,7 +39,8 @@ export default {
     'Processing': 'Wird ermittelt',
     'Failure': 'Fehlgeschlagen',
     'The profile image of the lead': 'Das Profilbild des Benutzers',
-    'Confidence': 'Konfidenz'
+    'Confidence': 'Konfidenz',
+    'Website': 'Webseite'
   },
   EntrySearch: {
     'Search': 'Suchen'

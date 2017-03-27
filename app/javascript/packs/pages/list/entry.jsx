@@ -56,10 +56,10 @@ class Entry extends Component {
       const tooltip = `${this.props.translate('Confidence')}: ${this.state.email_confidence}%`;
       let mailLink = `mailto:${this.state.email}`;
       email = (
-        <span data-tooltip={tooltip}>
+        <a className='lookup-listing-email-link' href={mailLink} data-tooltip={tooltip}>
           <i className='fa fa-fw fa-envelope'></i>
-          <a className='lookup-listing-email-link' href={mailLink}>{this.state.email}</a>
-        </span>
+          {this.state.email}
+        </a>
       )
     } else if (failure_states.indexOf(this.state.lookup_state) !== -1) {
       email = (
@@ -88,6 +88,29 @@ class Entry extends Component {
       this.state.last_name
     ].filter(p => p !== null && p.length > 0).join(' ');
 
+    const profiles = this.state.urls.map(url => {
+      let icon = 'globe';
+      let name = this.props.translate('Website');
+      if (url.match(/xing.com/) !== null) {
+        icon = 'xing';
+        name = 'XING';
+      }
+      if (url.match(/linkedin.com/) !== null) {
+        icon = 'linkedin';
+        name = 'LinkedIn';
+      }
+      if (url.match(/github.com/) !== null) {
+        icon = 'github';
+        name = 'GitHub';
+      }
+      const iconClass = `fa fa-fw fa-${icon}`;
+      return (
+        <a href={url} className='lookup-listing-profile-link' data-tooltip={url} key={url} target='_blank'>
+          <i className={iconClass}></i>{name}
+        </a>
+      );
+    });
+
     return connectDragSource(
       <div className='lookup-listing' style={lookupStyle}>
         <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
@@ -110,12 +133,15 @@ class Entry extends Component {
           <div className='col-12 col-sm-6'>
             <span className='lookup-listing-email'>
               {email}
+            </span><br />
+            <span className='lookup-listing-profile-links'>
+              {profiles}
             </span>
           </div>
-          <div className='col-12 lookup-buttons'>
-            <EntryListLink entryId={this.state.id} />
-            <EntryDeleteLink entryId={this.state.id} />
-          </div>
+        </div>
+        <div className='lookup-buttons'>
+          <EntryListLink entryId={this.state.id} />
+          <EntryDeleteLink entryId={this.state.id} />
         </div>
       </div>
     );

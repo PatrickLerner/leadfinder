@@ -45,6 +45,16 @@ describe Api::V1::EntriesController, type: :controller do
       } }
       expect(entry.lists.pluck(:id).first).to eq(list.id)
     end
+
+    it 'allows to specify urls in request' do
+      post :create, params: { entry: {
+        first_name: 'Peter',
+        last_name: 'Müller',
+        company_name: 'Test GmbH',
+        urls: ['http://example.com/']
+      } }
+      expect(entry.urls.first).to eq('http://example.com/')
+    end
   end
 
   describe '#destroy' do

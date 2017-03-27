@@ -57,7 +57,8 @@ class Api::V1::EntriesController < Api::V1::BaseController
 
   def entry_params
     params
-      .require(:entry).permit(:first_name, :last_name, :name, :title, :middle_name, :position, :company_name, :email)
+      .require(:entry)
+      .permit(:first_name, :last_name, :name, :title, :middle_name, :position, :company_name, :email, urls: [])
       .merge(list_ids: lists_from_params)
   end
 end

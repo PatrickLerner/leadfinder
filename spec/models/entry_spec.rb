@@ -355,4 +355,43 @@ describe Entry, type: :model do
       expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_COMPANY).send(:base_confidence)).to eq(0)
     end
   end
+
+  describe '#urls' do
+    let(:entry) { build_stubbed(:entry) }
+    let(:url) { 'http://example.com/' }
+    let(:url_count) { 3 }
+
+    before(:each) do
+      url_count.times do |i|
+        entry.links.build(url: "#{url}#{i}")
+      end
+    end
+
+    it 'returns the correct urls' do
+      expect(entry.links.length).to eq(url_count)
+      expect(entry.urls.length).to eq(url_count)
+    end
+  end
+
+  describe '#urls=' do
+    let(:entry) { build_stubbed(:entry) }
+    let(:url) { 'http://example.com/' }
+
+    it 'allows to assign urls as an array' do
+      entry.urls = [url]
+      entry.send(:persist_urls)
+      expect(entry.urls.count).to eq(1)
+      expect(entry.urls).to eq([url])
+      expect(entry.links.length).to eq(1)
+      expect(entry.links.first.url).to eq(url)
+    end
+
+    it 'removes urls on save' do
+      entry.links.build(url: url)
+      expect(entry.links.length).to eq(1)
+      entry.urls = []
+      entry.send(:persist_urls)
+      expect(entry.links.first).to be_marked_for_destruction
+    end
+  end
 end

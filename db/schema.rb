@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325210428) do
+ActiveRecord::Schema.define(version: 20170327052550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 20170325210428) do
     t.index ["lookup_state"], name: "index_entries_on_lookup_state"
   end
 
+  create_table "entry_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "entry_id", null: false
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "list_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "list_id"
     t.uuid "entry_id"
@@ -95,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170325210428) do
   add_foreign_key "company_addresses", "companies"
   add_foreign_key "entries", "companies"
   add_foreign_key "entries", "users"
+  add_foreign_key "entry_links", "entries"
   add_foreign_key "list_entries", "entries"
   add_foreign_key "list_entries", "lists"
   add_foreign_key "lists", "users"
