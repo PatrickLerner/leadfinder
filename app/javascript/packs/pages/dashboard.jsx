@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
               </p>
             </div>
             <div className='col-4'>
-              <a className='button' href='https://leadfinder.patricklerner.com/extension/leadfinder_chrome_2.crx'>
+              <a className='button' href='https://leadfinder.patricklerner.com/extension/leadfinder_chrome_3.crx'>
                 <i className='fa fa-fw fa-chrome'></i> Download Chrome Extension
               </a>
             </div>
