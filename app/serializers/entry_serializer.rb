@@ -1,7 +1,7 @@
 class EntrySerializer < ActiveModel::Serializer
   attributes :id, :title, :first_name, :middle_name, :last_name, :position
   attributes :company, :company_cities, :email, :email_confidence
-  attributes :lookup_state, :urls
+  attributes :lookup_state, :urls, :domain
 
   has_many :lists
   belongs_to :user
@@ -20,5 +20,9 @@ class EntrySerializer < ActiveModel::Serializer
     else
       []
     end
+  end
+
+  def domain
+    object.company.try(:domain)
   end
 end

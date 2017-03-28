@@ -43,6 +43,11 @@
   overflow: auto;
   padding: 5rem 6rem;
 
+  &.modal-normal {
+    max-width: 70rem;
+    width: 70rem;
+  }
+
   &.modal-narrow {
     max-width: 50rem;
     width: 50rem;

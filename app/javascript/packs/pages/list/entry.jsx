@@ -5,6 +5,7 @@ import uuidV4 from 'uuid/v4';
 import gravatar from 'gravatar';
 
 import translate from '../../helpers/translate.js';
+import EntryEditLink from './entry-edit-link.jsx'
 import EntryDeleteLink from './entry-delete-link.jsx'
 import EntryListLink from './entry-list-link.jsx'
 
@@ -70,7 +71,12 @@ class Entry extends Component {
     } else if (this.state.lookup_state === 'unknown') {
       email = (<span><i className='fa fa-fw fa-spin fa-question'></i> {this.props.translate('Unknown')}</span>)
     } else {
-      email = (<span><i className='fa fa-fw fa-times'></i> {this.props.translate('Failure')}</span>)
+      const domain = this.state.domain ? `(${this.state.domain})` : null;
+      email = (
+        <span>
+          <i className='fa fa-fw fa-times'></i> {this.props.translate('Failure')} {domain}
+        </span>
+      )
     }
 
     let company = this.state.company;
@@ -140,6 +146,7 @@ class Entry extends Component {
           </div>
         </div>
         <div className='lookup-buttons'>
+          <EntryEditLink entryId={this.state.id} />
           <EntryListLink entryId={this.state.id} />
           <EntryDeleteLink entryId={this.state.id} />
         </div>

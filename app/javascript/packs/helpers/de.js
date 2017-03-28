@@ -3,8 +3,12 @@ export default {
     'list name': 'Potenzielle Kunden'
   },
   user: {
+    'Title': 'Titel',
     'First Name': 'Vorname',
     'Last Name': 'Nachname',
+    'Middle Name': 'Zwischenname',
+    'Position': 'Position',
+    'Domain': 'Domain',
     'E-Mail': 'E-Mail',
     'Company': 'Unternehmen'
   },
@@ -85,5 +89,11 @@ export default {
     'Exporting the list might take a few moments.': 'Der Export der Liste kann einen Moment dauern.',
     'Export': 'Exportieren',
     'Exporting...': 'Exportiert...'
+  },
+  EntryEditLink: {
+    'Edit': 'Bearbeiten',
+    'Save': 'Speichern',
+    'Edit lead': 'Lead bearbeiten',
+    'Change the details of this lead to get accurate results.': 'Bearbeiten Sie die Details dieses Leads um akkurate Ergebnisse zu erhalten.'
   }
 };

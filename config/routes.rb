@@ -18,7 +18,7 @@ Rails.application.routes.draw do
           get :export
         end
       end
-      resources :entries, only: [:create, :destroy] do
+      resources :entries, only: [:create, :destroy, :show] do
         member do
           get :lists
           patch :lists, to: 'entries#update_lists'

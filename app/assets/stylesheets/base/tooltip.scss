@@ -19,9 +19,13 @@
       content: attr(data-tooltip);
       font-size: 1.3rem;
       left: 20%;
+      max-width: 260px;
       opacity: 1;
+      overflow: hidden;
       padding: .3rem 1.7rem;
       position: absolute;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       z-index: $z-index-7;
     }
 

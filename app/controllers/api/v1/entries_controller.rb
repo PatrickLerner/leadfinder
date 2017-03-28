@@ -8,6 +8,10 @@ class Api::V1::EntriesController < Api::V1::BaseController
     end
   end
 
+  def show
+    render json: { entry: entry.to_api }
+  end
+
   def destroy
     removed_ids = entry.lists.pluck(:id).presence || %i(inbox)
     entry.destroy
