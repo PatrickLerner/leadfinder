@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327052550) do
+ActiveRecord::Schema.define(version: 20170329053248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20170327052550) do
     t.index ["company_id"], name: "index_company_addresses_on_company_id"
     t.index ["country"], name: "index_company_addresses_on_country"
     t.index ["region"], name: "index_company_addresses_on_region"
+  end
+
+  create_table "company_hunterios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "domain"
+    t.text "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_company_hunterios_on_domain"
   end
 
   create_table "entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

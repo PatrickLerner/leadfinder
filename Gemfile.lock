@@ -142,6 +142,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.7.3)
       i18n (~> 0.5)
+    faraday (0.11.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
@@ -153,6 +155,9 @@ GEM
       httparty (>= 0.13.1, < 0.14.1)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
+    hunterio (0.2.0)
+      faraday
+      json
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -180,6 +185,7 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     multi_xml (0.6.0)
+    multipart-post (2.0.0)
     neat (2.0.0)
       sass (~> 3.4)
       thor (~> 0.19)
@@ -336,6 +342,7 @@ DEPENDENCIES
   font-awesome-sass
   foreman
   google_places
+  hunterio
   jbuilder
   letter_opener
   listen

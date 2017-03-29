@@ -1,0 +1,43 @@
+  {
+    "data" : {
+      "domain" : "intercom.io",
+      "webmail" : false,
+      "pattern" : "{first}",
+      "organization" : "Intercom",
+      "emails" : [
+        {
+          "value": "ciaran@intercom.io",
+          "type": "personal",
+          "confidence": 92,
+          "sources": [
+            {
+              "domain" : "github.com",
+              "uri" : "http://github.com/ciaranlee",
+              "extracted_on" : "2015-07-29"
+            },
+            {
+              "domain" : "blog.intercom.io",
+              "uri" : "http://blog.intercom.io/were-hiring-a-support-engineer/",
+              "extracted_on" : "2015-08-29"
+            }
+          ],
+          "first_name" : "Ciaran",
+          "last_name" : "Lee",
+          "position" : "Support Engineer",
+          "linkedin" : null,
+          "twitter" : "ciaran_lee",
+          "phone_number" : null
+        }
+      ]
+    },
+    "meta" : {
+      "results" : 1,
+      "offset" : 0,
+      "params" : {
+        "domain" : "intercom.io",
+        "company" : null,
+        "type" : "personal",
+        "offset" : "0"
+      }
+    }
+  }
