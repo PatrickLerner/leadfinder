@@ -3,7 +3,7 @@ FactoryGirl.define do
     domain Faker::Internet.domain_name
     response do
       file_name = Rails.root.join(*%w(spec support responses hunter_io domain_search.json))
-      JSON.parse(File.read(file_name))
+      JSON.parse(File.read(file_name))['data']
     end
   end
 end
