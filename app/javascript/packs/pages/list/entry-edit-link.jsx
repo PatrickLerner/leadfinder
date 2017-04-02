@@ -163,13 +163,13 @@ class EntryEditLink extends Component {
       );
     }
     return (
-      <span>
+      <div className='lookup-button'>
         {modal}
         <a onClick={this.handleEditClick.bind(this)} className='button is-small is-light'>
           <i className='fa fa-pencil'></i>
           {this.props.translate('Edit')}
         </a>
-      </span>
+      </div>
     );
   }
 }

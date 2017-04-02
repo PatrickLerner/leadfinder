@@ -93,7 +93,7 @@ class EntryListLink extends Component {
     });
 
     return (
-      <span>
+      <div className='lookup-button'>
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>{this.props.translate('Assign to lists')}</h1>
           <p>{this.props.translate('Assign this lead to lists. If a lead is not assigned to any lists, then it will appear in your inbox.')}</p>
@@ -110,7 +110,7 @@ class EntryListLink extends Component {
           <i className='fa fa-arrow-right'></i>
           {this.props.translate('Assign')}
         </a>
-      </span>
+      </div>
     );
   }
 }

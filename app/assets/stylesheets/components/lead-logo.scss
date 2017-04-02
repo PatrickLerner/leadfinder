@@ -24,5 +24,13 @@
 .lead-title-md {
   font-size: 3rem;
   font-weight: 200;
-  line-height: 15rem;
+  line-height: 5rem;
+  text-align: center;
+}
+
+@media only screen and (min-width: $screen-size-lg * .625) {
+  .lead-title-md {
+    line-height: 15rem;
+    text-align: left;
+  }
 }

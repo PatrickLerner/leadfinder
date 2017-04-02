@@ -20,19 +20,27 @@
     font-size: 2rem;
   }
 
+  .lookup-listing-name {
+    display: block;
+    text-align: center;
+  }
+
   .lookup-listing {
+    align-items: center;
     background-color: lead-color('menu');
     border-color: lead-color-level('menu', -2);
     border-radius: $border-radius;
     border-style: solid;
     border-width: .1rem;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     font-size: 1.5rem;
     margin: 2rem 0 0;
     padding: 2rem;
 
     .lookup-listing-profile-link {
+      display: block;
       margin-right: 1rem;
     }
 
@@ -60,6 +68,13 @@
       flex: 1 100%;
       margin-top: 1rem;
       text-align: right;
+      width: 100%;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      margin-bottom: .5rem;
     }
 
     .lookup-listing-company {
@@ -71,12 +86,46 @@
     border: .1rem solid lead-color-level('menu', -2);
     border-radius: $border-radius;
     height: 10rem;
-    margin-right: 2rem;
     min-width: 10rem;
     width: 10rem;
   }
 
   .lookup-unknown {
     color: lead-color-level('foreground', 6);
+  }
+}
+
+
+@media only screen and (min-width: $screen-size-lg * .625) {
+  .lookup {
+    .lookup-listing {
+      align-items: flex-start;
+      flex-direction: row;
+
+      .lookup-listing-profile-link {
+        display: inline-block;
+      }
+    }
+
+    .lookup-listing-name {
+      display: inline-block;
+    }
+
+    .lookup-picture {
+      margin-right: 2rem;
+    }
+
+    .lookup-buttons {
+      width: auto;
+
+      .lookup-button,
+      .button {
+        display: inline-block;
+      }
+
+      .button {
+        margin-bottom: 0;
+      }
+    }
   }
 }

@@ -49,7 +49,7 @@ class EntryDeleteLink extends Component {
 
   render() {
     return (
-      <span>
+      <div className='lookup-button'>
         <LeadModal isOpen={this.state.modalOpen} onRequestClose={this.handleClose.bind(this)}>
           <h1>{this.props.translate('Delete this lead?')}</h1>
           <p>{this.props.translate('This lead will be removed from all lists.')}</p>
@@ -63,7 +63,7 @@ class EntryDeleteLink extends Component {
           <i className='fa fa-trash-o'></i>
           {this.props.translate('Delete')}
         </a>
-      </span>
+      </div>
     );
   }
 }

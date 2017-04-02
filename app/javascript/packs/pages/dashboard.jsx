@@ -10,13 +10,13 @@ export default class Dashboard extends Component {
 
         <div className='panel panel-dashboard-banner is-large'>
           <div className='row'>
-            <div className='col-8'>
+            <div className='col-12 col-lg-8'>
               <h1 className='panel-header-title'>Install 'Lead Finder' Chrome Extension</h1>
               <p className='panel-header-subtitle'>
                 To make adding new leads a breeze, install the free Chrome Extension.
               </p>
             </div>
-            <div className='col-4'>
+            <div className='col-12 col-lg-4'>
               <a className='button' href='https://leadfinder.patricklerner.com/extension/leadfinder_chrome_3.crx'>
                 <i className='fa fa-fw fa-chrome'></i> Download Chrome Extension
               </a>

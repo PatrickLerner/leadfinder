@@ -41,10 +41,10 @@ export default class SignIn extends Component {
     return (
       <div className='panel panel-narrow panel-sign-in'>
         <div className='row'>
-          <div className='col-5'>
+          <div className='col-12 col-lg-5'>
             <div className='lead-logo-md'></div>
           </div>
-          <div className='col-7'>
+          <div className='col-12 col-lg-7'>
             <div className='lead-title-md'>Lead Finder</div>
           </div>
         </div>

@@ -41,7 +41,7 @@
 
 .panel-narrow {
   max-width: 50rem;
-  padding: 5rem 6rem;
+  padding: 2rem 3rem;
 
   a {
     &:not(.button) {
@@ -60,10 +60,18 @@
   }
 }
 
+@media only screen and (min-width: $screen-size-lg * .625) {
+  .panel-sign-up,
+  .panel-password-reset,
+  .panel-sign-in {
+    padding: 5rem 6rem;
+  }
+}
+
 .panel-sign-up,
 .panel-password-reset,
 .panel-sign-in {
-  padding: 5rem 6rem 2rem;
+  padding: 2rem 3rem 1rem;
 
   .forgot-password-link {
     display: block;
