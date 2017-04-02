@@ -39,6 +39,7 @@ class EntryEditLink extends Component {
           position: data.entry.position || '',
           company_name: data.entry.company || '',
           domain: data.entry.domain || '',
+          email: data.entry.email || '',
         },
         modalOpen: true
       }));
@@ -65,13 +66,18 @@ class EntryEditLink extends Component {
 
 
   handleEditConfirmClick(ev) {
-    this.handleClose.bind(this)();
+    const data = { entry: this.state.entry };
 
-    setTimeout(() => {
-      //apiFetch(`/api/v1/entries/${this.state.entryId}`, {
-      //  method: 'DELETE'
-      //});
-    }, 400);
+    apiFetch(`/api/v1/entries/${this.state.entryId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data)
+    }).then(res => res.json()).then(data => {
+      if (data.errors) {
+        alert('error');
+      } else {
+        this.handleClose.bind(this)();
+      }
+    });
   }
 
   render() {
@@ -136,9 +142,16 @@ class EntryEditLink extends Component {
 
           <div className='form-control'>
             <label htmlFor='entry_edit_domain'>{this.props.translate('user', 'Domain')}</label>
-            <input className='is-large' type='text' name='domain' id='entry_edit_company_name'
+            <input className='is-large' type='text' name='domain' id='entry_edit_domain'
                    value={this.state.entry.domain} onChange={this.handleInputChange.bind(this)}
                    placeholder='example.com' onKeyPress={this.handleKeyPress.bind(this)} />
+          </div>
+
+          <div className='form-control'>
+            <label htmlFor='entry_edit_email'>{this.props.translate('user', 'E-Mail')}</label>
+            <input className='is-large' type='text' name='email' id='entry_edit_email'
+                   value={this.state.entry.email} onChange={this.handleInputChange.bind(this)}
+                   placeholder='peter.miller@example.com' onKeyPress={this.handleKeyPress.bind(this)} />
           </div>
 
           <a className='button is-large is-full-width'

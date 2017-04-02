@@ -53,7 +53,7 @@ class EntryListLink extends Component {
     this.handleClose.bind(this)();
 
     setTimeout(() => {
-      apiFetch(`/api/v1/entries/${this.state.entryId}/lists`, {
+      apiFetch(`/api/v1/entries/${this.state.entryId}`, {
         method: 'PATCH',
         body: JSON.stringify(data)
       });
@@ -107,8 +107,8 @@ class EntryListLink extends Component {
           </a>
         </LeadModal>
         <a onClick={this.handleListClick.bind(this)} className='button is-small is-light'>
-          <i className='fa fa-list'></i>
-          {this.props.translate('In Lists')}
+          <i className='fa fa-arrow-right'></i>
+          {this.props.translate('Assign')}
         </a>
       </span>
     );

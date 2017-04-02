@@ -5,15 +5,13 @@ class Entry < ApplicationRecord
     def guess_email!
       return if email.present?
       return if base_confidence.zero?
-
-      email_format = Entry.most_common_format(company)
-      email_confidence = base_confidence
-      if email_format.nil?
-        email_format = Entry.most_common_format
-      else
-        email_confidence *= 1.5
-      end
-      update_attributes(email: email_from_variant(email_format), email_confidence: email_confidence)
+      guess_email_format!
+      return unless email_format.present?
+      update_attributes(
+        email: email_from_pattern(email_format),
+        email_confidence: email_confidence,
+        email_format: email_format
+      )
     end
 
     class_methods do
@@ -28,17 +26,35 @@ class Entry < ApplicationRecord
 
     protected
 
+    def guess_email_format!
+      self.email_confidence = base_confidence
+      guess_email_hunterio! || guess_email_previous_entry! || guess_email_common!
+    end
+
+    def guess_email_hunterio!
+      self.email_format = Company::Hunterio.find_domain(domain).try(:pattern)
+      self.email_confidence *= 1.5 if email_format.present?
+      email_format.present?
+    end
+
+    def guess_email_previous_entry!
+      self.email_format = Entry.most_common_format(company)
+      self.email_confidence *= 1.5 if email_format.present?
+      email_format.present?
+    end
+
+    def guess_email_common!
+      self.email_format = Entry.most_common_format
+      email_format.present?
+    end
+
     def base_confidence
-      case lookup_state
-      when Entry::LOOKUP_STATE_EMAIL_FOUND
-        100
-      when Entry::LOOKUP_STATE_FAILURE_CONNECTION
-        40
-      when Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL
-        60
-      else
-        0
-      end
+      {
+        Entry::LOOKUP_STATE_EMAIL_FOUND => 100,
+        Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL => 60,
+        Entry::LOOKUP_STATE_FAILURE_NONE_VALID => 50,
+        Entry::LOOKUP_STATE_FAILURE_CONNECTION => 40
+      }[lookup_state] || 0
     end
   end
 end

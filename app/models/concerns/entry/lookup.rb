@@ -4,21 +4,14 @@ class Entry < ApplicationRecord
 
     included do
       before_save :determine_next_action, unless: -> { Rails.env.test? }
-      after_commit :schedule_next_action, on: [:create, :update], unless: -> { Rails.env.test? }
+      after_commit :schedule_next_action, on: %i(create update), unless: -> { Rails.env.test? }
     end
 
     def determine_company!
       return unless lookup_state == Entry::LOOKUP_STATE_SEARCHING_COMPANY
       return update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_COMPANY) if company_name.blank?
 
-      self.company ||= Company.find_by_name(company_name)
-      self.company ||= Company::GooglePlacesLookup.lookup(company_name)
-
-      self.lookup_state = if self.company.present?
-                            Entry::LOOKUP_STATE_COMPANY_FOUND
-                          else
-                            Entry::LOOKUP_STATE_FAILURE_COMPANY
-                          end
+      find_company!
       save!
     end
 
@@ -57,16 +50,22 @@ class Entry < ApplicationRecord
       end
     end
 
+    def find_company!
+      self.company ||= Company.find_by_name(company_name)
+      self.company ||= Company::GooglePlacesLookup.lookup(company_name)
+      if self.company.present?
+        self.lookup_state = Entry::LOOKUP_STATE_COMPANY_FOUND
+        self.company_name = company.name
+        self.domain ||= company.domain
+      else
+        self.lookup_state = Entry::LOOKUP_STATE_FAILURE_COMPANY
+      end
+    end
+
     def variants
       %w(
-        %{fn}.%{ln}
-        %{fn}
-        %{fn}%{ln}
-        %{ln}
-        %{fi}%{ln}
-        %{ln}%{fn}
-        %{ln}.%{fn}
-        %{ln}%{fi}
+        %{fn}.%{ln} %{fn} %{fn}%{ln} %{ln} %{fi}%{ln} %{fi}.%{ln} %{ln}%{fn}
+        %{ln}.%{fn} %{ln}%{fi}
       ).map(&:downcase)
     end
 
@@ -77,32 +76,33 @@ class Entry < ApplicationRecord
       I18n.transliterate(value)
     end
 
-    def email_from_variant(variant)
-      email = variant % {
+    def email_from_pattern(pattern)
+      email = format(
+        pattern,
         fn: format_for_email(first_name),
         ln: format_for_email(last_name),
         fi: format_for_email(first_name[0]),
         li: format_for_email(last_name[0])
-      }
-      email += "@#{company.domain}"
+      )
+      email += "@#{domain}"
       email.downcase
     end
 
     def test_all_variants!
       return update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL) if test_allows_all?
-      variants.each do |variant|
-        email = email_from_variant(variant)
+      variants.each do |pattern|
+        email = email_from_pattern(pattern)
         next unless EmailVerifier.check(email)
         return update_attributes(
           lookup_state: Entry::LOOKUP_STATE_EMAIL_FOUND,
-          email: email, email_format: variant, email_confidence: 100
+          email: email, email_format: pattern, email_confidence: 100
         )
       end
       update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_NONE_VALID)
     end
 
     def test_allows_all?
-      fake_email = "mixcael.sunwit@#{company.domain}"
+      fake_email = "mixcael.sunwit@#{domain}"
       EmailVerifier.check(fake_email)
     end
   end

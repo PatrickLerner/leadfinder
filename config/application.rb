@@ -36,6 +36,10 @@ module Leadfinder
       end
     end
 
+    EmailVerifier.config do |config|
+      config.verifier_email = 'Simon.Whistle@gmail.com'
+    end
+
     config.assets.paths << Rails.root.join('vendor', 'stylesheets')
   end
 end

@@ -79,6 +79,11 @@ describe Company::Hunterio, type: :model do
       expect(hunterio.pattern).to eq('%{fn}')
     end
 
+    it 'correctly transforms hunter.io style pattern' do
+      allow(hunterio).to receive(:response) { { pattern: '{first}.{l}.{last}.{f}' } }
+      expect(hunterio.pattern).to eq('%{fn}.%{li}.%{ln}.%{fi}')
+    end
+
     it 'returns nil if it does not exist' do
       hunterio.response = {}
       expect(hunterio.pattern).to be_nil

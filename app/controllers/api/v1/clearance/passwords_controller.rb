@@ -9,10 +9,8 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
   end
 
   def update
-    @user = find_user_for_update
-
-    if @user.update_password(password_reset_params)
-      sign_in @user
+    if user_for_update.update_password(password_reset_params)
+      sign_in user_for_update
       session[:password_reset_token] = nil
       render json: { success: true }
     else
@@ -22,8 +20,8 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
 
   protected
 
-  def find_user_for_update
-    User.find_by(confirmation_token: params[:token])
+  def user_for_update
+    @user_for_update ||= User.find_by(confirmation_token: params[:token])
   end
 
   def ensure_existing_user
@@ -31,7 +29,11 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
   end
 
   def find_user_for_create
-    return unless params.key?(:password) && params[:password].key?(:email)
+    return unless password_email_param?
     User.find_by_normalized_email params[:password][:email]
+  end
+
+  def password_email_param?
+    params.key?(:password) && params[:password].key?(:email)
   end
 end

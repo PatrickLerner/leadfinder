@@ -1,25 +1,22 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.2
   Include:
     - Rakefile
     - config.ru
     - Gemfile
   Exclude:
-    - db/**
-    - config/**
-    - script/**
+    - bin/**/*
+    - config/**/*
+    - db/**/*
+    - node_modules/**/*
+    - script/**/*
+    - spec/**/*
+Documentation:
+  Enabled: false
 Lint/Debugger:
   Exclude:
     - spec/rails_helper.rb
 Metrics/LineLength:
   Max: 120
-Style/Documentation:
-  Enabled: false
-Metrics/ClassLength:
-  Max: 200
-Metrics/MethodLength:
-  Max: 15
 Style/ClassAndModuleChildren:
-  Enabled: false
-Style/FrozenStringLiteralComment:
   Enabled: false

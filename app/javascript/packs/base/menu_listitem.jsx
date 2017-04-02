@@ -39,7 +39,7 @@ const spec = {
       }
     };
 
-    apiFetch(`/api/v1/entries/${item.entry.id}/lists`, {
+    apiFetch(`/api/v1/entries/${item.entry.id}`, {
       method: 'PATCH',
       body: JSON.stringify(data)
     });

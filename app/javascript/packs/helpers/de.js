@@ -53,7 +53,6 @@ export default {
     'Assign to lists': 'Listen zuweisen',
     'Assign this lead to lists. If a lead is not assigned to any lists, then it will appear in your inbox.': 'Weisen Sie diesen Lead Listen zu. Wenn ein Lead in keiner Liste ist, dann wird er im Eingang angezeigt.',
     'Assign': 'Zuweisen',
-    'In Lists': 'In Listen'
   },
   EntryDeleteLink: {
     'Delete this lead?': 'Diesen Lead löschen?',

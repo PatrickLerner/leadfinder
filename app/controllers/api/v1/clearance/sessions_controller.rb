@@ -1,10 +1,10 @@
 class Api::V1::Clearance::SessionsController < ::Clearance::SessionsController
   def create
-    @user = authenticate(params)
+    user = authenticate(params)
 
-    sign_in(@user) do |status|
+    sign_in(user) do |status|
       if status.success?
-        render json: { user: @user.to_api }
+        render json: { user: user.to_api }
       else
         render json: { errors: status.failure_message }, status: :unauthorized
       end

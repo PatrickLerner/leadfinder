@@ -1,11 +1,11 @@
 class Api::V1::Clearance::UsersController < ::Clearance::UsersController
   def create
-    @user = User.create(user_params)
-    if @user.errors.empty?
-      sign_in @user
-      render json: { user: @user.to_api }
+    user = User.create(user_params)
+    if user.errors.empty?
+      sign_in user
+      render json: { user: user.to_api }
     else
-      render json: { errors: @user.errors }
+      render json: { errors: user.errors }
     end
   end
 

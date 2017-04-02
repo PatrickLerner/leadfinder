@@ -26,9 +26,7 @@ class List < ApplicationRecord
       csv << columns
 
       entries.each do |entry|
-        csv << columns.map do |column|
-          entry.send(column)
-        end
+        csv << (columns.map { |column| entry.send(column) })
       end
     end
   end

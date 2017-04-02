@@ -9,11 +9,15 @@ module ApplicationCable
     private
 
     def find_verified_user
-      if env[:clearance].signed_in?
-        env[:clearance].current_user
+      if clearance.signed_in?
+        clearance.current_user
       else
         reject_unauthorized_connection
       end
+    end
+
+    def clearance
+      env[:clearance]
     end
   end
 end

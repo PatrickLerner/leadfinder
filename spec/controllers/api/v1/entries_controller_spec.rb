@@ -85,36 +85,6 @@ describe Api::V1::EntriesController, type: :controller do
     end
   end
 
-  describe '#update_lists' do
-    let(:list) { create(:list) }
-    let(:old_list) { create(:list) }
-    let(:entry) { build_stubbed(:entry) }
-
-    before(:each) do
-      allow(entry).to receive(:list_ids) { [old_list.id] }
-    end
-
-    it 'allows assigning an entry to a list' do
-      allow(subject).to receive(:entry) { entry }
-      expect(entry).to receive(:update_attributes) { |options|
-        expect(options).to eq(list_ids: [list.id])
-      }
-      patch :update_lists, params: { id: entry.id, entry: { lists: [list.id] } }
-    end
-
-    it 'sends update to lists' do
-      allow(subject).to receive(:entry) { entry }
-      expect(entry).to receive(:update_attributes)
-      expect(ListChannel).to receive(:remove_entry_from_list) { |_, id|
-        expect(id).to eq(old_list.id)
-      }
-      expect(ListChannel).to receive(:add_entry_to_list) { |_, id|
-        expect(id).to eq(list.id)
-      }
-      patch :update_lists, params: { id: entry.id, entry: { lists: [list.id] } }
-    end
-  end
-
   describe '#lists' do
     let!(:list_count) { 3 }
     let!(:entry) { create(:entry, with_lists: list_count, user: user) }
@@ -124,6 +94,68 @@ describe Api::V1::EntriesController, type: :controller do
       expect(body[:lists].count).to eq(user.lists.count)
       included_lists = body[:lists].select { |list| list[:included] }
       expect(included_lists.count).to eq(list_count)
+    end
+  end
+
+  describe '#show' do
+    let(:entry) { build_stubbed(:entry, user: user) }
+
+    it 'returns an entry' do
+      allow(subject).to receive(:entry) { entry }
+      get :show, params: { id: entry.id }
+      expect(body.key?(:entry)).to be_truthy
+      expect(body.key?(:errors)).to be_falsey
+    end
+
+    it 'throws an error if not found' do
+      get :show, params: { id: 'i dont exist' }
+      expect(body.key?(:entry)).to be_falsey
+      expect(body.key?(:errors)).to be_truthy
+    end
+  end
+
+  describe '#update' do
+    let(:entry) { build_stubbed(:entry, user: user) }
+
+    before(:each) do
+      allow(subject).to receive(:entry) { entry }
+    end
+
+    it 'updates the values' do
+      expect(entry).to receive(:update_attributes) { |param| entry.assign_attributes(param) }
+      expect(entry.first_name).to_not eq('Peterchen')
+      patch :update, params: { id: entry.id, entry: { first_name: 'Peterchen' } }
+      expect(entry.first_name).to eq('Peterchen')
+    end
+
+    describe 'lists' do
+      let(:list) { create(:list) }
+      let(:old_list) { create(:list) }
+
+      before(:each) do
+        allow(entry).to receive(:list_ids) { [old_list.id] }
+      end
+
+      it 'allows assigning an entry to a list' do
+        allow(subject).to receive(:entry) { entry }
+        expect(entry).to receive(:update_attributes) { |options|
+          expect(options.keys).to eq(%w(list_ids))
+          expect(options.values).to eq([[list.id]])
+        }
+        patch :update, params: { id: entry.id, entry: { lists: [list.id] } }
+      end
+
+      it 'sends update to lists' do
+        allow(subject).to receive(:entry) { entry }
+        expect(entry).to receive(:update_attributes) { true }
+        expect(ListChannel).to receive(:remove_entry_from_list) { |_, id|
+          expect(id).to eq(old_list.id)
+        }
+        expect(ListChannel).to receive(:add_entry_to_list) { |_, id|
+          expect(id).to eq(list.id)
+        }
+        patch :update, params: { id: entry.id, entry: { lists: [list.id] } }
+      end
     end
   end
 end

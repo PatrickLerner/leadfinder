@@ -1,0 +1,14 @@
+exclude_paths:
+  - bin
+  - config
+  - db
+  - node_modules
+  - script
+  - spec
+
+IrresponsibleModule:
+  enabled: false
+
+"app/workers":
+  UtilityFunction:
+    enabled: false

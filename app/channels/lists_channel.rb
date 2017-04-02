@@ -10,13 +10,13 @@ class ListsChannel < ActionCable::Channel::Base
     )
   end
 
+  def self.user_channel_name(user)
+    "lists:#{user.id}"
+  end
+
   protected
 
   def current_user
     env[:clearance].current_user
-  end
-
-  def self.user_channel_name(user)
-    "lists:#{user.id}"
   end
 end

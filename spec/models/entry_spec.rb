@@ -62,13 +62,23 @@ describe Entry, type: :model do
       expect(subject.company).to be_nil
       expect(subject.lookup_state).to eq(Entry::LOOKUP_STATE_FAILURE_COMPANY)
     end
+
+    it 'sets the company name and domain when company is found' do
+      expect(subject).to receive(:save!)
+      expect(Company::GooglePlacesLookup).to receive(:lookup) { fake_company }
+      allow(Company).to receive(:find_by_name).and_return(nil)
+      subject.determine_company!
+      expect(subject.company_name).to eq(fake_company.name)
+      expect(subject.domain).to eq(fake_company.domain)
+    end
   end
 
   describe 'determine_email!' do
     let!(:company) { build(:company, domain: 'bobington.bo') }
     let!(:entry) do
       build(:entry, first_name: 'bob', last_name: 'bobson', company: company,
-                    lookup_state: Entry::LOOKUP_STATE_SEARCHING_EMAIL)
+                    lookup_state: Entry::LOOKUP_STATE_SEARCHING_EMAIL,
+                    domain: 'bobington.bo')
     end
 
     before(:each) { allow(entry).to receive(:save!) }
@@ -217,6 +227,7 @@ describe Entry, type: :model do
 
   describe 'lookup_info' do
     let(:entry) { build(:entry) }
+
     it 'reports if email was found' do
       entry.lookup_state = Entry::LOOKUP_STATE_EMAIL_FOUND
       expect(entry.lookup_info).to eq('email_found')
@@ -265,36 +276,62 @@ describe Entry, type: :model do
 
   describe '#guess_email!' do
     let(:company) { build_stubbed(:company, domain: 'example.com') }
-    let(:entry) { build_stubbed(:entry, company: company) }
+    let(:entry) { build_stubbed(:entry, company: company, domain: 'example.com') }
 
-    before(:each) { allow(entry).to receive(:update_attributes) { |*args| entry.assign_attributes(*args) } }
-
-    it 'does not overwrite an existing email' do
-      entry.email = 'already@set'
-      entry.guess_email!
-      expect(entry.email).to eq('already@set')
+    before(:each) do
+      allow(entry).to receive(:update_attributes) { |*args| entry.assign_attributes(*args) }
     end
 
-    it 'does not set if base confidence is already zero' do
-      allow(entry).to receive(:base_confidence) { 0 }
-      entry.guess_email!
-      expect(entry.email).to be_nil
+    describe 'base' do
+      before(:each) do
+        allow(Company::Hunterio).to receive(:find_domain) { nil }
+      end
+
+      it 'does not overwrite an existing email' do
+        entry.email = 'already@set'
+        entry.guess_email!
+        expect(entry.email).to eq('already@set')
+      end
+
+      it 'does not set if base confidence is already zero' do
+        allow(entry).to receive(:base_confidence) { 0 }
+        entry.guess_email!
+        expect(entry.email).to be_nil
+      end
+
+      it 'builds on previously existing email to this company' do
+        allow(entry).to receive(:base_confidence) { 50 }
+        allow(Entry).to receive(:most_common_format) { '%{fn}' }
+        entry.guess_email!
+        expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
+        expect(entry.email_confidence).to eq(50 * 1.5)
+      end
+
+      it 'builds on most common mail format' do
+        allow(entry).to receive(:base_confidence) { 50 }
+        allow(Entry).to receive(:most_common_format) { |company| company.nil? ? '%{fn}' : nil }
+        entry.guess_email!
+        expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
+        expect(entry.email_confidence).to eq(50)
+      end
     end
 
-    it 'builds on previously existing email to this company' do
-      allow(entry).to receive(:base_confidence) { 50 }
-      allow(Entry).to receive(:most_common_format) { '%{fn}' }
-      entry.guess_email!
-      expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
-      expect(entry.email_confidence).to eq(50 * 1.5)
-    end
+    describe 'hunter.io' do
+      before(:each) do
+        allow(entry).to receive(:base_confidence) { 50 }
+      end
 
-    it 'builds on most common mail format' do
-      allow(entry).to receive(:base_confidence) { 50 }
-      allow(Entry).to receive(:most_common_format) { |company| company.nil? ? '%{fn}' : nil }
-      entry.guess_email!
-      expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
-      expect(entry.email_confidence).to eq(50)
+      it 'calls the hunter api' do
+        expect(Company::Hunterio).to receive(:find_domain) { nil }
+        entry.guess_email!
+      end
+
+      it 'calls the hunter.io api if failure' do
+        expect(Company::Hunterio).to receive(:find_domain) { build_stubbed(:company_hunterio) }
+        entry.guess_email!
+        expect(entry.email).to eq("#{entry.first_name.downcase}@example.com")
+        expect(entry.email_confidence).to eq(50 * 1.5)
+      end
     end
   end
 
@@ -354,6 +391,10 @@ describe Entry, type: :model do
       expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_CONNECTION).send(:base_confidence)).to be > 0
     end
 
+    it 'returns confidence for none valid failure' do
+      expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_NONE_VALID).send(:base_confidence)).to be > 0
+    end
+
     it 'returns confidence for accepts all failure' do
       expect(build(:entry, lookup_state: Entry::LOOKUP_STATE_FAILURE_ACCEPTS_ALL).send(:base_confidence)).to be > 0
     end
@@ -399,6 +440,18 @@ describe Entry, type: :model do
       entry.urls = []
       entry.send(:persist_urls)
       expect(entry.links.first).to be_marked_for_destruction
+    end
+  end
+
+  describe '#should_research?' do
+    let(:entry) do
+      build_stubbed(:entry, domain: 'example.com', lookup_state: Entry::LOOKUP_STATE_FAILURE_CONNECTION)
+    end
+
+    it 'attempts a seach again if previously failed and name changed' do
+      entry.first_name = 'Peterchen'
+      entry.send(:should_research?)
+      expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_SEARCHING_EMAIL)
     end
   end
 end

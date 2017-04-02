@@ -49,11 +49,11 @@ class Entry extends Component {
   }
 
   render() {
-    const failure_states = [
+    const progress_states = [
       'searching_company', 'company_found', 'searching_email'
     ];
     let email = null;
-    if (this.state.email !== null) {
+    if (this.state.email !== null && this.state.email !== '') {
       const tooltip = `${this.props.translate('Confidence')}: ${this.state.email_confidence}%`;
       let mailLink = `mailto:${this.state.email}`;
       email = (
@@ -62,7 +62,7 @@ class Entry extends Component {
           {this.state.email}
         </a>
       )
-    } else if (failure_states.indexOf(this.state.lookup_state) !== -1) {
+    } else if (progress_states.indexOf(this.state.lookup_state) !== -1) {
       email = (
         <span>
           <i className='fa fa-fw fa-spin fa-circle-o-notch'></i> {this.props.translate('Processing')}...

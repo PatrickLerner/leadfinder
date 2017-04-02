@@ -26,26 +26,36 @@ class Api::V1::EntriesController < Api::V1::BaseController
     }
   end
 
-  def update_lists
-    entry_list_removed_ids.each { |id| ListChannel.remove_entry_from_list(entry, id) }
-    entry_list_added_ids.each { |id| ListChannel.add_entry_to_list(entry, id) }
-    entry.update_attributes(list_ids: lists_from_params)
+  before_action :entry_list_removed_ids, only: :update
+  before_action :entry_list_added_ids, only: :update
 
-    head :ok
+  def update
+    if entry.update_attributes(entry_params)
+      update_update_lists
+      render json: { entry: entry.to_api }
+    else
+      render json: { errors: entry.errors }
+    end
   end
 
   protected
+
+  def update_update_lists
+    return unless entry_params.key?(:list_ids)
+    entry_list_removed_ids.each { |id| ListChannel.remove_entry_from_list(entry, id) }
+    entry_list_added_ids.each { |id| ListChannel.add_entry_to_list(entry, id) }
+  end
 
   def build_new_entry
     @entry = current_user.entries.new(entry_params)
   end
 
   def entry_list_removed_ids
-    (entry.list_ids - lists_from_params).presence || %i(inbox)
+    @entry_list_removed_ids ||= (entry.list_ids - lists_from_params).presence || %i(inbox)
   end
 
   def entry_list_added_ids
-    (lists_from_params - entry.list_ids).presence || %i(inbox)
+    @entry_list_added_ids ||= (lists_from_params - entry.list_ids).presence || %i(inbox)
   end
 
   def entry
@@ -56,13 +66,16 @@ class Api::V1::EntriesController < Api::V1::BaseController
     return @lists_from_params if @lists_from_params.present?
     params[:entry] ||= {}
     params[:entry][:lists] ||= []
-    @lists_from_params ||= params[:entry][:lists] - %w(inbox)
+    @lists_from_params = params[:entry][:lists] - %w(inbox)
   end
 
   def entry_params
-    params
-      .require(:entry)
-      .permit(:first_name, :last_name, :name, :title, :middle_name, :position, :company_name, :email, urls: [])
-      .merge(list_ids: lists_from_params)
+    return @entry_params if @entry_params.present?
+    @entry_params = params.require(:entry).permit(
+      :first_name, :middle_name, :last_name, :name, :title, :position, :company_name, :email, :domain,
+      urls: []
+    )
+    @entry_params[:list_ids] = lists_from_params unless lists_from_params.empty?
+    @entry_params
   end
 end

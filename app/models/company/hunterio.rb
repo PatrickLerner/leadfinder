@@ -7,8 +7,8 @@ class Company::Hunterio < ApplicationRecord
   HUNTER_PATTERN_MATCHING = {
     '{first}': '%{fn}',
     '{last}': '%{ln}',
-    '{f}': '%{li}',
-    '{l}': '%{fi}'
+    '{f}': '%{fi}',
+    '{l}': '%{li}'
   }.freeze
 
   def self.find_domain(domain)

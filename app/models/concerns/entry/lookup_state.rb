@@ -16,8 +16,18 @@ class Entry < ApplicationRecord
       LOOKUP_STATE_FAILURE_NOT_ATTEMPTED = :failure_not_attempted
     ].freeze
 
+    LOOKUP_STATES_FAILURE = [
+      LOOKUP_STATE_FAILURE_COMPANY,
+      LOOKUP_STATE_FAILURE_MX_RECORDS,
+      LOOKUP_STATE_FAILURE_CONNECTION,
+      LOOKUP_STATE_FAILURE_ACCEPTS_ALL,
+      LOOKUP_STATE_FAILURE_NONE_VALID,
+      LOOKUP_STATE_FAILURE_NOT_ATTEMPTED
+    ].freeze
+
     included do
       before_save :need_update_lists?
+      before_save :should_research?
       after_save :update_lists!, if: -> { @update_lists }
 
       validates :lookup_state, inclusion: { in: LOOKUP_STATES }, presence: true
@@ -41,8 +51,28 @@ class Entry < ApplicationRecord
 
     protected
 
+    def should_research?
+      return false if lookup_state_changed?
+      return false unless lookup_state.in?(LOOKUP_STATES_FAILURE)
+      return false if found_email?
+      return unless email_component_changed? && all_email_components_present?
+      self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
+    end
+
+    def found_email?
+      email_confidence == 100 && email.present?
+    end
+
+    def email_component_changed?
+      first_name_changed? || last_name_changed? || domain_changed?
+    end
+
+    def all_email_components_present?
+      first_name.present? && last_name.present? && domain.present?
+    end
+
     def need_update_lists?
-      @update_lists = lookup_state_changed?
+      @update_lists = changed?
     end
 
     def update_lists!

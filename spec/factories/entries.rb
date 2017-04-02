@@ -10,6 +10,7 @@ FactoryGirl.define do
     company_name Faker::Company.name
     company nil
     email nil
+    domain nil
     user
 
     after(:build) do |entry, evaluator|

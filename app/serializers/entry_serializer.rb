@@ -7,11 +7,7 @@ class EntrySerializer < ActiveModel::Serializer
   belongs_to :user
 
   def company
-    if object.company.present?
-      object.company.name
-    else
-      object.company_name
-    end
+    object.company_name
   end
 
   def company_cities
@@ -20,9 +16,5 @@ class EntrySerializer < ActiveModel::Serializer
     else
       []
     end
-  end
-
-  def domain
-    object.company.try(:domain)
   end
 end
