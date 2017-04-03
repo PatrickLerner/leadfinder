@@ -145,8 +145,8 @@ class List extends Component {
       <div>
         {actions}
         <h1 className='page-title'>{name}</h1>
+        <EntrySearch listId={this.state.listId} />
         <div className='lookup'>
-          <EntrySearch listId={this.state.listId} />
           {entries}
         </div>
       </div>

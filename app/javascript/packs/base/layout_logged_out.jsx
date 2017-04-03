@@ -45,7 +45,7 @@ class Layout extends Component {
     }
 
     return (
-      <div className='page'>
+      <div className='page page-logged-out'>
         <Menu onSignOut={this.onSignOut.bind(this)} signedIn={this.state.signedIn} />
         <div className='page-content'>
           { children }
