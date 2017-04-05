@@ -1,59 +1,22 @@
 import React, { Component } from 'react';
+import Autocomplete from 'react-google-autocomplete';
+import { roles } from '../support/roles.js'
+import { industries } from '../support/industries.js'
 
 import translate from '../helpers/translate.js';
 
 class Find extends Component {
   constructor(props) {
     super(props);
-    this.roles = {
-      'Owner': [['Owner', 'Founder', 'CEO', 'Chief Executive Officer', 'Founder & CEO', 'Partner']],
-      'Marketing Manager': [[
-        'Marketing Manager', 'Director of Marketing', 'CMO', 'Chief Marketing Officer',
-        'Vice President of Marketing', 'VP of Marketing', 'VP Marketing'
-      ]],
-      'Sales Manager': [[
-        'Sales Manager', 'Business Development Manager', 'Sales Director', 'Director of Sales', 'Head of Sales',
-        'VP Sales', 'VP of Sales'
-      ]],
-      'Operations Manager': [[
-        'Operations Manager', 'COO', 'Chief Operations Officer', 'Director of Operations', 'VP Operations',
-        'Vice President of Operations'
-      ]],
-      'Financial Manager': [[
-        'Financial Manager', 'Chief Financial Officer', 'CFO', 'Finance Director', 'Director of Finance',
-        'VP Finance', 'VP of Finance', 'Finance Manager', 'VP Finance'
-      ]],
-      'IT Manager': [[
-        'IT Manager', 'CIO', 'Director of IT', 'Chief Information Officer', 'Director of Information Technology',
-        'Vice President of IT', 'IT Director'
-      ]],
-      'Chief Technology Manager': [[
-        'Chief Technology Officer', 'CTO', 'Director of Technology', 'VP Technology', 'Vice President of Technology',
-        'Technology Director'
-      ]],
-      'Customer Service Manager': [[
-        'Customer Service Manager', 'Customer Support Manager', 'Customer Success Manager', 'Office Manager',
-        'Head of Customer Support', 'Customer Service Director'
-      ]],
-      'Sales Representative': [[
-        'Sales Representative', 'Sales Rep', 'Account Manager', 'Account Executive', 'Business Development',
-        'Sales Development', 'Sales Executive', 'SDR', 'BDR'
-      ]],
-      'HR Manager': [
-        ['Manager', 'Officer', 'Coordinator', 'Director', 'VP', 'President'],
-        ['HR', 'Human Resources', 'People Officer', 'Talent']
-      ],
-      'Product/Project Manager': [['Product Manager', 'Project Manager', 'VP Product', 'Project Lead']],
-      'Lawyer': [['Lawyer', 'Attorney', 'Attorney at Law']],
-      'Realtor': [['Realtor', 'Real Estate Agent']]
-    };
     this.excludes = [
       'assistant', 'intern', 'secretary', 'vice', 'paralegal'
     ];
     this.state = {
-      role: Object.keys(this.roles)[0],
+      role: Object.keys(roles)[0],
+      industry: '',
       excludes: this.excludes,
-      region: 'Heidelberg'
+      regions: [],
+      region: ''
     }
   }
 
@@ -63,15 +26,41 @@ class Find extends Component {
     }).join(') AND (') + ')';
   }
 
+  industryInLanguages(industry, languages) {
+    const industryInLanguages = languages.map(language => industry[language]);
+    const result = industryInLanguages.map(industry => `"${industry}"`).join(' OR ');
+    return industryInLanguages.length > 1 ? `(${result})` : result;
+  }
+
+  languagesInRegions(regions) {
+    const regionCountries = regions.map(region =>
+      region.address_components[region.address_components.length - 1].long_name
+    );
+    const germanCountries = ['Germany', 'Austria', 'Switzerland', 'Lichtenstein'];
+    let languagesRegions = regionCountries.map(region => {
+      return germanCountries.indexOf(region) !== -1 ? 'de' : 'en';
+    });
+    const languages = languagesRegions.filter((l, i) => languagesRegions.indexOf(l) == i);
+    return languages.length == 0 ? [this.props.currentLanguage] : languages;
+  }
+
   handleSearchButton(ev) {
     ev.preventDefault();
 
-    const query = this.roleToString(this.roles[this.state.role]);
+    const query = this.roleToString(roles[this.state.role]);
     const site = 'site:xing.com/profile';
-    const region = this.state.region;
+    const regionNames = this.state.regions.map(region => region.address_components[0].long_name);
+
+    const regions = regionNames.length > 0 ? '(' + regionNames.map(r => `"${r}"`).join(' OR ') + ')' : ''
     const excludes = this.excludes.map(item => `-${item}`).join(' ');
-    const param = encodeURIComponent(`${query} ${region} ${excludes} ${site}`);
-    const url = `https://www.google.com/search?q=${param}&num=100`;
+    let industry = '';
+    if (this.state.industry) {
+      const languagesRegions = this.languagesInRegions(this.state.regions);
+      industry = this.industryInLanguages(JSON.parse(this.state.industry), languagesRegions)
+    }
+    //const industry = this.state.industry ? `"${this.state.industry}"` : '';
+    const param = encodeURIComponent(`${query} ${regions} ${excludes} ${industry} ${site}`);
+    const url = `https://www.google.com/search?num=100&q=${param}`;
     window.open(url);
   }
 
@@ -81,48 +70,124 @@ class Find extends Component {
     }));
   }
 
+  industrySelected(ev) {
+    this.setState(Object.assign({}, this.state, {
+      industry: ev.target.value
+    }));
+  }
+
+  regionSelected(region) {
+    if (region.place_id === undefined) { return; }
+    const existsAlready = this.state.regions.find(r => r.place_id == region.place_id);
+    let newState = Object.assign({}, this.state);
+    newState.region = '';
+    if (!existsAlready) {
+      newState.regions.push(region);
+    }
+    this.setState(newState);
+  }
+
+  regionDeselected(region) {
+    let newState = Object.assign({}, this.state);
+    newState.regions = newState.regions.filter(r => r != region)
+    this.setState(newState);
+  }
+
   handleInputChange(ev) {
     let nextState = Object.assign({}, this.state);
     nextState[ev.target.name] = ev.target.value;
     this.setState(nextState);
   }
 
+  preventEnter(ev) {
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+  }
+
   render() {
-    const roles = Object.keys(this.roles).map(name => {
+    const role_options = Object.keys(roles).map(name => {
       return (<option value={name} key={name}>{name}</option>);
     });
 
+    const industry_options = [<option value='{}' key='null'>{this.props.translate('All industries')}</option>];
+    industries.forEach(industry => {
+      industry_options.push(
+        <option value={JSON.stringify(industry)} key={industry['en']}>
+          {industry[this.props.currentLanguage]}
+        </option>
+      );
+    });
+
     const examples = [];
-    const current_role = this.roles[this.state.role];
+    const current_role = roles[this.state.role];
     const max_subrole_length = Math.max.apply(null, current_role.map(a => a.length));
     for (let i = 0; i < max_subrole_length; i++) {
       examples.push(current_role.map(a => a[i] || a[0]).join(' '));
     }
 
+    const regions = this.state.regions.map(region => {
+      return (
+        <span className='tag-label' key={region.place_id} onClick={this.regionDeselected.bind(this, region)}>
+          {region.address_components[0].long_name}
+          <i className='fa fa-fw fa-times'></i>
+        </span>
+      );
+    });
+
     return (
-      <div className='panel panel-narrow panel-find'>
+      <div className='panel panel-find'>
         <h1 className='page-title'>
           {this.props.translate('Find Leads')}
         </h1>
         <form onSubmit={this.handleSearchButton.bind(this)}>
-          <div className='form-control'>
-            <label>{this.props.translate('Role / Function')}</label>
-            <select onChange={this.roleSelected.bind(this)} className='is-large'>
-              {roles}
-            </select>
-            <small className='u-single-line'>{examples.join(', ')}</small>
+          <div className='row'>
+            <div className='col-12 col-lg-6'>
+              <div className='form-control'>
+                <label>{this.props.translate('Role / Function')}</label>
+                <select onChange={this.roleSelected.bind(this)} className='is-large'>
+                  {role_options}
+                </select>
+                <small className='u-single-line'>{examples.join(', ')}</small>
+              </div>
+            </div>
+            <div className='col-12 col-lg-6'>
+              <div className='form-control'>
+                <label>{this.props.translate('Industry')}</label>
+                <select onChange={this.industrySelected.bind(this)} className='is-large'>
+                  {industry_options}
+                </select>
+              </div>
+            </div>
           </div>
-          <div className='form-control'>
-            <label>{this.props.translate('Region')}</label>
-            <input className='is-large' type='text' name='region'
-                     value={this.state.region} onChange={this.handleInputChange.bind(this)}
-                     placeholder={this.props.translate('Region')}/>
+          <div className='row'>
+            <div className='col-12'>
+              <div className='form-control'>
+                <label>{this.props.translate('Region')}</label>
+                <Autocomplete className='is-large' name='region' type='text' value={this.state.region}
+                              placeholder={this.props.translate('Enter region here')}
+                              onChange={this.handleInputChange.bind(this)}
+                              onKeyPress={this.preventEnter.bind(this)}
+                              onPlaceSelected={this.regionSelected.bind(this)} types={['(cities)']} />
+              </div>
+            </div>
           </div>
-
-          <button className='button is-large is-full-width' type='submit'>
-            <i className='fa fa-search fa-fw'></i>
-            {this.props.translate('Search')}
-          </button>
+          <div className='row'>
+            <div className='col-12'>
+              {regions}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-12 col-lg-6 col-lg-offset-3'>
+              <div className='form-control'>
+                <button className='button is-large is-full-width' type='submit'>
+                  <i className='fa fa-search fa-fw'></i>
+                  {this.props.translate('Search')}
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     );

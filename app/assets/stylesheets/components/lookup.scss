@@ -118,6 +118,10 @@
     .lookup-buttons {
       width: auto;
 
+      .lookup-button {
+        margin-left: .5rem;
+      }
+
       .lookup-button,
       .button {
         display: inline-block;

@@ -21,27 +21,37 @@
 }
 
 .modal-overlay {
-  align-items: center;
   background-color: lead-color-alpha('foreground', 'dark');
   bottom: 0;
-  display: flex;
-  justify-content: center;
   left: 0;
+  overflow: auto;
+  padding: 0 3rem;
   position: fixed;
   right: 0;
+  text-align: center;
   top: 0;
   z-index: $z-index-10;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 50%;
+  }
 }
 
 .modal {
   background-color: lead-color('menu');
-  border: .1rem solid lead-color-level('menu', -2);
   border-radius: $border-radius;
-  margin-top: 2rem;
+  border: .1rem solid lead-color-level('menu', -2);
+  display: inline-block;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
   max-width: 70rem;
   outline: none;
   overflow: auto;
   padding: 5rem 6rem;
+  text-align: left;
+  vertical-align: middle;
 
   &.modal-normal {
     max-width: 70rem;

@@ -23,3 +23,19 @@ $neat-grid: (
     }
   }
 }
+
+@for $i from 1 through 12 {
+  .col-offset-#{$i} {
+    @include grid-push($i);
+  }
+}
+
+@each $size-name, $size in $screen-sizes {
+  @media only screen and (min-width: $size * .625) {
+    @for $i from 1 through 12 {
+      .col-#{$size-name}-offset-#{$i} {
+        @include grid-push($i);
+      }
+    }
+  }
+}

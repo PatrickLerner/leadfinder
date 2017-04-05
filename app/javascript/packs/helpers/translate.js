@@ -24,7 +24,10 @@ export default function translate(key) {
       render() {
         const strings = languages[this.context.currentLanguage];
         const t = i18n_translate.bind({ strings, component: key, language: this.context.currentLanguage });
-        return <Component {...this.props} {...this.state} strings={strings} translate={t} />;
+        return (
+          <Component {...this.props} {...this.state} strings={strings} translate={t}
+            currentLanguage={this.context.currentLanguage} />
+        );
       }
     }
 

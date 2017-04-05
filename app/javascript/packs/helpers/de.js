@@ -63,7 +63,32 @@ export default {
     'Find Leads': 'Leads suchen',
     'Role / Function': 'Rolle / Funktion',
     'Region': 'Region',
-    'Search': 'Suchen'
+    'Search': 'Suchen',
+    'Industry': 'Branche',
+    'All industries': 'Alle Branchen',
+    'Enter region here': 'Region hier eingeben',
+    'industries': [
+      'Architektur und Bauwesen',
+      'Automobil und Fahrzeugbau',
+      'Banken und Finanzdienstleistungen',
+      'Beratung und Consulting',
+      'Erziehung, Bildung und Wissenschaft',
+      'Gesundheit und Soziales',
+      'Immobilien',
+      'Industrie und Maschinenbau',
+      'Internet und Informationstechnologie',
+      'Konsumgüter und Handel',
+      'Kunst, Kultur und Sport',
+      'Marketing, PR und Design',
+      'Medien und Verlage',
+      'Öffentlicher Dienst, Verbände und Einrichtungen',
+      'Personaldienstleistungen',
+      'Pharma und Medizintechnik',
+      'Telekommunikation',
+      'Transport und Logistik',
+      'Versicherungen',
+      'Sonstige Branchen'
+    ]
   },
   List: {
     'Inbox': 'Eingang'

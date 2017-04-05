@@ -2449,6 +2449,10 @@ react-dom@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+react-google-autocomplete@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-google-autocomplete/-/react-google-autocomplete-1.0.12.tgz#1c165e5f4659425279e0789dd72492ac4c2ebd4f"
+
 react-modal@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-1.7.2.tgz#3c0b6d144745a819030fdbe0edf6ee3d5722eade"
