@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe Api::V1::Clearance::UsersController, type: :controller do
+  let(:user_email) { 'bobby@bobington.bob' }
   let(:user_params) do
     {
       gender: :male,
       first_name: 'Bob',
       last_name: 'Bobson',
-      email: 'bobby@bobington.bob',
+      email: user_email,
       password: 'bob12345'
     }
   end
@@ -29,6 +30,15 @@ describe Api::V1::Clearance::UsersController, type: :controller do
     it 'can creae a new user' do
       post :create, params: { user: user_params }
       expect(user).to be_present
+    end
+
+    it 'sends an email' do
+      perform_enqueued_jobs do
+        post :create, params: { user: user_params }
+      end
+      expect(controller.send(:current_user)).to be_nil
+      expect(user.email_confirmation_token).to be_present
+      should_deliver_email(to: user_email, subject: 'Welcome to Lead Finder!')
     end
 
     it 'fails if params are missing' do

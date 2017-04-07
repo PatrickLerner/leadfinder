@@ -1,8 +1,8 @@
 class Api::V1::Clearance::UsersController < ::Clearance::UsersController
   def create
-    user = User.create(user_params)
+    user = User.create(user_params.merge(email_confirmation_token: Clearance::Token.new))
     if user.errors.empty?
-      sign_in user
+      UserMailer.registration_confirmation(user).deliver_later
       render json: { user: user.to_api }
     else
       render json: { errors: user.errors }

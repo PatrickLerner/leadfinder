@@ -13,6 +13,7 @@ import Settings from './pages/settings.jsx'
 import Help from './pages/help.jsx'
 import Main from './pages/main.jsx'
 import ResetPassword from './pages/reset_password.jsx'
+import ConfirmMail from './pages/confirm_mail.jsx'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -29,7 +30,9 @@ export default class App extends Component {
             component: Main
           },
           childRoutes: [
-            { path: 'resetpassword/:passwordResetToken', component: ResetPassword }
+            { path: 'resetpassword/:passwordResetToken', component: ResetPassword },
+            { path: 'confirm/:confirmationToken', component: ConfirmMail },
+            { path: 'confirm/email/:email', component: ConfirmMail }
           ]
         },
         {

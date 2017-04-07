@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../../helpers/api_fetch.js';
+import LeadFinderLogo from './lead_finder_logo.jsx';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ export default class SignUp extends Component {
       body: JSON.stringify(data)
     }).then(res => res.json()).then(res => {
       if (res.user) {
-        browserHistory.replace('/dashboard');
+        browserHistory.replace(`/confirm/email/${this.state.email}`);
       } else {
         alert('Sign up not successful.')
       }
@@ -63,8 +64,7 @@ export default class SignUp extends Component {
     );
     return (
       <div className='panel panel-narrow panel-sign-up'>
-        <h1 className='panel-header-title'>Register</h1>
-        <p className='panel-header-subtitle'>Just enter some of your details and join us now for free.</p>
+        <LeadFinderLogo />
         <form onSubmit={this.handleRegistrationClick.bind(this)}>
           <div className='row'>
             <div className='col-12 col-lg-6'>

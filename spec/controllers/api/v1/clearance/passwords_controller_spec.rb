@@ -4,18 +4,17 @@ describe Api::V1::Clearance::PasswordsController, type: :controller do
   let(:body) { JSON.parse(response.body).with_indifferent_access }
 
   describe '#create' do
-    let!(:user) { create(:user) }
+    let!(:user) { create(:user, confirmation_token: 'token') }
 
     it 'sends an email' do
       allow(User).to receive(:find_by_normalized_email) { user }
       expect(user).to receive(:forgot_password!)
 
-      delivery = double
-      expect(delivery).to receive(:deliver_later).with(no_args)
-      expect(UserMailer).to receive(:change_password).and_return(delivery)
-
-      post :create, params: { password: { email: user.email } }
+      perform_enqueued_jobs do
+        post :create, params: { password: { email: user.email } }
+      end
       expect(response).to be_successful
+      should_deliver_email(to: user.email, subject: 'Password Reset')
     end
   end
 
@@ -40,6 +39,14 @@ describe Api::V1::Clearance::PasswordsController, type: :controller do
       allow(user).to receive(:update_password) { true }
       patch :update, params: { password_reset: { token: :test } }
       expect(body[:success]).to be_truthy
+    end
+
+    it 'confirms user if reset worked' do
+      user.email_confirmed_at = nil
+      allow(User).to receive(:find_by) { user }
+      allow(user).to receive(:update_password) { true }
+      allow(user).to receive(:confirm_email!)
+      patch :update, params: { password_reset: { token: :test } }
     end
   end
 end

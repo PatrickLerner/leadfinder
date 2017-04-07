@@ -32,9 +32,11 @@ gem 'webpacker', github: 'rails/webpacker'
 group :development, :test do
   gem 'byebug', platforms: %i(mri mingw x64_mingw)
   gem 'capybara'
+  gem 'email_spec'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'foreman'
+  gem 'poltergeist'
   gem 'reek'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop'

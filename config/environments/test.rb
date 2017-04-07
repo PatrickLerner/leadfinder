@@ -42,4 +42,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
   config.action_mailer.asset_host = 'http://localhost:5000'
+
+  config.active_job.queue_adapter = :inline
 end

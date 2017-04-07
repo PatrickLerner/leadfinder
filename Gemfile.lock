@@ -122,6 +122,7 @@ GEM
       bcrypt
       email_validator (~> 1.4)
       rails (>= 3.1)
+    cliver (0.3.2)
     codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
     coderay (1.1.1)
@@ -141,6 +142,10 @@ GEM
     dotenv-rails (2.2.0)
       dotenv (= 2.2.0)
       railties (>= 3.2, < 5.1)
+    email_spec (2.1.0)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.6.3)
     email_validator (1.6.0)
       activemodel
     email_verifier (0.1.0)
@@ -168,6 +173,7 @@ GEM
     google_places (0.33.0)
       httparty (>= 0.13.1, < 0.14.1)
     hashdiff (0.3.2)
+    htmlentities (4.3.4)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     hunterio (0.2.0)
@@ -214,6 +220,10 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.20.0)
+    poltergeist (1.14.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
     puma (3.8.2)
@@ -378,6 +388,7 @@ DEPENDENCIES
   capybara
   clearance
   dotenv-rails
+  email_spec
   email_verifier
   factory_girl_rails
   faker
@@ -390,6 +401,7 @@ DEPENDENCIES
   listen
   neat
   pg
+  poltergeist
   puma
   rack-cors
   rails (~> 5.1.0.rc1)

@@ -12,6 +12,12 @@ class User < ApplicationRecord
 
   before_create :generate_default_lists
 
+  def confirm_email!
+    return unless email_confirmed_at.nil?
+    self.email_confirmed_at = DateTime.now
+    save!
+  end
+
   protected
 
   def generate_default_lists

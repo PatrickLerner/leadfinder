@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../../helpers/api_fetch.js';
+import LeadFinderLogo from './lead_finder_logo.jsx';
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -31,6 +32,8 @@ export default class SignIn extends Component {
     }).then(res => {
       if (res.status === 200) {
         browserHistory.replace('/dashboard');
+      } else if (res.status === 401) {
+        browserHistory.replace(`/confirm/email/${this.state.email}`);
       } else {
         alert('Login failed');
       }
@@ -40,14 +43,7 @@ export default class SignIn extends Component {
   render() {
     return (
       <div className='panel panel-narrow panel-sign-in'>
-        <div className='row'>
-          <div className='col-12 col-lg-5'>
-            <div className='lead-logo-md'></div>
-          </div>
-          <div className='col-12 col-lg-7'>
-            <div className='lead-title-md'>Lead Finder</div>
-          </div>
-        </div>
+        <LeadFinderLogo />
         <form onSubmit={this.handleLoginClick.bind(this)}>
           <div className='form-control'>
             <label>E-Mail</label>

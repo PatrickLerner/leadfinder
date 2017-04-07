@@ -10,6 +10,7 @@ class Api::V1::Clearance::PasswordsController < ::Clearance::PasswordsController
 
   def update
     if user_for_update.update_password(password_reset_params)
+      user_for_update.confirm_email!
       sign_in user_for_update
       session[:password_reset_token] = nil
       render json: { success: true }

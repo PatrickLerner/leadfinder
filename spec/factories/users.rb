@@ -10,6 +10,8 @@ FactoryGirl.define do
     sequence :email do |n|
       Faker::Internet.safe_email("#{Faker::Internet.user_name}#{n}")
     end
-    password(password = Faker::Internet.password)
+    password(Faker::Internet.password)
+    email_confirmation_token(Faker::Internet.password)
+    email_confirmed_at(DateTime.now)
   end
 end

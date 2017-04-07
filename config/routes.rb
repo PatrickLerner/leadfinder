@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # user and auth
+      post 'confirm', to: 'clearance/confirmations#create'
+      patch 'confirm', to: 'clearance/confirmations#update'
       resources :passwords, controller: 'clearance/passwords', only: [:create]
       patch :passwords, to: 'clearance/passwords#update'
       resource :session, controller: 'clearance/sessions', only: [:create]
