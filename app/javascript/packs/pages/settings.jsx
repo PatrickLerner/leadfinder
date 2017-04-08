@@ -119,7 +119,7 @@ class Settings extends Component {
             </div>
             <div className='form-control'>
               <label>{this.props.translate('user', 'E-Mail')}</label>
-              <input className='is-large' type='email' name='email'
+              <input className='is-large' type='email' name='email' disabled
                      value={this.state.user.email} onChange={this.handleInputChange.bind(this)}
                      placeholder='peter.miller@example.com' />
             </div>

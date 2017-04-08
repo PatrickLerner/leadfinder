@@ -127,7 +127,6 @@ class List extends Component {
     const entries = this.state.list.entries.map(entry => {
       return (<Entry entry={entry} key={entry.id} />);
     });
-
     let actions = [];
     actions.push(<ExportListLink key='export' className='page-title-action' listId={this.state.listId} />);
     if (this.state.list.id) {

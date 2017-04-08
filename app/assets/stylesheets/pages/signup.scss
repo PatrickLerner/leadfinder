@@ -1,5 +1,20 @@
 .page-logged-out {
-  background-image: asset-url('bg_login.jpg');
-  background-position: 50% 50%;
-  background-size: cover;
+  &.page {
+    overflow: hidden;
+  }
+
+  &::before {
+    background-image: asset-url('bg_login.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+    bottom: 0;
+    content: '';
+    filter: blur(5px);
+    left: 0;
+    margin: -1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
 }

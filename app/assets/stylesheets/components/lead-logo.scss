@@ -1,5 +1,5 @@
-@mixin lead-logo($size) {
-  background-image: asset-url('logo.svg');
+@mixin lead-icon($icon, $size) {
+  background-image: asset-url($icon);
   background-position: 50% 50%;
   background-size: cover;
   display: block;
@@ -10,15 +10,15 @@
 }
 
 .lead-logo-sm {
-  @include lead-logo(10rem);
+  @include lead-icon('logo.svg', 10rem);
 }
 
 .lead-logo-md {
-  @include lead-logo(15rem);
+  @include lead-icon('logo.svg', 15rem);
 }
 
 .lead-logo-lg {
-  @include lead-logo(30rem);
+  @include lead-icon('logo.svg', 30rem);
 }
 
 .lead-title-md {
@@ -26,6 +26,22 @@
   font-weight: 200;
   line-height: 5rem;
   text-align: center;
+}
+
+.lead-icon-idea-sm {
+  @include lead-icon('icon_idea.svg', 10rem);
+}
+
+.lead-icon-list-sm {
+  @include lead-icon('icon_list.svg', 10rem);
+}
+
+.lead-icon-network-sm {
+  @include lead-icon('icon_network.svg', 10rem);
+}
+
+.lead-icon-sales-sm {
+  @include lead-icon('icon_sales.svg', 10rem);
 }
 
 @media only screen and (min-width: $screen-size-lg * .625) {

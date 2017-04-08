@@ -1,6 +1,7 @@
 .page {
   margin-top: $header-height;
   min-height: calc(100vh - #{$header-height});
+  position: relative;
 
   .page-footer {
     color: lead-color-level('background', -3);
