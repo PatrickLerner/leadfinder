@@ -79,11 +79,6 @@ class Entry extends Component {
       )
     }
 
-    let company = this.state.company;
-    if (this.state.company_cities.length > 0) {
-      company += ` (${this.state.company_cities.join(', ')})`
-    }
-
     const { isDragging, connectDragSource } = this.props;
     const lookupStyle = { opacity: isDragging ? 0.5 : 1 };
 
@@ -111,7 +106,7 @@ class Entry extends Component {
       }
       const iconClass = `fa fa-fw fa-${icon}`;
       return (
-        <a href={url} className='lookup-listing-profile-link' data-tooltip={url} key={url} target='_blank'>
+        <a href={url} className='lookup-listing-profile-link' key={url} target='_blank'>
           <i className={iconClass}></i>{name}
         </a>
       );
@@ -119,27 +114,29 @@ class Entry extends Component {
 
     return connectDragSource(
       <div className='lookup-listing' style={lookupStyle}>
-        <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
         <div className='row'>
-          <div className='col-12'>
+          <div className='col-3'>
+            <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
+          </div>
+          <div className='col-9'>
             <strong className='lookup-listing-name'>
               {name}
             </strong>
-          </div>
-          <div className='col-12 col-sm-6'>
             <span className='lookup-listing-position'>
               <i className='fa fa-fw fa-briefcase'></i>
               {this.state.position || (<i className='lookup-unknown'>{this.props.translate('Unknown')}</i>)}
             </span><br />
-            <span className='lookup-listing-company'>
+            <span className='lookup-listing-company' data-tooltip={this.state.company_cities.join(', ')}>
               <i className='fa fa-fw fa-building'></i>
-              {company}
+              {this.state.company}
             </span>
           </div>
-          <div className='col-12 col-sm-6'>
+        </div>
+        <div className='row'>
+          <div className='col-12'>
             <span className='lookup-listing-email'>
               {email}
-            </span><br />
+            </span>
             <span className='lookup-listing-profile-links'>
               {profiles}
             </span>

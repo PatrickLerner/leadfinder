@@ -44,11 +44,11 @@ class EntryListLink extends Component {
   }
 
   handleListConfirmClick(ev) {
-    const data = {
-      entry: {
-        lists: this.state.lists.filter(list => list.included).map(list => list.id)
-      }
-    };
+    let newLists = this.state.lists.filter(list => list.included).map(list => list.id);
+    if (newLists.length == 0) {
+      newLists.push('inbox');
+    }
+    const data = { entry: { lists: newLists } };
 
     this.handleClose.bind(this)();
 

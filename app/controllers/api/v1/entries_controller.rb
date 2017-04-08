@@ -41,7 +41,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   protected
 
   def update_update_lists
-    return unless entry_params.key?(:list_ids)
+    return unless params[:entry][:lists].present?
     entry_list_removed_ids.each { |id| ListChannel.remove_entry_from_list(entry, id) }
     entry_list_added_ids.each { |id| ListChannel.add_entry_to_list(entry, id) }
   end
@@ -75,7 +75,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
       :first_name, :middle_name, :last_name, :name, :title, :position, :company_name, :email, :domain,
       urls: []
     )
-    @entry_params[:list_ids] = lists_from_params unless lists_from_params.empty?
+    @entry_params[:list_ids] = lists_from_params if params[:entry][:lists].present?
     @entry_params
   end
 end
