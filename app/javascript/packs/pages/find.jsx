@@ -46,9 +46,14 @@ class Find extends Component {
 
   handleSearchButton(ev) {
     ev.preventDefault();
+    handleSearch('xing');
+  }
+
+  handleSearch(provider, ev) {
+    if (ev) { ev.preventDefault(); }
 
     const query = this.roleToString(roles[this.state.role]);
-    const site = 'site:xing.com/profile';
+    const site = provider === 'linkedin' ? 'site:linkedin.com/in' : 'site:xing.com/profile';
     const regionNames = this.state.regions.map(region => region.address_components[0].long_name);
 
     const regions = regionNames.length > 0 ? '(' + regionNames.map(r => `"${r}"`).join(' OR ') + ')' : ''
@@ -179,11 +184,21 @@ class Find extends Component {
             </div>
           </div>
           <div className='row'>
-            <div className='col-12 col-lg-6 col-lg-offset-3'>
+            <div className='col-12 col-lg-6'>
               <div className='form-control'>
-                <button className='button is-large is-full-width' type='submit'>
-                  <i className='fa fa-search fa-fw'></i>
-                  {this.props.translate('Search')}
+                <button className='button is-large is-full-width' type='submit'
+                        onClick={this.handleSearch.bind(this, 'xing')}>
+                  <i className='fa fa-xing fa-fw'></i>
+                  {this.props.translate('Search XING')}
+                </button>
+              </div>
+            </div>
+            <div className='col-12 col-lg-6'>
+              <div className='form-control'>
+                <button className='button is-large is-full-width' type='submit'
+                        onClick={this.handleSearch.bind(this, 'linkedin')}>
+                  <i className='fa fa-linkedin fa-fw'></i>
+                  {this.props.translate('Search LinkedIn')}
                 </button>
               </div>
             </div>
