@@ -118,7 +118,7 @@ class Entry extends Component {
           <div className='col-3'>
             <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
           </div>
-          <div className='col-9'>
+          <div className='col-9 lookup-info-container'>
             <strong className='lookup-listing-name'>
               {name}
             </strong>

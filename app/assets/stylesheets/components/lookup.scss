@@ -4,6 +4,18 @@
   margin: 2rem auto 0;
   max-width: 100rem + 2 * $lookup-padding;
 
+  .lookup-info-container {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .lookup-listing-position,
+    .lookup-listing-company {
+      display: inline-block;
+      overflow: visible;
+      max-width: 100%;
+    }
+  }
+
   .lookup-new {
     input,
     .button {
