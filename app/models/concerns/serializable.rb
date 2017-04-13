@@ -4,7 +4,7 @@ module Serializable
   def to_api(options = {})
     ActiveModelSerializers::SerializableResource.new(
       self,
-      include: options[:include] || []
+      options.reverse_merge(include: [])
     ).as_json
   end
 end

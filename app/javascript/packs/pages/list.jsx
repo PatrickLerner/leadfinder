@@ -13,18 +13,20 @@ import EntrySearch from './list/entry_search.jsx';
 import Entry from './list/entry.jsx';
 
 class List extends Component {
-  loadList(listId) {
+  loadList(listId, page) {
     this.setState(Object.assign({}, this.state, this.addChannelSubscription(listId), {
       listId,
+      page: page,
       loading: true
     }));
 
-    apiFetch(`/api/v1/lists/${listId}`, {
+    apiFetch(`/api/v1/lists/${listId}?page=${page}`, {
       'method': 'GET'
     }).then(res => res.json()).then(data => {
       this.setState(Object.assign({}, this.state, {
         loading: false,
-        list: data.list
+        list: data.list,
+        total_pages: data.list.entries_meta.total_pages
       }));
     });
   }
@@ -33,6 +35,8 @@ class List extends Component {
     super(props);
     this.state = {
       listId: this.props.params.listId,
+      page: 1,
+      total_pages: 1,
       loading: true,
       list: false,
       subscription: null,
@@ -41,12 +45,12 @@ class List extends Component {
   }
 
   componentDidMount() {
-    this.loadList(this.props.params.listId || 'inbox');
+    this.loadList(this.props.params.listId || 'inbox', 1);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.listId !== this.state.listId) {
-      this.loadList(nextProps.params.listId || 'inbox');
+      this.loadList(nextProps.params.listId || 'inbox', 1);
     }
   }
 
@@ -117,6 +121,17 @@ class List extends Component {
     });
   }
 
+  previousPage() {
+    if (this.state.page == 1) { return; }
+    this.loadList(this.state.listId, this.state.page - 1);
+  }
+
+  nextPage() {
+    if (this.state.page == this.state.total_pages) { return; }
+    this.loadList(this.state.listId, this.state.page + 1);
+  }
+
+
   render() {
     if (this.state.loading) {
       return (<div className='loading-indicator'>
@@ -147,6 +162,19 @@ class List extends Component {
         <EntrySearch listId={this.state.listId} />
         <div className='lookup'>
           {entries}
+        </div>
+        <div className='pagination'>
+          <a onClick={this.previousPage.bind(this)} className='pagination-link'
+             disabled={this.state.page == 1}>
+            <i className='fa fa-fw fa-chevron-left' />
+          </a>
+          <span className='pagination-number'>
+            {this.state.page} / {this.state.total_pages}
+          </span>
+          <a onClick={this.nextPage.bind(this)} className='pagination-link'
+             disabled={this.state.page == this.state.total_pages}>
+            <i className='fa fa-fw fa-chevron-right' />
+          </a>
         </div>
       </div>
     );

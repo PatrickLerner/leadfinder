@@ -1,0 +1,10 @@
+.pagination {
+  margin-top: 2rem;
+  text-align: center;
+
+  .pagination-link {
+    &[disabled] {
+      opacity: .3;
+    }
+  }
+}

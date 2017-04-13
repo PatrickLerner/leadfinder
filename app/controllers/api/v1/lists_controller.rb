@@ -9,7 +9,7 @@ class Api::V1::ListsController < Api::V1::BaseController
   end
 
   def show
-    render json: { list: list.to_api(include: %i(entries)) }
+    render json: { list: list.to_api(include: %i(entries), page: params[:page]) }
   end
 
   def create
