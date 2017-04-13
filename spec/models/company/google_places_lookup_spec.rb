@@ -3,9 +3,9 @@ require 'rails_helper'
 describe Company::GooglePlacesLookup, type: :model do
   let(:spots) do
     [
-      { name: 'Launchwerk', place_id: :no_website },
+      { name: 'Launchwerk GmbH', place_id: :no_website },
       { name: 'Launchwerk GmbH', place_id: :website },
-      { name: 'Launchwerk', place_id: :no_website_2 }
+      { name: 'Launchwerk GmbH', place_id: :no_website_2 }
     ]
   end
 
@@ -25,6 +25,7 @@ describe Company::GooglePlacesLookup, type: :model do
         postal_code: '20537',
         country: 'Germany'
       }
+      response.merge!(name: 'Launchfactory', city: 'Baghdad') if ref == :launchfactory
       if ref == :no_website
         response.merge(website: nil, city: 'Darmstadt')
       elsif ref == :no_website_2
@@ -54,6 +55,12 @@ describe Company::GooglePlacesLookup, type: :model do
   end
 
   it 'adds addresses' do
+    company = Company::GooglePlacesLookup.lookup('Launchwerk GmbH')
+    expect(company.addresses.pluck(:city).sort).to eq(%w(Berlin Darmstadt Hamburg))
+  end
+
+  it 'only saves addresses of exactly matching company names' do
+    spots << { name: 'Launchfactory 2000', place_id: :launchfactory }
     company = Company::GooglePlacesLookup.lookup('Launchwerk GmbH')
     expect(company.addresses.pluck(:city).sort).to eq(%w(Berlin Darmstadt Hamburg))
   end
