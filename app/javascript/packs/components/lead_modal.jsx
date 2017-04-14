@@ -18,6 +18,7 @@ export default class LeadModal extends Component {
   }
 
   render() {
+    if(!this.state.isOpen) { return (<span></span>); }
     const { children } = this.state;
     const modalClasses = `modal modal-${this.state.size}`;
 

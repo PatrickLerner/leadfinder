@@ -121,5 +121,10 @@ export default {
     'Save': 'Speichern',
     'Edit lead': 'Lead bearbeiten',
     'Change the details of this lead to get accurate results.': 'Bearbeiten Sie die Details dieses Leads um akkurate Ergebnisse zu erhalten.'
+  },
+  Dashboard: {
+    'Download Chrome Extension': 'Chrome Erweiterung',
+    "Install 'Lead Finder' Chrome Extension": "'Lead Finder' Erweiterung installieren",
+    'To make adding new leads a breeze, install the free Chrome Extension.': 'Um Leads einfach hinzuzufügen, installieren Sie die Erweiterung'
   }
 };

@@ -14,7 +14,7 @@ export default class StepsInfo extends Component {
         </div>
         <div className='col-lg-3 col-12'>
           <div className='lead-icon-list-sm'></div>
-          <h1 className='steps-info-title'>Sort Leads</h1>
+          <h1 className='steps-info-title'>Lead Lists</h1>
         </div>
         <div className='col-lg-3 col-12'>
           <div className='lead-icon-sales-sm'></div>
