@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import { Link } from 'react-router';
 import uuidV4 from 'uuid/v4';

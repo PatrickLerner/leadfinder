@@ -1,17 +1,23 @@
 input,
 select,
 textarea {
-  border: .1rem lead-color-level('foreground', 6) solid;
-  border-radius: $border-radius;
+  background: transparent;
+  border: 0;
+  border-bottom: .1rem lead-color-level('foreground', 6) solid;
   outline: none;
+  transition: border-color .5s;
 
   &.is-large {
     font-size: 1.6rem;
-    padding: 1rem;
+    padding: 1rem 0;
   }
 
   &:focus {
     border-color: lead-color-level('primary', 0);
+  }
+
+  &::placeholder {
+    color: lead-color-alpha('foreground', .5);
   }
 }
 
@@ -26,8 +32,9 @@ select {
 label {
   color: lead-color-level('foreground', 3);
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: .3rem;
+  text-transform: uppercase;
 }
 
 .row {
@@ -37,7 +44,7 @@ label {
 }
 
 .form-control {
-  margin: 1rem 0;
+  margin: 2rem 0;
 
   [type='radio'] {
     margin: 0 1rem 0 2rem;

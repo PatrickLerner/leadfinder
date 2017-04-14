@@ -1,6 +1,7 @@
 class ListSerializer < ActiveModel::Serializer
-  attributes :id, :name, :sort_by, :entries_meta
+  attributes :id, :name, :sort_by
 
+  has_many :entries_meta
   has_many :entries
   belongs_to :user
 
@@ -20,7 +21,7 @@ class ListSerializer < ActiveModel::Serializer
     {
       page: (@page.presence || 1).to_i,
       per_page: PER_PAGE,
-      total_pages: (object.entries.count.to_f / PER_PAGE.to_f).ceil
+      total_pages: [(object.entries.count.to_f / PER_PAGE.to_f).ceil, 1].max
     }
   end
 end

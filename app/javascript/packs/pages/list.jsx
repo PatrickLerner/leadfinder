@@ -155,14 +155,9 @@ class List extends Component {
       name = this.props.translate(name);
     }
 
-    return (
-      <div>
-        {actions}
-        <h1 className='page-title'>{name}</h1>
-        <EntrySearch listId={this.state.listId} />
-        <div className='lookup'>
-          {entries}
-        </div>
+    let pagination = null;
+    if (this.state.total_pages > 1) {
+      pagination = (
         <div className='pagination'>
           <a onClick={this.previousPage.bind(this)} className='pagination-link'
              disabled={this.state.page == 1}>
@@ -176,6 +171,18 @@ class List extends Component {
             <i className='fa fa-fw fa-chevron-right' />
           </a>
         </div>
+      );
+    }
+
+    return (
+      <div>
+        <h1 className='page-title'>{name}</h1>
+        <div className='page-title-actions'>{actions}</div>
+        <EntrySearch listId={this.state.listId} />
+        <div className='lookup'>
+          {entries}
+        </div>
+        {pagination}
       </div>
     );
   }

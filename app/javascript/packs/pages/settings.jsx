@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import translate from '../helpers/translate.js';
 import { apiFetch } from '../helpers/api_fetch.js';

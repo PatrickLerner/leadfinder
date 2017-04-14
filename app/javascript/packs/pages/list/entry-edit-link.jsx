@@ -105,7 +105,8 @@ class EntryEditLink extends Component {
                 <label htmlFor='entry_edit_first_name'>{this.props.translate('user', 'First Name')}</label>
                 <input className='is-large' type='text' name='first_name' autoFocus id='entry_edit_first_name'
                        value={this.state.entry.first_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='First name' onKeyPress={this.handleKeyPress.bind(this)} />
+                       placeholder={this.props.translate('user', 'First Name')}
+                       onKeyPress={this.handleKeyPress.bind(this)} />
               </div>
             </div>
             <div className='col-12 col-lg-4'>
@@ -113,7 +114,8 @@ class EntryEditLink extends Component {
                 <label htmlFor='entry_edit_first_name'>{this.props.translate('user', 'Middle Name')}</label>
                 <input className='is-large' type='text' name='middle_name' id='entry_edit_middle_name'
                        value={this.state.entry.middle_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Middle name' onKeyPress={this.handleKeyPress.bind(this)} />
+                       placeholder={this.props.translate('user', 'Middle Name')}
+                       onKeyPress={this.handleKeyPress.bind(this)} />
               </div>
             </div>
             <div className='col-12 col-lg-4'>
@@ -121,7 +123,8 @@ class EntryEditLink extends Component {
                 <label htmlFor='entry_edit_last_name'>{this.props.translate('user', 'Last Name')}</label>
                 <input className='is-large' type='text' name='last_name' id='entry_edit_last_name'
                        value={this.state.entry.last_name} onChange={this.handleInputChange.bind(this)}
-                       placeholder='Last name' onKeyPress={this.handleKeyPress.bind(this)} />
+                       placeholder={this.props.translate('user', 'Last Name')}
+                       onKeyPress={this.handleKeyPress.bind(this)} />
               </div>
             </div>
           </div>

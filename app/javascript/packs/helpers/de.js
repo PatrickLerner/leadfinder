@@ -6,6 +6,7 @@ export default {
     'Title': 'Titel',
     'First Name': 'Vorname',
     'Last Name': 'Nachname',
+    'Name': 'Name',
     'Middle Name': 'Zwischenname',
     'Position': 'Position',
     'Domain': 'Domain',

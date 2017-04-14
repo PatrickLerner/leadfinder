@@ -7,4 +7,11 @@
       opacity: .3;
     }
   }
+
+  .pagination-number {
+    color: lead-color-level('foreground', 2);
+    font-size: 1.6rem;
+    margin: 0 2rem;
+    text-align: center;
+  }
 }

@@ -1,4 +1,8 @@
 .page {
+  $gradient: linear-gradient(lead-color-alpha('background', .43), lead-color('background'));
+  background-image: $gradient, asset-url('bg_wave.png');
+  background-repeat: no-repeat;
+  background-size: contain;
   margin-top: $header-height;
   min-height: calc(100vh - #{$header-height});
   position: relative;
@@ -12,16 +16,22 @@
 
   .page-title {
     color: lead-color-level('foreground', 3);
-    font-size: 3.4rem;
+    font-size: 4.4rem;
     font-weight: 200;
     line-height: 5.4rem;
-    margin-bottom: 3rem;
+    margin: 3rem auto 0;
+    max-width: 100rem;
+  }
+
+  .page-title-actions {
+    margin: auto;
+    max-width: 100rem;
+    text-align: right;
   }
 
   .page-title-action {
     color: lead-color-level('foreground', 3);
     cursor: pointer;
-    float: right;
     font-size: 1.6rem;
     line-height: 5.4rem;
     margin-left: 2rem;

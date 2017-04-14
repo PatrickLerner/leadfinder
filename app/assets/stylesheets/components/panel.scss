@@ -3,12 +3,8 @@
   border: .1rem solid lead-color-level('menu', -2);
   border-radius: $border-radius;
   margin: 2rem auto 0;
-  max-width: 70rem;
+  max-width: 100rem;
   padding: 2rem;
-
-  &.is-large {
-    max-width: 100rem;
-  }
 
   .panel-header-title {
     color: lead-color-level('foreground', 3);
@@ -44,12 +40,16 @@
   padding: 2rem 3rem;
 
   a {
-    &:not(.button) {
-      cursor: pointer;
+    cursor: pointer;
 
-      &:hover {
-        text-decoration: underline;
-      }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .button {
+    &:hover {
+      text-decoration: none;
     }
   }
 

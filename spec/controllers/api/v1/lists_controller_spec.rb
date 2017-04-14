@@ -84,7 +84,7 @@ describe Api::V1::ListsController, type: :controller do
     it 'allows showing a list' do
       get :show, params: { id: 'inbox' }
       expect(response).to be_success
-      expect(body[:list].keys.sort).to eq(%w(entries id name sort_by))
+      expect(body[:list].keys.sort).to eq(%w(entries entries_meta id name sort_by))
     end
   end
 end

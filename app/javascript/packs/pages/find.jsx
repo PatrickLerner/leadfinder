@@ -142,68 +142,70 @@ class Find extends Component {
     });
 
     return (
-      <div className='panel panel-find'>
+      <div>
         <h1 className='page-title'>
           {this.props.translate('Find Leads')}
         </h1>
-        <form onSubmit={this.handleSearchButton.bind(this)}>
-          <div className='row'>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <label>{this.props.translate('Role / Function')}</label>
-                <select onChange={this.roleSelected.bind(this)} className='is-large'>
-                  {role_options}
-                </select>
-                <small className='u-single-line'>{examples.join(', ')}</small>
+        <div className='panel panel-find'>
+          <form onSubmit={this.handleSearchButton.bind(this)}>
+            <div className='row'>
+              <div className='col-12 col-lg-6'>
+                <div className='form-control'>
+                  <label>{this.props.translate('Role / Function')}</label>
+                  <select onChange={this.roleSelected.bind(this)} className='is-large'>
+                    {role_options}
+                  </select>
+                  <small className='u-single-line'>{examples.join(', ')}</small>
+                </div>
+              </div>
+              <div className='col-12 col-lg-6'>
+                <div className='form-control'>
+                  <label>{this.props.translate('Industry')}</label>
+                  <select onChange={this.industrySelected.bind(this)} className='is-large'>
+                    {industry_options}
+                  </select>
+                </div>
               </div>
             </div>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <label>{this.props.translate('Industry')}</label>
-                <select onChange={this.industrySelected.bind(this)} className='is-large'>
-                  {industry_options}
-                </select>
+            <div className='row'>
+              <div className='col-12'>
+                <div className='form-control'>
+                  <label>{this.props.translate('Region')}</label>
+                  <Autocomplete className='is-large' name='region' type='text' value={this.state.region}
+                                placeholder={this.props.translate('Enter region here')}
+                                onChange={this.handleInputChange.bind(this)}
+                                onKeyPress={this.preventEnter.bind(this)}
+                                onPlaceSelected={this.regionSelected.bind(this)} types={['(cities)']} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='col-12'>
-              <div className='form-control'>
-                <label>{this.props.translate('Region')}</label>
-                <Autocomplete className='is-large' name='region' type='text' value={this.state.region}
-                              placeholder={this.props.translate('Enter region here')}
-                              onChange={this.handleInputChange.bind(this)}
-                              onKeyPress={this.preventEnter.bind(this)}
-                              onPlaceSelected={this.regionSelected.bind(this)} types={['(cities)']} />
+            <div className='row'>
+              <div className='col-12'>
+                {regions}
               </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='col-12'>
-              {regions}
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <button className='button is-large is-full-width' type='submit'
-                        onClick={this.handleSearch.bind(this, 'xing')}>
-                  <i className='fa fa-xing fa-fw'></i>
-                  {this.props.translate('Search XING')}
-                </button>
+            <div className='row'>
+              <div className='col-12 col-lg-4 col-lg-offset-2'>
+                <div className='form-control'>
+                  <button className='button is-large is-full-width' type='submit'
+                          onClick={this.handleSearch.bind(this, 'xing')}>
+                    <i className='fa fa-xing fa-fw'></i>
+                    {this.props.translate('Search XING')}
+                  </button>
+                </div>
+              </div>
+              <div className='col-12 col-lg-4'>
+                <div className='form-control'>
+                  <button className='button is-large is-full-width' type='submit'
+                          onClick={this.handleSearch.bind(this, 'linkedin')}>
+                    <i className='fa fa-linkedin fa-fw'></i>
+                    {this.props.translate('Search LinkedIn')}
+                  </button>
+                </div>
               </div>
             </div>
-            <div className='col-12 col-lg-6'>
-              <div className='form-control'>
-                <button className='button is-large is-full-width' type='submit'
-                        onClick={this.handleSearch.bind(this, 'linkedin')}>
-                  <i className='fa fa-linkedin fa-fw'></i>
-                  {this.props.translate('Search LinkedIn')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }

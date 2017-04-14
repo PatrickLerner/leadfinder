@@ -1,5 +1,10 @@
 .panel {
   &.panel-entry-search {
+    margin-top: 0;
     max-width: 100rem;
+
+    .form-control {
+      margin-top: 0;
+    }
   }
 }

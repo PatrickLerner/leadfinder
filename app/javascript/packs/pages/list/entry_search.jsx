@@ -8,8 +8,7 @@ class EntrySearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: '',
-      last_name: '',
+      name: '',
       company_name: '',
       lists: [props.listId]
     };
@@ -40,8 +39,7 @@ class EntrySearch extends Component {
         alert('Error');
       } else {
         this.setState(Object.assign({}, this.state, {
-          first_name: '',
-          last_name: '',
+          name: '',
           company_name: ''
         }));
       }
@@ -52,23 +50,15 @@ class EntrySearch extends Component {
     return (
       <div className='panel panel-entry-search'>
         <div className='row'>
-          <div className='col-12 col-lg-3'>
+          <div className='col-12 col-lg-4'>
             <div className='form-control'>
-              <label htmlFor='entry_search_first_name'>{this.props.translate('user', 'First Name')}</label>
-              <input className='is-large' type='text' name='first_name' autoFocus id='entry_search_first_name'
-                     value={this.state.first_name} onChange={this.handleInputChange.bind(this)}
-                     placeholder='Peter' onKeyPress={this.handleKeyPress.bind(this)} />
+              <label htmlFor='entry_search_first_name'>{this.props.translate('user', 'Name')}</label>
+              <input className='is-large' type='text' name='name' autoFocus id='entry_search_name'
+                     value={this.state.name} onChange={this.handleInputChange.bind(this)}
+                     placeholder='Peter Miller' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
           </div>
-          <div className='col-12 col-lg-3'>
-            <div className='form-control'>
-              <label htmlFor='entry_search_last_name'>{this.props.translate('user', 'Last Name')}</label>
-              <input className='is-large' type='text' name='last_name' id='entry_search_last_name'
-                     value={this.state.last_name} onChange={this.handleInputChange.bind(this)}
-                     placeholder='Miller' onKeyPress={this.handleKeyPress.bind(this)} />
-            </div>
-          </div>
-          <div className='col-12 col-lg-3'>
+          <div className='col-12 col-lg-4'>
             <div className='form-control'>
               <label htmlFor='entry_search_company_name'>{this.props.translate('user', 'Company')}</label>
               <input className='is-large' type='text' name='company_name' id='entry_search_company_name'
@@ -76,7 +66,7 @@ class EntrySearch extends Component {
                      placeholder='Miller & Son Corp.' onKeyPress={this.handleKeyPress.bind(this)} />
             </div>
           </div>
-          <div className='col-12 col-lg-3'>
+          <div className='col-12 col-lg-4'>
             <div className='form-control'>
               <label>&nbsp;</label>
               <a className='button is-large is-full-width' onClick={this.handleSearchClick.bind(this)}>

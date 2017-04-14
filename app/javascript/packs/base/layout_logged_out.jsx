@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
 
 import translate from '../helpers/translate.js';
@@ -49,10 +50,10 @@ class Layout extends Component {
         <Menu onSignOut={this.onSignOut.bind(this)} signedIn={this.state.signedIn} />
         <div className='page-content'>
           { children }
-          <footer className='page-footer'>
-            &copy; { (new Date).getFullYear() } Lead Finder
-          </footer>
         </div>
+        <footer className='page-footer'>
+          &copy; { (new Date).getFullYear() } Lead Finder
+        </footer>
       </div>
     );
   }

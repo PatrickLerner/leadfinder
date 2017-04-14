@@ -22,4 +22,17 @@ class Entry < ApplicationRecord
       .group('entries.id')
       .where('el.list_id IS NULL')
   }
+
+  searchkick
+
+  def search_data
+    as_json(
+      only: %i(
+        first_name middle_name last_name
+        position company_name email
+        user_id lookup_state company_id
+        created_at updated_at
+      )
+    )
+  end
 end
