@@ -1,0 +1,31 @@
+.notifications {
+  left: 0;
+  perspective: 10rem;
+  position: fixed;
+  right: 0;
+  top: $header-height;
+  z-index: $z-index-10;
+
+  .notifications-item {
+    background-color: lead-color('primary');
+    box-shadow: 0 0 1rem 0 lead-color-alpha('foreground', .3);
+    color: lead-color('background');
+    display: block;
+    font-size: 1.5rem;
+    margin: 1rem auto 0;
+    max-width: 30rem;
+    opacity: 0;
+    padding: 1.5rem 2rem;
+    transform: rotateX(-90deg);
+    transition: transform .5s cubic-bezier(.36, -.64, .34, 1.76), opacity .5s cubic-bezier(.36, -.64, .34, 1.76);
+
+    &.is-danger {
+      background-color: lead-color('delete');
+    }
+
+    &.is-shown {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../../helpers/api_fetch.js';
@@ -29,13 +30,13 @@ export default class SignIn extends Component {
     apiFetch('/api/v1/session', {
       method: 'POST',
       body: JSON.stringify(data)
-    }).then(res => {
-      if (res.status === 200) {
+    }).then(res => res.json()).then(res => {
+      if (res.errors === undefined) {
         browserHistory.replace('/dashboard');
-      } else if (res.status === 401) {
+      } else if (res.errors === 'unconfirmed') {
         browserHistory.replace(`/confirm/email/${this.state.email}`);
       } else {
-        alert('Login failed');
+        this.context.addNotification({ text: 'Your E-Mail or password is incorrect.', class: 'danger' });
       }
     });
   }
@@ -74,3 +75,7 @@ export default class SignIn extends Component {
     );
   }
 }
+
+SignIn.contextTypes = {
+  addNotification: PropTypes.func
+};

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -176,5 +177,9 @@ class EntryEditLink extends Component {
     );
   }
 }
+
+EntryEditLink.contextTypes = {
+  addNotification: PropTypes.func
+};
 
 export default translate('EntryEditLink')(EntryEditLink);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -48,7 +49,7 @@ class MenuAddList extends Component {
       body: JSON.stringify(data)
     }).then(res => res.json()).then(data => {
       if (data.errors) {
-        alert('Could not create list');
+        this.context.addNotification({ text: 'Could not create list', class: 'danger' });
       } else {
         browserHistory.replace(`/lists/${data.list.id}`);
         this.handleClose();
@@ -83,5 +84,9 @@ class MenuAddList extends Component {
     );
   }
 }
+
+MenuAddList.contextTypes = {
+  addNotification: PropTypes.func
+};
 
 export default translate('MenuAddList')(MenuAddList);

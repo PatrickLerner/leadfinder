@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../helpers/api_fetch.js';
@@ -59,3 +60,7 @@ export default class ResetPassword extends Component {
     );
   }
 }
+
+ResetPassword.contextTypes = {
+  addNotification: PropTypes.func
+};

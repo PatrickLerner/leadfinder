@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 
 import { apiFetch } from '../../helpers/api_fetch.js';
@@ -49,7 +50,7 @@ export default class SignUp extends Component {
       if (res.user) {
         browserHistory.replace(`/confirm/email/${this.state.email}`);
       } else {
-        alert('Sign up not successful.')
+        this.context.addNotification({ text: 'Please fill in all required fields.', class: 'danger' });
       }
     });
   }
@@ -131,3 +132,7 @@ export default class SignUp extends Component {
     );
   }
 }
+
+SignUp.contextTypes = {
+  addNotification: PropTypes.func
+};

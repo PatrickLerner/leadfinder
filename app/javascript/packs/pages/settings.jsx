@@ -8,7 +8,6 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      success: null,
       loaded: false,
       user: {
         language: 'en',
@@ -52,11 +51,14 @@ class Settings extends Component {
       if (data.errors === undefined) {
         this.context.setLanguage(data.user.language);
       }
-      this.setState(Object.assign({}, this.state, {
-        success: data.errors === undefined
-      }));
+      if (data.errors === undefined) {
+        this.context.addNotification({ text: this.props.translate('Successfully saved.') });
+      } else {
+        this.context.addNotification({ text: this.props.translate('Could not save settings.'), class: 'danger' });
+      }
     });
   }
+
 
   render() {
     if (!this.state.loaded) {
@@ -73,30 +75,11 @@ class Settings extends Component {
       );
     });
 
-    let success = null;
-    if (this.state.success === true) {
-      success = (
-        <div className='alert-box is-accent'>
-          <i className='fa fa-fw fa-check'></i>
-          {this.props.translate('Successfully saved.')}
-        </div>
-      );
-    } else if (this.state.success === false) {
-      success = (
-        <div className='alert-box is-delete'>
-          <i className='fa fa-fw fa-times'></i>
-          {this.props.translate('Could not save settings.')}
-        </div>
-      );
-    }
-
     return (
       <div>
         <h1 className='page-title'>
           {this.props.translate('Settings')}
         </h1>
-
-        {success}
 
         <div className='panel'>
           <form onSubmit={this.handleSubmitClick.bind(this)}>
@@ -131,10 +114,14 @@ class Settings extends Component {
               </div>
             </div>
             <div className='panel-button-container'>
-              <button className='button is-large is-full-width' type='submit'>
-                <i className='fa fa-fw fa-save'></i>
-                {this.props.translate('Save')}
-              </button>
+              <div className='row'>
+                <div className='col-12 col-lg-6 col-lg-offset-3'>
+                  <button className='button is-large is-full-width' type='submit'>
+                    <i className='fa fa-fw fa-save'></i>
+                    {this.props.translate('Save')}
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -145,7 +132,8 @@ class Settings extends Component {
 
 Settings.contextTypes = {
   currentLanguage: PropTypes.string,
-  setLanguage: PropTypes.func
+  setLanguage: PropTypes.func,
+  addNotification: PropTypes.func
 };
 
 export default translate('Settings')(Settings);

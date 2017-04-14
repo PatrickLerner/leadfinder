@@ -7,8 +7,9 @@ import { apiFetch } from '../helpers/api_fetch.js';
 export default class ConfirmMail extends Component {
   constructor(props) {
     super(props);
+    const token = props.params.confirmationToken !== 'email' ? props.params.confirmationToken : null;
     this.state = {
-      token: props.params.confirmationToken,
+      token: token,
       email: props.params.email,
       success: false,
       loading: true,
