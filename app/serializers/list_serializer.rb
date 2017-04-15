@@ -14,7 +14,7 @@ class ListSerializer < ActiveModel::Serializer
 
   def entries
     offset = ((@page.presence || 1).to_i - 1) * PER_PAGE
-    object.entries.order(created_at: :desc).offset(offset).limit(PER_PAGE)
+    object.list_entries.includes(:entry).order(created_at: :desc).offset(offset).limit(PER_PAGE).map(&:entry)
   end
 
   def entries_meta

@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import StepsInfo from '../components/steps_info.jsx'
 import translate from '../helpers/translate.js';
+import { apiFetch } from '../helpers/api_fetch.js';
+import Entry from './list/entry.jsx';
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latestEntries: []
+    };
+  }
+
+  componentWillMount() {
+    apiFetch(`/api/v1/entries/latest`, {
+      'method': 'GET'
+    }).then(res => res.json()).then(data => {
+      this.setState(Object.assign({}, this.state, { latestEntries: data.entries }));
+    });
+  }
+
   render() {
+    const latestEntries = this.state.latestEntries.map(entry => {
+      return (<Entry entry={entry} key={entry.id} />);
+    });
+
     return (
       <div>
         <h1 className='page-title'>
@@ -23,11 +44,18 @@ class Dashboard extends Component {
               </p>
             </div>
             <div className='col-12 col-lg-4'>
-              <a className='button' href='https://chrome.google.com/webstore/detail/lead-finder/ebahffgopncfllemdjniblnjlbeikfdg' target='_blank'>
+              <a className='button is-full-width' target='_blank'
+                 href='https://chrome.google.com/webstore/detail/lead-finder/ebahffgopncfllemdjniblnjlbeikfdg'>
                 <i className='fa fa-fw fa-chrome'></i> {this.props.translate('Download Chrome Extension')}
               </a>
             </div>
           </div>
+        </div>
+
+        <h2 className='page-subtitle'>{this.props.translate('Latest leads')}</h2>
+
+        <div className='lookup lookup-dashboard-latest'>
+          {latestEntries}
         </div>
       </div>
     );

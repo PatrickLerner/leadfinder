@@ -155,7 +155,7 @@ class Find extends Component {
                   <select onChange={this.roleSelected.bind(this)} className='is-large'>
                     {role_options}
                   </select>
-                  <small className='u-single-line'>{examples.join(', ')}</small>
+                  <small className='u-single-line u-text-light'>{examples.join(', ')}</small>
                 </div>
               </div>
               <div className='col-12 col-lg-6'>

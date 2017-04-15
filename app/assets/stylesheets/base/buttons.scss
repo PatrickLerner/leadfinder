@@ -1,10 +1,12 @@
+$button-gradient: .5;
+
 button {
   appearance: none;
   outline: none;
 }
 
 .button {
-  background-color: lead-color('button');
+  background-image: linear-gradient(lead-color('button'), lead-color-level('button', -$button-gradient));
   border: 0;
   border-radius: $border-radius;
   color: lead-color('background');
@@ -23,7 +25,7 @@ button {
   }
 
   &:hover {
-    background-color: lead-color-level('button', 1);
+    background-image: linear-gradient(lead-color-level('button', $button-gradient), lead-color('button'));
   }
 
   .fa {
@@ -37,26 +39,26 @@ button {
   }
 
   &.is-light {
-    background-color: lead-color('menu');
+    background-image: linear-gradient(lead-color('menu'), lead-color-level('menu', -$button-gradient));
     border: .1rem solid lead-color-level('menu', -2);
     color: lead-color('foreground');
 
     &:hover {
-      background-color: lead-color-level('menu', -.5);
+      background-color: lead-color-level('menu', -$button-gradient);
     }
   }
 
   &.is-delete {
-    background-color: lead-color('delete');
+    background-image: linear-gradient(lead-color('delete'), lead-color-level('delete', -$button-gradient));
     color: lead-color('background');
 
     &:hover {
-      background-color: lead-color-level('delete', 1);
+      background-image: linear-gradient(lead-color-level('delete', $button-gradient), lead-color('delete'));
     }
   }
 
   &.is-abort {
-    background-color: lead-color('abort');
+    background-image: linear-gradient(lead-color('abort'), lead-color-level('abort', -$button-gradient));
     color: lead-color('background');
   }
 

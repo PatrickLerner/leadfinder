@@ -26,3 +26,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.u-text-light {
+  color: lead-color-level('background', -3);
+}

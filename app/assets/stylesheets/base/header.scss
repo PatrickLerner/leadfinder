@@ -3,7 +3,7 @@
   $header-padding: 2rem;
 
   align-items: center;
-  background-color: lead-color('primary');
+  background-image: linear-gradient(to right, lead-color('primary'), darken(lead-color('primary'), 5%));
   border-bottom: .1rem solid lead-color-level('primary', -2);
   color: lead-color('background');
   display: flex;

@@ -10,7 +10,7 @@
   .page-footer {
     color: lead-color-level('background', -3);
     font-size: 1.4rem;
-    margin: 3rem 0;
+    padding: 3rem 0;
     text-align: center;
   }
 
@@ -20,6 +20,14 @@
     font-weight: 200;
     line-height: 5.4rem;
     margin: 3rem auto 0;
+    max-width: 100rem;
+  }
+
+  .page-subtitle {
+    color: lead-color-level('foreground', 3);
+    font-size: 3.5rem;
+    font-weight: 200;
+    margin: 5rem auto 4rem;
     max-width: 100rem;
   }
 

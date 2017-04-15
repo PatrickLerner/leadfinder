@@ -7,11 +7,13 @@
     }
 
     .button {
-      background-color: lead-color-level('delete', 2);
+      background-image: linear-gradient(lead-color-level('delete', 2), lead-color-level('delete', 2-$button-gradient));
       margin-top: 1.5rem;
 
       &:hover {
-        background-color: lead-color-level('delete', 3);
+        $color1: lead-color-level('delete', 2-$button-gradient);
+        $color2: lead-color-level('delete', 2-2*$button-gradient);
+        background-image: linear-gradient($color1, $color2);
       }
     }
   }

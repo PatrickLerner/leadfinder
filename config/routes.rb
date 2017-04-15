@@ -21,6 +21,10 @@ Rails.application.routes.draw do
         end
       end
       resources :entries, only: [:create, :update, :destroy, :show] do
+        collection do
+          get :latest
+        end
+
         member do
           get :lists
         end

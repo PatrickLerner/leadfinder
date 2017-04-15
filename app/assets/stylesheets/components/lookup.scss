@@ -1,8 +1,15 @@
 .lookup {
+  $hover-transition: .4s;
   $lookup-padding: 2rem;
 
   margin: 2rem auto 0;
   max-width: 100rem + 2 * $lookup-padding;
+
+  &.lookup-dashboard-latest {
+    .lookup-listing {
+      margin-top: 0;
+    }
+  }
 
   .lookup-info-container {
     overflow: hidden;
@@ -55,14 +62,17 @@
 
   .lookup-listing {
     background-color: lead-color('menu');
+    background-image: asset-url('bg_business_card.png');
     border: .1rem solid lead-color-level('menu', -2);
-    border-radius: $border-radius;
+    box-shadow: .4rem .4rem 2rem 0 lead-color-alpha('foreground', .2);
     display: inline-block;
     font-size: 1.5rem;
     height: 28rem;
     margin: 2 * $lookup-padding $lookup-padding 0;
     padding: 3rem;
     position: relative;
+    transform: none;
+    transition: transform $hover-transition, box-shadow $hover-transition;
     vertical-align: bottom;
     width: calc(100%/2 - (2 * #{$lookup-padding}));
 
@@ -97,18 +107,12 @@
     }
 
     .lookup-button {
-      opacity: 0;
-      transition: opacity .4s, color .4s;
-    }
+      opacity: .5;
+      transition: opacity $hover-transition, color $hover-transition;
 
-    &:hover {
-      .lookup-button {
-        opacity: .6;
-
-        &:hover {
-          color: lead-color('primary');
-          opacity: .8;
-        }
+      &:hover {
+        color: lead-color('primary');
+        opacity: .8;
       }
     }
 

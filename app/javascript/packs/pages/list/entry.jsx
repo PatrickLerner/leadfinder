@@ -127,7 +127,7 @@ class Entry extends Component {
               <i className='fa fa-fw fa-briefcase'></i>
               {this.state.position || (<i className='lookup-unknown'>{this.props.translate('Unknown')}</i>)}
             </span><br />
-            <span className='lookup-listing-company' data-tooltip={this.state.company_cities.join(', ')}>
+            <span className='lookup-listing-company'>
               <i className='fa fa-fw fa-building'></i>
               {this.state.company}
             </span>
