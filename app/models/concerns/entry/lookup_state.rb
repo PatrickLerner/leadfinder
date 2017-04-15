@@ -13,7 +13,8 @@ class Entry < ApplicationRecord
       LOOKUP_STATE_FAILURE_CONNECTION = :failure_connection,
       LOOKUP_STATE_FAILURE_ACCEPTS_ALL = :failure_accepts_all,
       LOOKUP_STATE_FAILURE_NONE_VALID = :failure_none_valid,
-      LOOKUP_STATE_FAILURE_NOT_ATTEMPTED = :failure_not_attempted
+      LOOKUP_STATE_FAILURE_NOT_ATTEMPTED = :failure_not_attempted,
+      LOOKUP_STATE_DUPLICATE = :duplicate
     ].freeze
 
     LOOKUP_STATES_FAILURE = [
@@ -29,6 +30,7 @@ class Entry < ApplicationRecord
       before_save :need_update_lists?
       before_save :should_research?
       after_save :update_lists!, if: -> { @update_lists }
+      before_destroy :remove_lists!
 
       validates :lookup_state, inclusion: { in: LOOKUP_STATES }, presence: true
     end
@@ -80,6 +82,13 @@ class Entry < ApplicationRecord
         ListChannel.update_entry_in_list(self, list_id)
       end
       @update_lists = false
+      true
+    end
+
+    def remove_lists!
+      (lists.map(&:id).presence || %i(inbox)).each do |list_id|
+        ListChannel.remove_entry_from_list(self, list_id)
+      end
       true
     end
   end

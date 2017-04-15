@@ -1,6 +1,7 @@
 class Entry < ApplicationRecord
   include Entry::LookupState
   include Entry::Lookup
+  include Entry::Duplicate
   include Entry::Guess
   include Entry::Name
   include Entry::Urls
@@ -10,7 +11,7 @@ class Entry < ApplicationRecord
   belongs_to :company, optional: true
   has_many :list_entries, class_name: 'List::Entry', dependent: :destroy
   has_many :lists, through: :list_entries
-  has_many :links, class_name: 'Entry::Link'
+  has_many :links, class_name: 'Entry::Link', dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

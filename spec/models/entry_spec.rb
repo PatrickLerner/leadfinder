@@ -73,6 +73,33 @@ describe Entry, type: :model do
     end
   end
 
+  describe 'remove_as_duplicate!' do
+    let!(:existing_entry) { build_stubbed(:entry) }
+    let!(:entry) { build_stubbed(:entry, name: existing_entry.name, company_name: existing_entry.company_name) }
+
+    before(:each) do
+      entry.instance_variable_set(:@duplicate, existing_entry)
+    end
+
+    it 'destroys the entry' do
+      expect(entry).to receive(:destroy!)
+      entry.remove_as_duplicate!
+    end
+
+    it 'adds the duplicate to the lists of the entry' do
+      allow(entry).to receive(:list_ids) { ['list1'] }
+      allow(existing_entry).to receive(:list_ids=) do |ids|
+        expect(ids).to eq(['list1'])
+      end
+      expect(entry).to receive(:destroy!)
+      expect(ListChannel).to receive(:add_entry_to_list) do |entry, list_id|
+        expect(entry).to eq(existing_entry)
+        expect(list_id).to eq('list1')
+      end
+      entry.remove_as_duplicate!
+    end
+  end
+
   describe 'determine_email!' do
     let!(:company) { build(:company, domain: 'bobington.bo') }
     let!(:entry) do
@@ -190,6 +217,13 @@ describe Entry, type: :model do
       expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_SEARCHING_COMPANY)
     end
 
+    it 'schedules deletion if company is found and it has a duplicate' do
+      entry.lookup_state = Entry::LOOKUP_STATE_COMPANY_FOUND
+      allow(entry).to receive(:duplicate) { true }
+      entry.send(:determine_next_action)
+      expect(entry.lookup_state).to eq(Entry::LOOKUP_STATE_DUPLICATE)
+    end
+
     it 'schedules email search after company was found' do
       entry.lookup_state = Entry::LOOKUP_STATE_COMPANY_FOUND
       entry.send(:determine_next_action)
@@ -219,6 +253,15 @@ describe Entry, type: :model do
       entry.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
       expect(EntryWorker).to receive(:perform_async) { |id, action|
         expect(action).to eq(:determine_email!)
+        expect(id).to eq(entry.id)
+      }
+      entry.send(:schedule_next_action)
+    end
+
+    it 'runs the worker to remove duplicate' do
+      entry.lookup_state = Entry::LOOKUP_STATE_DUPLICATE
+      expect(EntryWorker).to receive(:perform_async) { |id, action|
+        expect(action).to eq(:remove_as_duplicate!)
         expect(id).to eq(entry.id)
       }
       entry.send(:schedule_next_action)

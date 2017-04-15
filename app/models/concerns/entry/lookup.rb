@@ -36,6 +36,8 @@ class Entry < ApplicationRecord
         EntryWorker.perform_async(id, :determine_company!)
       when Entry::LOOKUP_STATE_SEARCHING_EMAIL
         EntryWorker.perform_async(id, :determine_email!)
+      when Entry::LOOKUP_STATE_DUPLICATE
+        EntryWorker.perform_async(id, :remove_as_duplicate!)
       end
     end
 
@@ -44,7 +46,7 @@ class Entry < ApplicationRecord
       when Entry::LOOKUP_STATE_UNKNOWN
         self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_COMPANY
       when Entry::LOOKUP_STATE_COMPANY_FOUND
-        self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
+        self.lookup_state = duplicate? ? Entry::LOOKUP_STATE_DUPLICATE : Entry::LOOKUP_STATE_SEARCHING_EMAIL
       else
         guess_email!
       end

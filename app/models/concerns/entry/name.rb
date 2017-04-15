@@ -13,6 +13,10 @@ class Entry < ApplicationRecord
       self.middle_name = middle_parts.reverse.join(' ')
     end
 
+    def name
+      [title, first_name, middle_name, last_name].compact.join(' ')
+    end
+
     protected
 
     def extract_title_from_name(parts)
