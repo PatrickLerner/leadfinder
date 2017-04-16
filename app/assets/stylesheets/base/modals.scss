@@ -25,42 +25,44 @@
   bottom: 0;
   left: 0;
   overflow: auto;
-  padding: 0 3rem;
+  padding: 0 1rem;
   position: fixed;
   right: 0;
   text-align: center;
   top: 0;
   z-index: $z-index-10;
 
-  &::before {
-    content: '';
-    display: inline-block;
-    height: 50%;
+  @media only screen and (min-width: $screen-size-lg * .625) {
+    padding: 0 3rem;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      height: 50%;
+    }
   }
 }
 
 .modal {
   background-color: lead-color('menu');
-  border-radius: $border-radius;
   border: .1rem solid lead-color-level('menu', -2);
+  border-radius: $border-radius;
   display: inline-block;
   margin-bottom: 3rem;
   margin-top: 3rem;
   max-width: 70rem;
   outline: none;
   overflow: auto;
-  padding: 5rem 6rem;
+  padding: 2rem 3rem;
   text-align: left;
   vertical-align: middle;
 
   &.modal-normal {
     max-width: 70rem;
-    width: 70rem;
   }
 
   &.modal-narrow {
     max-width: 50rem;
-    width: 50rem;
   }
 
   h1 {
@@ -68,6 +70,23 @@
     font-size: 2.7rem;
     font-weight: 400;
     line-height: 3.7rem;
+    margin-bottom: .5rem;
+  }
+
+  @media only screen and (min-width: $screen-size-lg * .625) {
+    padding: 5rem 6rem;
+
+    &.modal-narrow {
+      width: 50rem;
+    }
+
+    &.modal-normal {
+      width: 70rem;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
   }
 
   p {

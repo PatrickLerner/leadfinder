@@ -106,9 +106,9 @@ class EntryListLink extends Component {
             {this.props.translate('Assign')}
           </a>
         </LeadModal>
-        <a onClick={this.handleListClick.bind(this)} className='button is-small is-light'>
-          <i className='fa fa-arrow-right'></i>
-          {this.props.translate('Assign')}
+        <a onClick={this.handleListClick.bind(this)}>
+          <i className='fa fa-arrow-right lookup-button-icon'></i>
+          <div className='lookup-button-text'>{this.props.translate('Assign')}</div>
         </a>
       </div>
     );

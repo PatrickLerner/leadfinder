@@ -169,9 +169,9 @@ class EntryEditLink extends Component {
     return (
       <div className='lookup-button'>
         {modal}
-        <a onClick={this.handleEditClick.bind(this)} className='button is-small is-light'>
-          <i className='fa fa-pencil'></i>
-          {this.props.translate('Edit')}
+        <a onClick={this.handleEditClick.bind(this)}>
+          <i className='fa fa-pencil lookup-button-icon'></i>
+          <div className='lookup-button-text'>{this.props.translate('Edit')}</div>
         </a>
       </div>
     );

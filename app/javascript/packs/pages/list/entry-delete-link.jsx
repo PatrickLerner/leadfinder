@@ -59,9 +59,9 @@ class EntryDeleteLink extends Component {
             {this.props.translate('Delete')}
           </a>
         </LeadModal>
-        <a onClick={this.handleDeleteClick.bind(this)} className='button is-small is-light'>
-          <i className='fa fa-trash-o'></i>
-          {this.props.translate('Delete')}
+        <a onClick={this.handleDeleteClick.bind(this)}>
+          <i className='fa fa-trash-o lookup-button-icon'></i>
+          <div className='lookup-button-text'>{this.props.translate('Delete')}</div>
         </a>
       </div>
     );

@@ -116,7 +116,7 @@ class Entry extends Component {
     return connectDragSource(
       <div className='lookup-listing' style={lookupStyle}>
         <div className='row'>
-          <div className='col-3'>
+          <div className='col-12 col-lg-3'>
             <img src={this.state.pictureUrl} className='lookup-picture' alt={this.props.translate('The profile image of the lead')} />
           </div>
           <div className='col-9 lookup-info-container'>

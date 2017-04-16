@@ -34,22 +34,32 @@
   }
 
   .page-title-actions {
-    height: $page-title-bottom;
-    margin: -$page-title-bottom auto 0;
+    margin: -$page-title-bottom auto 2rem;
     max-width: 100rem;
     text-align: right;
+
+    @media only screen and (min-width: $screen-size-lg * .625) {
+      height: $page-title-bottom;
+      margin-bottom: 0;
+    }
   }
 
   .page-title-action {
     color: lead-color-level('foreground', 3);
     cursor: pointer;
+    display: block;
     font-size: 1.6rem;
-    line-height: 5.4rem;
+    line-height: 4rem;
     margin-left: 2rem;
     transition: color 200ms ease-in-out;
 
     &:hover {
       color: lead-color-level('foreground', 1);
+    }
+
+    @media only screen and (min-width: $screen-size-lg * .625) {
+      display: inline-block;
+      line-height: $page-title-bottom;
     }
   }
 

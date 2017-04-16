@@ -15,9 +15,12 @@ button {
   font-size: 1.6rem;
   margin: 0 .5rem;
   min-width: 10rem;
+  overflow: hidden;
   padding: .5rem 2rem;
   text-align: center;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &[disabled] {
     background-color: lead-color-level('button', 1);

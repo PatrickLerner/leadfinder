@@ -7,7 +7,12 @@
 
   &.lookup-dashboard-latest {
     .lookup-listing {
+      margin-bottom: 1rem;
       margin-top: 0;
+
+      @media only screen and (min-width: $screen-size-lg * .625) {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -67,14 +72,13 @@
     box-shadow: .4rem .4rem 2rem 0 lead-color-alpha('foreground', .2);
     display: inline-block;
     font-size: 1.5rem;
-    height: 28rem;
-    margin: 2 * $lookup-padding $lookup-padding 0;
+    margin: 2 * $lookup-padding 0 0;
     padding: 3rem;
     position: relative;
     transform: none;
     transition: transform $hover-transition, box-shadow $hover-transition;
     vertical-align: bottom;
-    width: calc(100%/2 - (2 * #{$lookup-padding}));
+    width: 100%;
 
     .lookup-listing-profile-link {
       display: block;
@@ -98,31 +102,27 @@
     }
 
     .lookup-buttons {
-      bottom: $lookup-padding;
       display: flex;
-      left: $lookup-padding;
-      position: absolute;
-      right: $lookup-padding;
-      text-align: center;
+      justify-content: space-around;
+      margin-top: 1rem;
+    }
+
+    &:hover {
+      .lookup-button {
+        opacity: .5;
+      }
     }
 
     .lookup-button {
-      opacity: .5;
+      cursor: pointer;
+      opacity: .2;
+      text-align: center;
       transition: opacity $hover-transition, color $hover-transition;
 
       &:hover {
         color: lead-color('primary');
-        opacity: .8;
+        opacity: 1;
       }
-    }
-
-    .button {
-      background: transparent;
-      border: 0;
-      color: inherit;
-      display: block;
-      margin-bottom: .5rem;
-      width: 100%;
     }
 
     .lookup-listing-company {
@@ -141,12 +141,16 @@
   .lookup-unknown {
     color: lead-color-level('foreground', 6);
   }
-}
 
+  @media only screen and (min-width: $screen-size-lg * .625) {
+    max-width: 100rem;
+    width: 100%;
 
-@media only screen and (min-width: $screen-size-lg * .625) {
-  .lookup {
     .lookup-listing {
+      height: 30rem;
+      margin: 2 * $lookup-padding $lookup-padding 0;
+      width: calc(100%/2 - (2 * #{$lookup-padding}));
+
       .lookup-listing-profile-link {
         display: inline-block;
       }
@@ -157,7 +161,15 @@
     }
 
     .lookup-buttons {
-      width: auto;
+      bottom: $lookup-padding;
+      left: $lookup-padding;
+      margin-top: 0;
+      position: absolute;
+      right: $lookup-padding;
+
+      .lookup-button-icon {
+        font-size: 2rem;
+      }
 
       .lookup-button {
         margin-left: .5rem;
