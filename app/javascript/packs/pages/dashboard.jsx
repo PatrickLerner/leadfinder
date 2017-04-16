@@ -28,7 +28,7 @@ class Dashboard extends Component {
     return (
       <div>
         <h1 className='page-title'>
-          Lead Finder
+          Whistle
         </h1>
 
         <StepsInfo />
@@ -37,7 +37,7 @@ class Dashboard extends Component {
           <div className='row'>
             <div className='col-12 col-lg-8'>
               <h1 className='panel-header-title'>
-                {this.props.translate("Install 'Lead Finder' Chrome Extension")}
+                {this.props.translate("Install 'Whistle' Chrome Extension")}
               </h1>
               <p className='panel-header-subtitle'>
                 {this.props.translate('To make adding new leads a breeze, install the free Chrome Extension.')}

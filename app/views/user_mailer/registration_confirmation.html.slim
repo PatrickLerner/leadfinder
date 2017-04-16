@@ -5,7 +5,7 @@ p Thank you very much for signing up. All you need to do now is quickly confirm 
 p
   | Greetings,
   br
-  | The Lead Finder Team
+  | The Whistle Team
 
 p.u-text-center(style='margin-top: 50px')
   = link_to 'Confirm my account', "#{root_url}confirm/#{@user.email_confirmation_token.html_safe}", class: 'btn'

@@ -19,7 +19,7 @@ class MenuListItem extends Component {
 
     return connectDropTarget(
       <div>
-        <Link className="page-menu-subitem" to={`/lists/` + this.state.id}>
+        <Link className="page-menu-subitem" to={`/lists/${this.state.id}`}>
           <i className='fa fa-fw fa-list'></i>
           {this.state.name}
         </Link>

@@ -14,7 +14,7 @@ export default {
     'Company': 'Unternehmen'
   },
   Header: {
-    'Lead Finder': 'Lead Finder'
+    'Whistle': 'Whistle'
   },
   Menu: {
     'Dashboard': 'Dashboard',
@@ -125,7 +125,12 @@ export default {
   Dashboard: {
     'Latest leads': 'Neuste Leads',
     'Download Chrome Extension': 'Chrome Erweiterung',
-    "Install 'Lead Finder' Chrome Extension": "'Lead Finder' Erweiterung installieren",
+    "Install 'Whistle' Chrome Extension": "'Whistle' Erweiterung installieren",
     'To make adding new leads a breeze, install the free Chrome Extension.': 'Um Leads einfach hinzuzufügen, installieren Sie die Erweiterung'
+  },
+  Lists: {
+    Lists: 'Listen',
+    Created: 'Erstellt',
+    Leads: 'Leads'
   }
 };

@@ -1,5 +1,5 @@
 class ListSerializer < ActiveModel::Serializer
-  attributes :id, :name, :sort_by
+  attributes :id, :name, :sort_by, :entry_count, :created_at
 
   has_many :entries_meta
   has_many :entries
@@ -23,5 +23,9 @@ class ListSerializer < ActiveModel::Serializer
       per_page: PER_PAGE,
       total_pages: [(object.entries.count.to_f / PER_PAGE.to_f).ceil, 1].max
     }
+  end
+
+  def entry_count
+    object.list_entries.count
   end
 end

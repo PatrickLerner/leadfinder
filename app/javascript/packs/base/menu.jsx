@@ -29,15 +29,10 @@ class Menu extends Component {
   addChannelSubscription() {
     const subscription = App.cable.subscriptions.create('ListsChannel', {
       received: ((lists) => {
-        this.setState(Object.assign({}, this.state, {
-          lists
-        }));
+        this.setState(Object.assign({}, this.state, { lists }));
       }).bind(this)
     });
-
-    this.setState(Object.assign({}, this.state, {
-      subscription
-    }));
+    this.setState(Object.assign({}, this.state, { subscription }));
   }
 
   componentWillUnmount() {

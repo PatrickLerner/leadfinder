@@ -22,7 +22,7 @@ describe Api::V1::Clearance::ConfirmationsController, type: :controller do
           user.reload
           expect(user.email_confirmation_token).to be_present
           expect(user.email_confirmation_token).to_not eq('old_token')
-          should_deliver_email(to: user.email, subject: 'Welcome to Lead Finder!')
+          should_deliver_email(to: user.email, subject: 'Welcome to Whistle!')
         end
       end
     end

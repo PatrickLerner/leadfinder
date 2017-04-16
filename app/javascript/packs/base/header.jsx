@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <header className="header">
         <div className="header-logo" />
-        <h1>{this.props.translate('Lead Finder')}</h1>
+        <h1>{this.props.translate('Whistle')}</h1>
       </header>
     );
   }

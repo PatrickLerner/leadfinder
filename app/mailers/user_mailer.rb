@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
   def registration_confirmation(user)
     @user = user
     raise 'missing confirmation token' unless user.email_confirmation_token.present?
-    mail(to: user.email, subject: 'Welcome to Lead Finder!')
+    mail(to: user.email, subject: 'Welcome to Whistle!')
   end
 end

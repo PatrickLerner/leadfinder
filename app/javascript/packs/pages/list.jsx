@@ -95,9 +95,7 @@ class List extends Component {
       }).bind(this)
     });
 
-    return {
-      subscription, listSubscription
-    };
+    return { subscription, listSubscription };
   }
 
   componentWillUnmount() {
@@ -134,14 +132,10 @@ class List extends Component {
 
   render() {
     if (this.state.loading) {
-      return (<div className='loading-indicator'>
-        <i className='fa fa-fw fa-spin fa-circle-o-notch'></i>
-      </div>);
+      return (<div className='loading-indicator'><i className='fa fa-fw fa-spin fa-circle-o-notch'></i></div>);
     }
 
-    const entries = this.state.list.entries.map(entry => {
-      return (<Entry entry={entry} key={entry.id} />);
-    });
+    const entries = this.state.list.entries.map(entry => <Entry entry={entry} key={entry.id} />);
 
     let actions = [];
     actions.push(<ExportListLink key='export' className='page-title-action' listId={this.state.listId} />);

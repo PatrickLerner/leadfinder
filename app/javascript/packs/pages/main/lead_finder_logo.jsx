@@ -9,7 +9,7 @@ export default class LeadFinderLogo extends Component {
           <div className='lead-logo-md'></div>
         </div>
         <div className='col-12 col-lg-7'>
-          <div className='lead-title-md'>Lead Finder</div>
+          <div className='lead-title-md'>whistle.io</div>
         </div>
       </div>
     );

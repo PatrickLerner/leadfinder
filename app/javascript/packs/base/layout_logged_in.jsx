@@ -54,7 +54,7 @@ class Layout extends Component {
           { children }
         </div>
         <footer className='page-footer'>
-          &copy; { (new Date).getFullYear() } Lead Finder
+          &copy; { (new Date).getFullYear() } whistle.io
         </footer>
       </div>
     );

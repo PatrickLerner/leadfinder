@@ -1,20 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import Moment from 'moment';
 
-import Header from './base/header.jsx'
-import Layout from './base/layout.jsx'
-import LayoutLoggedIn from './base/layout_logged_in.jsx'
-import LayoutLoggedOut from './base/layout_logged_out.jsx'
+import Header from './base/header.jsx';
+import Layout from './base/layout.jsx';
+import LayoutLoggedIn from './base/layout_logged_in.jsx';
+import LayoutLoggedOut from './base/layout_logged_out.jsx';
 
-import Dashboard from './pages/dashboard.jsx'
-import List from './pages/list.jsx'
-import Find from './pages/find.jsx'
-import Settings from './pages/settings.jsx'
-import Help from './pages/help.jsx'
-import Main from './pages/main.jsx'
-import ResetPassword from './pages/reset_password.jsx'
-import ConfirmMail from './pages/confirm_mail.jsx'
+import Dashboard from './pages/dashboard.jsx';
+import List from './pages/list.jsx';
+import Lists from './pages/lists.jsx';
+import Find from './pages/find.jsx';
+import Settings from './pages/settings.jsx';
+import Help from './pages/help.jsx';
+import Main from './pages/main.jsx';
+import ResetPassword from './pages/reset_password.jsx';
+import ConfirmMail from './pages/confirm_mail.jsx';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -44,7 +46,7 @@ export default class App extends Component {
             { path: 'help', component: Help },
             { path: 'settings', component: Settings },
             { path: 'lists/:listId', component: List },
-            { path: 'lists', component: List }
+            { path: 'lists', component: Lists }
           ]
         }
       ]
@@ -65,6 +67,7 @@ export default class App extends Component {
     this.setState(Object.assign({}, this.state, {
       currentLanguage: language
     }));
+    Moment.locale(language);
   }
 
   render() {

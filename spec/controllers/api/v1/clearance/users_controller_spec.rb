@@ -38,7 +38,7 @@ describe Api::V1::Clearance::UsersController, type: :controller do
       end
       expect(controller.send(:current_user)).to be_nil
       expect(user.email_confirmation_token).to be_present
-      should_deliver_email(to: user_email, subject: 'Welcome to Lead Finder!')
+      should_deliver_email(to: user_email, subject: 'Welcome to Whistle!')
     end
 
     it 'fails if params are missing' do

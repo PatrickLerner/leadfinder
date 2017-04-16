@@ -1,4 +1,6 @@
 .page {
+  $page-title-bottom: 5.4rem;
+
   $gradient: linear-gradient(lead-color-alpha('background', .43), lead-color('background'));
   background-image: $gradient, asset-url('bg_wave.png');
   background-repeat: no-repeat;
@@ -19,7 +21,7 @@
     font-size: 4.4rem;
     font-weight: 200;
     line-height: 5.4rem;
-    margin: 3rem auto 0;
+    margin: 3rem auto $page-title-bottom;
     max-width: 100rem;
   }
 
@@ -32,7 +34,8 @@
   }
 
   .page-title-actions {
-    margin: auto;
+    height: $page-title-bottom;
+    margin: -$page-title-bottom auto 0;
     max-width: 100rem;
     text-align: right;
   }
@@ -55,7 +58,7 @@
   }
 
   .page-menu {
-    background-color: lead-color('menu');
+    background-image: linear-gradient(lead-color('menu'), lead-color-level('menu', 10));
     padding-top: 1.5rem;
 
     .page-menu-subitem {
@@ -95,6 +98,10 @@
     .page-menu + .page-content {
       margin-left: $menu-width;
       width: calc(100vw - #{$menu-width} - 2rem);
+    }
+
+    .page-menu + .page-content + .page-footer {
+      margin-left: $menu-width;
     }
 
     .page-menu {
