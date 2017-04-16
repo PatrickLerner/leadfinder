@@ -1,6 +1,6 @@
-<p align="center"><img src='https://github.com/PatrickLerner/leadfinder/blob/master/app/assets/images/logo.png?raw=true' alt='Lead Finder Logo' /></p>
-
 # Lead Finder
+
+Lead Finder is a in-development project aimed to facilitate finding and managing leads for marketing purposes. In particular it aims to resolve email addresses of found contact data automatically.
 
 ## Software Requirements
 
