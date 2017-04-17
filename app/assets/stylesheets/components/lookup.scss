@@ -3,7 +3,7 @@
   $lookup-padding: 2rem;
 
   margin: 2rem auto 0;
-  max-width: 100rem + 2 * $lookup-padding;
+  max-width: 100rem;
 
   &.lookup-dashboard-latest {
     .lookup-listing {
@@ -143,7 +143,7 @@
   }
 
   @media only screen and (min-width: $screen-size-lg * .625) {
-    max-width: 100rem;
+    max-width: 100rem + 2 * $lookup-padding;
     width: 100%;
 
     .lookup-listing {

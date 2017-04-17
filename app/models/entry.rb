@@ -27,7 +27,7 @@ class Entry < ApplicationRecord
   searchkick
 
   def search_data
-    as_json(
+    data = as_json(
       only: %i(
         first_name middle_name last_name
         position company_name email
@@ -35,5 +35,6 @@ class Entry < ApplicationRecord
         created_at updated_at
       )
     )
+    Hash[data.map { |k, v| [k, v.try(:downcase) || v] }]
   end
 end

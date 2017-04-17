@@ -21,12 +21,15 @@ class Entry < ApplicationRecord
     end
 
     def duplicate
-      @duplicate ||= Entry.where(
-        user_id: user_id,
-        first_name: first_name,
-        last_name: last_name,
-        company_name: company_name
-      ).where.not(id: id).first
+      @duplicate ||= Entry.search(
+        '*',
+        where: {
+          user_id: user_id,
+          first_name: first_name.downcase,
+          last_name: last_name.downcase,
+          company_name: company_name.downcase
+        }
+      ).results.select { |res| res.id != id }.first
     end
   end
 end
