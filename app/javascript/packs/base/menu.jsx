@@ -68,7 +68,7 @@ class Menu extends Component {
           {this.props.translate('Find Leads')}
         </Link>
         <Link to='/lists'>
-          <i className='fa fa-fw fa-list'></i>
+          <i className='fa fa-fw fa-list-alt'></i>
           {this.props.translate('Lead Lists')}
         </Link>
         <Link className="page-menu-subitem" to='/lists/inbox'>
