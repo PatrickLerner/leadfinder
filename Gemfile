@@ -7,6 +7,7 @@ end
 
 gem 'active_model_serializers'
 gem 'addressable'
+gem 'airbrake'
 gem 'autoprefixer-rails'
 gem 'bourbon'
 gem 'clearance'
