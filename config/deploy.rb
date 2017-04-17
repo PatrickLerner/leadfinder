@@ -1,11 +1,11 @@
 # Change these
 server '138.68.89.100', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@github.com:PatrickLerner/leadfinder.git'
+set :repo_url,        'git@codebasehq.com:lead-finder/lead-finder/leadfinder.git'
 set :application,     'leadfinder'
 set :user,            'deployer'
 set :puma_threads,    [4, 16]
-set :puma_workers,    0
+set :puma_workers,    2
 
 # Don't change these unless you know what you're doing
 set :pty,             false
