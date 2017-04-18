@@ -18,6 +18,11 @@ class User < ApplicationRecord
     save!
   end
 
+  def create_api_key!
+    update_attribute(:api_key, SecureRandom.uuid)
+    api_key
+  end
+
   protected
 
   def generate_default_lists

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406052826) do
+ActiveRecord::Schema.define(version: 20170418053402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(version: 20170406052826) do
     t.string "language", default: "en", null: false
     t.string "email_confirmation_token", default: "", null: false
     t.datetime "email_confirmed_at"
+    t.string "api_key"
+    t.index ["api_key"], name: "index_users_on_api_key", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["email_confirmation_token"], name: "index_users_on_email_confirmation_token"
     t.index ["language"], name: "index_users_on_language"

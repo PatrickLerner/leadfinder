@@ -29,7 +29,10 @@ describe Api::V1::ListsController, type: :controller do
       patch :update, params: { id: list.id, list: { name: 'New name', sort_by: :created_at } }
       list.reload
       expect(list.name).to eq('New name')
-      expect(body[:list]).to eq({ id: list.id, name: 'New name', sort_by: 'created_at' }.with_indifferent_access)
+      expect(body[:list].slice(:id, :name, :sort_by)).to eq(
+        { id: list.id, name: 'New name', sort_by: 'created_at' }.with_indifferent_access
+      )
+      expect(body[:list].keys.sort).to eq(%w(id name sort_by entry_count created_at).sort)
     end
 
     it 'only allows updating your own lists' do
@@ -84,7 +87,7 @@ describe Api::V1::ListsController, type: :controller do
     it 'allows showing a list' do
       get :show, params: { id: 'inbox' }
       expect(response).to be_success
-      expect(body[:list].keys.sort).to eq(%w(entries entries_meta id name sort_by))
+      expect(body[:list].keys.sort).to eq(%w(entries entries_meta id name sort_by created_at entry_count).sort)
     end
   end
 end
