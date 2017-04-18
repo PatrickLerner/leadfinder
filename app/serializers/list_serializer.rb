@@ -13,7 +13,7 @@ class ListSerializer < ActiveModel::Serializer
   end
 
   def entries
-    offset = ((@page.presence || 1).to_i - 1) * PER_PAGE
+    return entries_inbox if object.id.nil?
     object.list_entries.includes(:entry).order(created_at: :desc).offset(offset).limit(PER_PAGE).map(&:entry)
   end
 
@@ -27,5 +27,15 @@ class ListSerializer < ActiveModel::Serializer
 
   def entry_count
     object.list_entries.count
+  end
+
+  protected
+
+  def entries_inbox
+    object.user.entries.unassigned.offset(offset).limit(PER_PAGE)
+  end
+
+  def offset
+    ((@page.presence || 1).to_i - 1) * PER_PAGE
   end
 end

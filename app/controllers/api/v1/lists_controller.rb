@@ -42,7 +42,7 @@ class Api::V1::ListsController < Api::V1::BaseController
 
   def list
     @list ||= if params[:id] == 'inbox'
-                List.new(name: 'Inbox', user: current_user, entries: current_user.entries.unassigned)
+                List.new(name: 'Inbox', user: current_user)
               else
                 current_user.lists.find_by!(id: params[:id])
               end
