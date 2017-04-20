@@ -8,20 +8,26 @@ import translate from '../helpers/translate.js';
 class Find extends Component {
   constructor(props) {
     super(props);
-    this.excludes = [
-      'assistant', 'intern', 'secretary', 'vice', 'paralegal'
-    ];
     this.state = {
-      role: Object.keys(roles)[0],
+      role: roles[0],
       industry: '',
-      excludes: this.excludes,
       regions: [],
       region: ''
     }
   }
 
-  roleToString(role) {
-    return '(' + role.map(subquery => {
+  roleToString(role, languages) {
+    let roleItems = [];
+    languages.forEach(language => {
+      role.values[language].forEach((row, index) => {
+        if (roleItems.length > index) {
+          roleItems[index] = [...new Set(roleItems[index].concat(row))];
+        } else {
+          roleItems.push(row);
+        }
+      });
+    });
+    return '(' + roleItems.map(subquery => {
       return subquery.map(item => `"${item}"`).join(' OR ');
     }).join(') AND (') + ')';
   }
@@ -51,34 +57,29 @@ class Find extends Component {
 
   handleSearch(provider, ev) {
     if (ev) { ev.preventDefault(); }
-
-    const query = this.roleToString(roles[this.state.role]);
-    const site = provider === 'linkedin' ? 'site:linkedin.com/in' : 'site:xing.com/profile';
     const regionNames = this.state.regions.map(region => region.address_components[0].long_name);
-
     const regions = regionNames.length > 0 ? '(' + regionNames.map(r => `"${r}"`).join(' OR ') + ')' : ''
-    const excludes = this.excludes.map(item => `-${item}`).join(' ');
+    const languagesRegions = this.languagesInRegions(this.state.regions);
+
+    const query = this.roleToString(this.state.role, languagesRegions);
+    const site = provider === 'linkedin' ? 'site:linkedin.com/in' : 'site:xing.com/profile';
+
     let industry = '';
     if (this.state.industry) {
-      const languagesRegions = this.languagesInRegions(this.state.regions);
       industry = this.industryInLanguages(JSON.parse(this.state.industry), languagesRegions)
     }
     //const industry = this.state.industry ? `"${this.state.industry}"` : '';
-    const param = encodeURIComponent(`${query} ${regions} ${excludes} ${industry} ${site}`);
+    const param = encodeURIComponent(`${site} ${regions} ${query} ${industry}`);
     const url = `https://www.google.com/search?num=100&q=${param}`;
     window.open(url);
   }
 
   roleSelected(ev) {
-    this.setState(Object.assign({}, this.state, {
-      role: ev.target.value
-    }));
+    this.setState(Object.assign({}, this.state, { role: JSON.parse(ev.target.value) }));
   }
 
   industrySelected(ev) {
-    this.setState(Object.assign({}, this.state, {
-      industry: ev.target.value
-    }));
+    this.setState(Object.assign({}, this.state, { industry: ev.target.value }));
   }
 
   regionSelected(region) {
@@ -112,8 +113,9 @@ class Find extends Component {
   }
 
   render() {
-    const role_options = Object.keys(roles).map(name => {
-      return (<option value={name} key={name}>{name}</option>);
+    const role_options = roles.map(item => {
+      const name = item.title[this.props.currentLanguage];
+      return (<option value={JSON.stringify(item)} key={name}>{name}</option>);
     });
 
     const industry_options = [<option value='{}' key='null'>{this.props.translate('All industries')}</option>];
@@ -126,7 +128,7 @@ class Find extends Component {
     });
 
     const examples = [];
-    const current_role = roles[this.state.role];
+    const current_role = this.state.role.values[this.props.currentLanguage];
     const max_subrole_length = Math.max.apply(null, current_role.map(a => a.length));
     for (let i = 0; i < max_subrole_length; i++) {
       examples.push(current_role.map(a => a[i] || a[0]).join(' '));
