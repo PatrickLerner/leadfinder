@@ -2,17 +2,15 @@ class Entry < ApplicationRecord
   module Lookup
     extend ActiveSupport::Concern
 
-    included do
-      before_save :determine_next_action, unless: -> { Rails.env.test? }
-      after_commit :schedule_next_action, on: %i(create update), unless: -> { Rails.env.test? }
+    def determine_company!
+      save! if determine_company
     end
 
-    def determine_company!
+    def determine_company
       return unless lookup_state == Entry::LOOKUP_STATE_SEARCHING_COMPANY
       return update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_COMPANY) if company_name.blank?
-
       find_company!
-      save!
+      true
     end
 
     def determine_email!
@@ -29,28 +27,6 @@ class Entry < ApplicationRecord
     end
 
     protected
-
-    def schedule_next_action
-      case lookup_state
-      when Entry::LOOKUP_STATE_SEARCHING_COMPANY
-        EntryWorker.perform_async(id, :determine_company!)
-      when Entry::LOOKUP_STATE_SEARCHING_EMAIL
-        EntryWorker.perform_async(id, :determine_email!)
-      when Entry::LOOKUP_STATE_DUPLICATE
-        EntryWorker.perform_async(id, :remove_as_duplicate!)
-      end
-    end
-
-    def determine_next_action
-      case lookup_state
-      when Entry::LOOKUP_STATE_UNKNOWN
-        self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_COMPANY
-      when Entry::LOOKUP_STATE_COMPANY_FOUND
-        self.lookup_state = duplicate? ? Entry::LOOKUP_STATE_DUPLICATE : Entry::LOOKUP_STATE_SEARCHING_EMAIL
-      else
-        guess_email!
-      end
-    end
 
     def find_company!
       self.company ||= Company.find_by_name(company_name)

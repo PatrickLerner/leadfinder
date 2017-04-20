@@ -1,5 +1,6 @@
 class Entry < ApplicationRecord
   include Entry::LookupState
+  include Entry::LookupSchedule
   include Entry::Lookup
   include Entry::Duplicate
   include Entry::Guess

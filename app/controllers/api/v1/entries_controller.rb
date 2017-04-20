@@ -8,6 +8,15 @@ class Api::V1::EntriesController < Api::V1::BaseController
     end
   end
 
+  def retrieve
+    if build_new_entry.save
+      entry.perform_inline!
+      render json: { entry: entry.to_api }
+    else
+      render json: { errors: entry.errors }
+    end
+  end
+
   def show
     render json: { entry: entry.to_api }
   end

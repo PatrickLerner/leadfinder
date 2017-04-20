@@ -29,7 +29,7 @@ class Entry < ApplicationRecord
           last_name: last_name.downcase,
           company_name: company_name.downcase
         }
-      ).results.select { |res| res.id != id }.first
+      ).results.reject { |res| res.id == id }.first
     end
   end
 end
