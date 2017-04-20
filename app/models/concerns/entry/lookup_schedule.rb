@@ -20,7 +20,7 @@ class Entry < ApplicationRecord
     protected
 
     def schedule_next_action
-      EntryWorker.perform_async(id, next_action)
+      EntryWorker.perform_async(id, next_action) if next_action.present?
     end
 
     def next_action
