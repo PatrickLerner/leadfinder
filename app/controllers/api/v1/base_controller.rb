@@ -15,7 +15,7 @@ class Api::V1::BaseController < ApplicationController
   def via_api_key
     sign_in(user_by_api_key)
     yield
-    sign_out
+    # sign_out
   end
 
   protected
