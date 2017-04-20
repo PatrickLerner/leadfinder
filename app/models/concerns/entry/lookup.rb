@@ -22,7 +22,7 @@ class Entry < ApplicationRecord
     rescue EmailVerifier::NoMailServerException
       update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_MX_RECORDS)
     rescue EmailVerifier::NotConnectedException, EmailVerifier::OutOfMailServersException,
-           EmailVerifier::FailureException
+           EmailVerifier::FailureException, Net::SMTPFatalError
       update_attributes(lookup_state: Entry::LOOKUP_STATE_FAILURE_CONNECTION)
     end
 
