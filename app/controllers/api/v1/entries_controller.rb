@@ -36,7 +36,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   end
 
   def latest
-    entries = current_user.entries.order(created_at: :desc).limit(params[:count].presence || 2).map(&:to_api)
+    entries = current_user.entries.latest(params[:count].presence || 2).map(&:to_api)
     render json: { entries: entries }
   end
 

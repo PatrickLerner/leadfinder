@@ -13,7 +13,7 @@ class ListSerializer < ActiveModel::Serializer
   end
 
   def entries
-    return entries_inbox if object.id.nil?
+    return entries_inbox if inbox?
     object.list_entries.includes(:entry).order(created_at: :desc).offset(offset).limit(PER_PAGE).map(&:entry)
   end
 
@@ -21,7 +21,8 @@ class ListSerializer < ActiveModel::Serializer
     {
       page: (@page.presence || 1).to_i,
       per_page: PER_PAGE,
-      total_pages: [(object.entries.count.to_f / PER_PAGE.to_f).ceil, 1].max
+      total_count: total_count,
+      total_pages: total_pages
     }
   end
 
@@ -30,6 +31,23 @@ class ListSerializer < ActiveModel::Serializer
   end
 
   protected
+
+  def total_pages
+    [(total_count.to_f / PER_PAGE.to_f).ceil, 1].max
+  end
+
+  def total_count
+    @total_count ||=
+      if inbox?
+        object.user.entries.unassigned.select('COUNT(entries.id) AS res').map(&:res).first
+      else
+        object.entries.count
+      end
+  end
+
+  def inbox?
+    object.id.nil?
+  end
 
   def entries_inbox
     object.user.entries.unassigned.offset(offset).limit(PER_PAGE)

@@ -163,38 +163,63 @@ describe Api::V1::EntriesController, type: :controller do
     let(:entry) { Entry.find_by(id: body[:entry][:id]) }
     let(:mock_entry) { build(:entry, user_id: user.id, name: 'Peter Müller') }
 
+    describe 'sufficient information' do
+      before(:each) do
+        allow(Company::GooglePlacesLookup).to receive(:lookup) { create(:company) }
+        allow(subject).to receive(:build_new_entry) { mock_entry }
+        allow(subject).to receive(:entry) { mock_entry }
+      end
+
+      it 'creates a new entry' do
+        expect(mock_entry).to receive(:perform_inline!)
+        post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
+        expect(entry.first_name).to eq('Peter')
+        expect(entry.last_name).to eq('Müller')
+        expect(entry.lists).to be_empty
+      end
+
+      it 'retrieves information inline' do
+        expect(EntryWorker).to_not receive(:perform_async)
+        expect(mock_entry).to receive(:determine_company!) { mock_entry.send(:determine_company) }
+        expect(mock_entry).to receive(:determine_email!)
+        post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
+        expect(entry).to be_present
+      end
+
+      it 'guesses if it fails' do
+        allow(mock_entry).to receive(:guess_email_hunterio!) { '%{fn}' }
+        mock_entry.email_format = '%{fn}'
+        mock_entry.email_confidence = 100
+        expect(EntryWorker).to_not receive(:perform_async)
+
+        expect(mock_entry).to receive(:test_all_variants!) { raise EmailVerifier::FailureException }
+        post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
+        expect(entry.email).to be_present
+        expect(entry.email).to eq("#{entry.first_name}@#{entry.domain}".downcase)
+      end
+    end
+
+    describe 'insufficient information' do
+      it 'fails if information is insufficient' do
+        expect(mock_entry).to_not receive(:perform_inline!)
+        post :retrieve, params: { entry: { company_name: 'Test GmbH' } }
+        expect(body[:errors]).to be_present
+        expect(body[:entry]).to be_nil
+      end
+    end
+  end
+
+  describe '#latest' do
     before(:each) do
-      allow(Company::GooglePlacesLookup).to receive(:lookup) { create(:company) }
-      allow(subject).to receive(:build_new_entry) { mock_entry }
-      allow(subject).to receive(:entry) { mock_entry }
+      fake_entries = double
+      allow(fake_entries).to receive(:latest) { |count| build_stubbed_list(:entry, count) }
+      allow(user).to receive(:entries) { fake_entries }
     end
 
-    it 'creates a new entry' do
-      expect(mock_entry).to receive(:perform_inline!)
-      post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
-      expect(entry.first_name).to eq('Peter')
-      expect(entry.last_name).to eq('Müller')
-      expect(entry.lists).to be_empty
-    end
-
-    it 'retrieves information inline' do
-      expect(EntryWorker).to_not receive(:perform_async)
-      expect(mock_entry).to receive(:determine_company!) { mock_entry.send(:determine_company) }
-      expect(mock_entry).to receive(:determine_email!)
-      post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
-      expect(entry).to be_present
-    end
-
-    it 'guesses if it fails' do
-      allow(mock_entry).to receive(:guess_email_hunterio!) { '%{fn}' }
-      mock_entry.email_format = '%{fn}'
-      mock_entry.email_confidence = 100
-      expect(EntryWorker).to_not receive(:perform_async)
-
-      expect(mock_entry).to receive(:test_all_variants!) { raise EmailVerifier::FailureException }
-      post :retrieve, params: { entry: { name: 'Peter Müller', company_name: 'Test GmbH' } }
-      expect(entry.email).to be_present
-      expect(entry.email).to eq("#{entry.first_name}@#{entry.domain}".downcase)
+    it 'returns the last two entries in api representation' do
+      get :latest
+      expect(body[:entries]).to be_present
+      expect(body[:entries].count).to eq(2)
     end
   end
 end
