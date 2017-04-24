@@ -21,9 +21,10 @@ class Entry < ApplicationRecord
 
   scope :unassigned, lambda {
     joins('LEFT JOIN list_entries AS el ON el.entry_id = entries.id')
-      .group('entries.id')
       .where('el.list_id IS NULL')
   }
+
+  scope :latest, ->(count) { order(created_at: :desc).limit(count) }
 
   searchkick
 

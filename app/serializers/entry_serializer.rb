@@ -11,10 +11,8 @@ class EntrySerializer < ActiveModel::Serializer
   end
 
   def company_cities
-    if object.company.present?
-      object.company.addresses.pluck(:city).sort
-    else
-      []
-    end
+    return [] unless object.company.present?
+    addresses = object.company.addresses
+    (addresses.loaded? ? addresses.map(&:city) : addresses.pluck(:city)).compact.sort
   end
 end

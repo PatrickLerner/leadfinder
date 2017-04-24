@@ -7,20 +7,24 @@ class Entry < ApplicationRecord
       after_commit :schedule_next_action, on: %i(create update), unless: -> { Rails.env.test? }
     end
 
-    def perform_inline!
-      self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_COMPANY
-      determine_company!
-      return unless lookup_state == Entry::LOOKUP_STATE_COMPANY_FOUND
-      self.lookup_state = Entry::LOOKUP_STATE_SEARCHING_EMAIL
-      determine_email!
-      guess_email!
-      save!
+    class_methods do
+      def lookup_inline!(entry_params)
+        entry = find_or_initialize_by(entry_params)
+        return false unless entry.valid?
+        entry.determine_company
+        return false unless entry.lookup_state == Entry::LOOKUP_STATE_COMPANY_FOUND
+        return entry.duplicate if entry.duplicate?
+        entry.determine_email
+        entry.guess_email
+        entry.save!
+        entry
+      end
     end
 
     protected
 
     def schedule_next_action
-      EntryWorker.perform_async(id, next_action)
+      EntryWorker.perform_async(id, next_action) if next_action.present?
     end
 
     def next_action

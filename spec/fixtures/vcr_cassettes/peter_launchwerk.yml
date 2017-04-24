@@ -1,0 +1,550 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/textsearch/json?key=ENTER_API_KEY_TO_CONTINUE&language=&query=Launchwerk%20GmbH&rankby=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 24 Apr 2017 06:05:03 GMT
+      Expires:
+      - Mon, 24 Apr 2017 06:10:03 GMT
+      Cache-Control:
+      - public, max-age=300
+      Vary:
+      - Accept-Language
+      Server:
+      - pablo
+      Content-Length:
+      - '931'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="37,36,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICAiaHRtbF9hdHRyaWJ1dGlvbnMiIDogW10sCiAgICJyZXN1bHRzIiA6IFsKICAgICAgewogICAgICAgICAiZm9ybWF0dGVkX2FkZHJlc3MiIDogIldlbmRlbnN0cmHDn2UgMTMwLCAyMDUzNyBIYW1idXJnLCBHZXJtYW55IiwKICAgICAgICAgImdlb21ldHJ5IiA6IHsKICAgICAgICAgICAgImxvY2F0aW9uIiA6IHsKICAgICAgICAgICAgICAgImxhdCIgOiA1My41NDgwNTQ2LAogICAgICAgICAgICAgICAibG5nIiA6IDEwLjAzMjgxCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJ2aWV3cG9ydCIgOiB7CiAgICAgICAgICAgICAgICJub3J0aGVhc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6IDUzLjU0OTc4ODA4MDI5MTUsCiAgICAgICAgICAgICAgICAgICJsbmciIDogMTAuMDMzODQ3MjMwMjkxNQogICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAic291dGh3ZXN0IiA6IHsKICAgICAgICAgICAgICAgICAgImxhdCIgOiA1My41NDcwOTAxMTk3MDg1LAogICAgICAgICAgICAgICAgICAibG5nIiA6IDEwLjAzMTE0OTI2OTcwODUKICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgIH0sCiAgICAgICAgICJpY29uIiA6ICJodHRwczovL21hcHMuZ3N0YXRpYy5jb20vbWFwZmlsZXMvcGxhY2VfYXBpL2ljb25zL2dlbmVyaWNfYnVzaW5lc3MtNzEucG5nIiwKICAgICAgICAgImlkIiA6ICI2MDQyMWU1MDA0OTAyMGNlMWM3ZGNiNDFkMjczNDIyOWVhZGMyM2JlIiwKICAgICAgICAgIm5hbWUiIDogImxhdW5jaHdlcmsgR21iSCIsCiAgICAgICAgICJwbGFjZV9pZCIgOiAiQ2hJSl9fcWNaN2lPc1VjUkVDQmhFZ0VLRmwwIiwKICAgICAgICAgInJlZmVyZW5jZSIgOiAiQ21SUkFBQUFBNXZ4ZHhjRVpMSXpuQWhVMEstMGNCbEhPVXNfSmxzRmk2VnlxTmF3WFZDZzVnRE1SQ2haSEVCOGtLcjdfalZwWnNhS1Rvalh5UGoyTHotbTBtNU1vSmRqY1g0RmhZLVk0YTF4cEVZV1JMTXFFZHB5M0w5MnBlcGhrbUdsbzFMSEVoQURkZzE1aXd2bjkta3hzTS1pb1duMEdoUmhuVDZtYkhmbGhMakVxRXlsc1dDaFphSTNmQSIsCiAgICAgICAgICJ0eXBlcyIgOiBbICJwb2ludF9vZl9pbnRlcmVzdCIsICJlc3RhYmxpc2htZW50IiBdCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAgImZvcm1hdHRlZF9hZGRyZXNzIiA6ICJBZGVsdW5nc3RyYcOfZSAzMEEsIDY0MjgzIERhcm1zdGFkdCwgR2VybWFueSIsCiAgICAgICAgICJnZW9tZXRyeSIgOiB7CiAgICAgICAgICAgICJsb2NhdGlvbiIgOiB7CiAgICAgICAgICAgICAgICJsYXQiIDogNDkuODcwNTQ2OCwKICAgICAgICAgICAgICAgImxuZyIgOiA4LjY0NzAyNzg5OTk5OTk5OAogICAgICAgICAgICB9LAogICAgICAgICAgICAidmlld3BvcnQiIDogewogICAgICAgICAgICAgICAibm9ydGhlYXN0IiA6IHsKICAgICAgICAgICAgICAgICAgImxhdCIgOiA0OS44NzE5NjY2ODAyOTE1LAogICAgICAgICAgICAgICAgICAibG5nIiA6IDguNjQ4MzUzNTgwMjkxNTAyCiAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICJzb3V0aHdlc3QiIDogewogICAgICAgICAgICAgICAgICAibGF0IiA6IDQ5Ljg2OTI2ODcxOTcwODUsCiAgICAgICAgICAgICAgICAgICJsbmciIDogOC42NDU2NTU2MTk3MDg0OTcKICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgIH0sCiAgICAgICAgICJpY29uIiA6ICJodHRwczovL21hcHMuZ3N0YXRpYy5jb20vbWFwZmlsZXMvcGxhY2VfYXBpL2ljb25zL2dlbmVyaWNfYnVzaW5lc3MtNzEucG5nIiwKICAgICAgICAgImlkIiA6ICI3NTI3NGFhYWM5MzZjNjEwNzRjMzI0M2I0YmYwODA3ZmE0MThiOWE2IiwKICAgICAgICAgIm5hbWUiIDogImxhdW5jaHdlcmsgR21iSCIsCiAgICAgICAgICJwbGFjZV9pZCIgOiAiQ2hJSnVaazBTbjF3dlVjUkxPUUhSN2ZjZHc4IiwKICAgICAgICAgInJlZmVyZW5jZSIgOiAiQ21SUkFBQUE5M2NmNDFpeEg2ejdHTVdQOGhpU1VlZmdXa3AxN3JEVV9QZW92X1BOQVlrcmh4eTloTF9KUVV4SnF6NEdrcVkzbkJQckVzSE04RmlPbms4ZXhhM1dpc0ExelNORnJxeGY2RVBPMzNmc2IwME14VTJLU21xTE5uQm5pNDlob2VLUkVoQmk0djZHRC1PUXVoeDVneENPQWd6N0doVGJXelJYalFoMmU0ektMMXU1MFJ0Y3I2QnFlZyIsCiAgICAgICAgICJ0eXBlcyIgOiBbICJwb2ludF9vZl9pbnRlcmVzdCIsICJlc3RhYmxpc2htZW50IiBdCiAgICAgIH0KICAgXSwKICAgInN0YXR1cyIgOiAiT0siCn0K
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:03 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?extensions=&key=ENTER_API_KEY_TO_CONTINUE&language=&placeid=ChIJ__qcZ7iOsUcRECBhEgEKFl0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 24 Apr 2017 06:05:03 GMT
+      Expires:
+      - Mon, 24 Apr 2017 06:10:03 GMT
+      Cache-Control:
+      - public, max-age=300
+      Vary:
+      - Accept-Language
+      Server:
+      - pablo
+      Content-Length:
+      - '1006'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="37,36,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICAiaHRtbF9hdHRyaWJ1dGlvbnMiIDogW10sCiAgICJyZXN1bHQiIDogewogICAgICAiYWRkcmVzc19jb21wb25lbnRzIiA6IFsKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICIxMzAiLAogICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiMTMwIiwKICAgICAgICAgICAgInR5cGVzIiA6IFsgInN0cmVldF9udW1iZXIiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJXZW5kZW5zdHJhw59lIiwKICAgICAgICAgICAgInNob3J0X25hbWUiIDogIldlbmRlbnN0cmHDn2UiLAogICAgICAgICAgICAidHlwZXMiIDogWyAicm91dGUiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJIYW1idXJnLU1pdHRlIiwKICAgICAgICAgICAgInNob3J0X25hbWUiIDogIkhhbWJ1cmctTWl0dGUiLAogICAgICAgICAgICAidHlwZXMiIDogWyAic3VibG9jYWxpdHlfbGV2ZWxfMSIsICJzdWJsb2NhbGl0eSIsICJwb2xpdGljYWwiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJIYW1idXJnIiwKICAgICAgICAgICAgInNob3J0X25hbWUiIDogIkhhbWJ1cmciLAogICAgICAgICAgICAidHlwZXMiIDogWyAibG9jYWxpdHkiLCAicG9saXRpY2FsIiBdCiAgICAgICAgIH0sCiAgICAgICAgIHsKICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiSGFtYnVyZyIsCiAgICAgICAgICAgICJzaG9ydF9uYW1lIiA6ICJISCIsCiAgICAgICAgICAgICJ0eXBlcyIgOiBbICJhZG1pbmlzdHJhdGl2ZV9hcmVhX2xldmVsXzEiLCAicG9saXRpY2FsIiBdCiAgICAgICAgIH0sCiAgICAgICAgIHsKICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiR2VybWFueSIsCiAgICAgICAgICAgICJzaG9ydF9uYW1lIiA6ICJERSIsCiAgICAgICAgICAgICJ0eXBlcyIgOiBbICJjb3VudHJ5IiwgInBvbGl0aWNhbCIgXQogICAgICAgICB9LAogICAgICAgICB7CiAgICAgICAgICAgICJsb25nX25hbWUiIDogIjIwNTM3IiwKICAgICAgICAgICAgInNob3J0X25hbWUiIDogIjIwNTM3IiwKICAgICAgICAgICAgInR5cGVzIiA6IFsgInBvc3RhbF9jb2RlIiBdCiAgICAgICAgIH0KICAgICAgXSwKICAgICAgImFkcl9hZGRyZXNzIiA6ICJcdTAwM2NzcGFuIGNsYXNzPVwic3RyZWV0LWFkZHJlc3NcIlx1MDAzZVdlbmRlbnN0cmHDn2UgMTMwXHUwMDNjL3NwYW5cdTAwM2UsIFx1MDAzY3NwYW4gY2xhc3M9XCJwb3N0YWwtY29kZVwiXHUwMDNlRC0yMDUzN1x1MDAzYy9zcGFuXHUwMDNlIFx1MDAzY3NwYW4gY2xhc3M9XCJsb2NhbGl0eVwiXHUwMDNlSGFtYnVyZ1x1MDAzYy9zcGFuXHUwMDNlLCBcdTAwM2NzcGFuIGNsYXNzPVwiY291bnRyeS1uYW1lXCJcdTAwM2VHZXJtYW55XHUwMDNjL3NwYW5cdTAwM2UiLAogICAgICAiZm9ybWF0dGVkX2FkZHJlc3MiIDogIldlbmRlbnN0cmHDn2UgMTMwLCAyMDUzNyBIYW1idXJnLCBHZXJtYW55IiwKICAgICAgImZvcm1hdHRlZF9waG9uZV9udW1iZXIiIDogIjA0MCA2MDk0NTIzMCIsCiAgICAgICJnZW9tZXRyeSIgOiB7CiAgICAgICAgICJsb2NhdGlvbiIgOiB7CiAgICAgICAgICAgICJsYXQiIDogNTMuNTQ4MDU0NiwKICAgICAgICAgICAgImxuZyIgOiAxMC4wMzI4MQogICAgICAgICB9LAogICAgICAgICAidmlld3BvcnQiIDogewogICAgICAgICAgICAibm9ydGhlYXN0IiA6IHsKICAgICAgICAgICAgICAgImxhdCIgOiA1My41NDk3ODgwODAyOTE1LAogICAgICAgICAgICAgICAibG5nIiA6IDEwLjAzMzg0NzIzMDI5MTUKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInNvdXRod2VzdCIgOiB7CiAgICAgICAgICAgICAgICJsYXQiIDogNTMuNTQ3MDkwMTE5NzA4NSwKICAgICAgICAgICAgICAgImxuZyIgOiAxMC4wMzExNDkyNjk3MDg1CiAgICAgICAgICAgIH0KICAgICAgICAgfQogICAgICB9LAogICAgICAiaWNvbiIgOiAiaHR0cHM6Ly9tYXBzLmdzdGF0aWMuY29tL21hcGZpbGVzL3BsYWNlX2FwaS9pY29ucy9nZW5lcmljX2J1c2luZXNzLTcxLnBuZyIsCiAgICAgICJpZCIgOiAiNjA0MjFlNTAwNDkwMjBjZTFjN2RjYjQxZDI3MzQyMjllYWRjMjNiZSIsCiAgICAgICJpbnRlcm5hdGlvbmFsX3Bob25lX251bWJlciIgOiAiKzQ5IDQwIDYwOTQ1MjMwIiwKICAgICAgIm5hbWUiIDogImxhdW5jaHdlcmsgR21iSCIsCiAgICAgICJwbGFjZV9pZCIgOiAiQ2hJSl9fcWNaN2lPc1VjUkVDQmhFZ0VLRmwwIiwKICAgICAgInJlZmVyZW5jZSIgOiAiQ21SUkFBQUFCZ3lHaXJ0RXF2OGU4QTZVeGdpTWRLT3RyRVJLVHNabUw2OUh5WjNpYXNqLTlYa1pkZTJqZjV2YzBJOS1FVEVlX3FDLS1lcmNHLTJMVlpSbU9mTGtHd2toRWpVc18tamdXUDFrMlFSVnM2Z0pCX1BYWV9yRWRjeXJ2QVp0NXhmSEVoRHpxUExlREgyTUdBVHJpNmZRSnNnZ0doU3pYUHlLRFdJZmFVMzlQb0Z4Slh2ZG1nbGxyZyIsCiAgICAgICJzY29wZSIgOiAiR09PR0xFIiwKICAgICAgInR5cGVzIiA6IFsgInBvaW50X29mX2ludGVyZXN0IiwgImVzdGFibGlzaG1lbnQiIF0sCiAgICAgICJ1cmwiIDogImh0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9jaWQ9NjcwNzU1OTY5NDczNDUzMjYyNCIsCiAgICAgICJ1dGNfb2Zmc2V0IiA6IDEyMCwKICAgICAgInZpY2luaXR5IiA6ICJXZW5kZW5zdHJhw59lIDEzMCwgSGFtYnVyZyIsCiAgICAgICJ3ZWJzaXRlIiA6ICJodHRwOi8vd3d3LmxhdW5jaHdlcmsuZGUvIgogICB9LAogICAic3RhdHVzIiA6ICJPSyIKfQo=
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:03 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?extensions=&key=ENTER_API_KEY_TO_CONTINUE&language=&placeid=ChIJuZk0Sn1wvUcRLOQHR7fcdw8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 24 Apr 2017 06:05:04 GMT
+      Expires:
+      - Mon, 24 Apr 2017 06:10:04 GMT
+      Cache-Control:
+      - public, max-age=300
+      Vary:
+      - Accept-Language
+      Server:
+      - pablo
+      Content-Length:
+      - '1008'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="37,36,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICAiaHRtbF9hdHRyaWJ1dGlvbnMiIDogW10sCiAgICJyZXN1bHQiIDogewogICAgICAiYWRkcmVzc19jb21wb25lbnRzIiA6IFsKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICIzMEEiLAogICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiMzBBIiwKICAgICAgICAgICAgInR5cGVzIiA6IFsgInN0cmVldF9udW1iZXIiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJBZGVsdW5nc3RyYcOfZSIsCiAgICAgICAgICAgICJzaG9ydF9uYW1lIiA6ICJBZGVsdW5nc3RyYcOfZSIsCiAgICAgICAgICAgICJ0eXBlcyIgOiBbICJyb3V0ZSIgXQogICAgICAgICB9LAogICAgICAgICB7CiAgICAgICAgICAgICJsb25nX25hbWUiIDogIkRhcm1zdGFkdCIsCiAgICAgICAgICAgICJzaG9ydF9uYW1lIiA6ICJEYXJtc3RhZHQiLAogICAgICAgICAgICAidHlwZXMiIDogWyAibG9jYWxpdHkiLCAicG9saXRpY2FsIiBdCiAgICAgICAgIH0sCiAgICAgICAgIHsKICAgICAgICAgICAgImxvbmdfbmFtZSIgOiAiRGFybXN0YWR0IiwKICAgICAgICAgICAgInNob3J0X25hbWUiIDogIkRBIiwKICAgICAgICAgICAgInR5cGVzIiA6IFsgImFkbWluaXN0cmF0aXZlX2FyZWFfbGV2ZWxfMiIsICJwb2xpdGljYWwiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICJIZXNzZW4iLAogICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiSEUiLAogICAgICAgICAgICAidHlwZXMiIDogWyAiYWRtaW5pc3RyYXRpdmVfYXJlYV9sZXZlbF8xIiwgInBvbGl0aWNhbCIgXQogICAgICAgICB9LAogICAgICAgICB7CiAgICAgICAgICAgICJsb25nX25hbWUiIDogIkdlcm1hbnkiLAogICAgICAgICAgICAic2hvcnRfbmFtZSIgOiAiREUiLAogICAgICAgICAgICAidHlwZXMiIDogWyAiY291bnRyeSIsICJwb2xpdGljYWwiIF0KICAgICAgICAgfSwKICAgICAgICAgewogICAgICAgICAgICAibG9uZ19uYW1lIiA6ICI2NDI4MyIsCiAgICAgICAgICAgICJzaG9ydF9uYW1lIiA6ICI2NDI4MyIsCiAgICAgICAgICAgICJ0eXBlcyIgOiBbICJwb3N0YWxfY29kZSIgXQogICAgICAgICB9CiAgICAgIF0sCiAgICAgICJhZHJfYWRkcmVzcyIgOiAiXHUwMDNjc3BhbiBjbGFzcz1cInN0cmVldC1hZGRyZXNzXCJcdTAwM2VBZGVsdW5nc3RyYcOfZSAzMEFcdTAwM2Mvc3Bhblx1MDAzZSwgXHUwMDNjc3BhbiBjbGFzcz1cInBvc3RhbC1jb2RlXCJcdTAwM2VELTY0MjgzXHUwMDNjL3NwYW5cdTAwM2UgXHUwMDNjc3BhbiBjbGFzcz1cImxvY2FsaXR5XCJcdTAwM2VEYXJtc3RhZHRcdTAwM2Mvc3Bhblx1MDAzZSwgXHUwMDNjc3BhbiBjbGFzcz1cImNvdW50cnktbmFtZVwiXHUwMDNlR2VybWFueVx1MDAzYy9zcGFuXHUwMDNlIiwKICAgICAgImZvcm1hdHRlZF9hZGRyZXNzIiA6ICJBZGVsdW5nc3RyYcOfZSAzMEEsIDY0MjgzIERhcm1zdGFkdCwgR2VybWFueSIsCiAgICAgICJmb3JtYXR0ZWRfcGhvbmVfbnVtYmVyIiA6ICIwNjE1MSA0OTMwMTQ3IiwKICAgICAgImdlb21ldHJ5IiA6IHsKICAgICAgICAgImxvY2F0aW9uIiA6IHsKICAgICAgICAgICAgImxhdCIgOiA0OS44NzA1NDY4LAogICAgICAgICAgICAibG5nIiA6IDguNjQ3MDI3ODk5OTk5OTk4CiAgICAgICAgIH0sCiAgICAgICAgICJ2aWV3cG9ydCIgOiB7CiAgICAgICAgICAgICJub3J0aGVhc3QiIDogewogICAgICAgICAgICAgICAibGF0IiA6IDQ5Ljg3MTk2NjY4MDI5MTUsCiAgICAgICAgICAgICAgICJsbmciIDogOC42NDgzNTM1ODAyOTE1MDIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgInNvdXRod2VzdCIgOiB7CiAgICAgICAgICAgICAgICJsYXQiIDogNDkuODY5MjY4NzE5NzA4NSwKICAgICAgICAgICAgICAgImxuZyIgOiA4LjY0NTY1NTYxOTcwODQ5NwogICAgICAgICAgICB9CiAgICAgICAgIH0KICAgICAgfSwKICAgICAgImljb24iIDogImh0dHBzOi8vbWFwcy5nc3RhdGljLmNvbS9tYXBmaWxlcy9wbGFjZV9hcGkvaWNvbnMvZ2VuZXJpY19idXNpbmVzcy03MS5wbmciLAogICAgICAiaWQiIDogIjc1Mjc0YWFhYzkzNmM2MTA3NGMzMjQzYjRiZjA4MDdmYTQxOGI5YTYiLAogICAgICAiaW50ZXJuYXRpb25hbF9waG9uZV9udW1iZXIiIDogIis0OSA2MTUxIDQ5MzAxNDciLAogICAgICAibmFtZSIgOiAibGF1bmNod2VyayBHbWJIIiwKICAgICAgInBsYWNlX2lkIiA6ICJDaElKdVprMFNuMXd2VWNSTE9RSFI3ZmNkdzgiLAogICAgICAicmVmZXJlbmNlIiA6ICJDbVJSQUFBQTJzY0hjdnkxMGN3NHpnVVpIWElTRzVVODBqYTNoaEZFZ1VrUGNCSGotRjBGY2w2d042OWRqOE5vNmluRk8teV9TaU5nb294aXdlVHR5QnlIV09WYlZQdmMtVFZpN2dQSHRwODZfaTB5dXRiQzhxS0VQWWl6Mm9hcXJwUUYtdF82RWhDcVg5RW5CRV9TS1d4b2tGei1uWng2R2hTUnZHREkyckhOcVhKcTZSOUo5LW00YmNzZTdBIiwKICAgICAgInNjb3BlIiA6ICJHT09HTEUiLAogICAgICAidHlwZXMiIDogWyAicG9pbnRfb2ZfaW50ZXJlc3QiLCAiZXN0YWJsaXNobWVudCIgXSwKICAgICAgInVybCIgOiAiaHR0cHM6Ly9tYXBzLmdvb2dsZS5jb20vP2NpZD0xMTE0NjAyMTEyNTI2MzEyNDkyIiwKICAgICAgInV0Y19vZmZzZXQiIDogMTIwLAogICAgICAidmljaW5pdHkiIDogIkFkZWx1bmdzdHJhw59lIDMwQSwgRGFybXN0YWR0IiwKICAgICAgIndlYnNpdGUiIDogImh0dHA6Ly93d3cubGF1bmNod2Vyay5kZS8iCiAgIH0sCiAgICJzdGF0dXMiIDogIk9LIgp9Cg==
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:04 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/entries_test/_search
+    body:
+      encoding: UTF-8
+      string: '{"query":{"bool":{"must":{"match_all":{}},"filter":[{"term":{"user_id":"39161fcc-f78b-4a3c-b3fa-61c20d155661"}},{"term":{"first_name":"peter"}},{"term":{"last_name":"müller"}},{"term":{"company_name":"launchwerk
+        gmbh"}}]}},"size":1000,"from":0,"timeout":"11s","_source":false}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":13,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":0,"max_score":null,"hits":[]}}'
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:04 GMT
+- request:
+    method: get
+    uri: https://api.hunter.io/v2/domain-search?api_key=ENTER_API_KEY_TO_CONTINUE&domain=launchwerk.de
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 24 Apr 2017 06:05:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de2dc882290fdcb5a191213f5c3bb30261493013904; expires=Tue, 24-Apr-18
+        06:05:04 GMT; path=/; domain=.hunter.io; HttpOnly
+      Access-Control-Allow-Headers:
+      - Email-Hunter-Origin
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Cf-Railgun:
+      - direct (starting new WAN connection)
+      Etag:
+      - W/"3054c891c405a06056e28f2171d78bf3"
+      Status:
+      - 200 OK
+      X-Content-Type-Options:
+      - nosniff
+      X-Request-Id:
+      - e4b35040-980e-4453-a257-08dbd4cdd996
+      X-Runtime:
+      - '0.083673'
+      X-User:
+      - '431745'
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains; preload
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3546de69df6d2732-FRA
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "data": {
+            "domain": "launchwerk.de",
+            "webmail": false,
+            "pattern": "{first}",
+            "organization": null,
+            "emails": [
+              {
+                "value": "info@launchwerk.de",
+                "type": "generic",
+                "confidence": 95,
+                "sources": [
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/datenschutz",
+                    "extracted_on": "2016-10-17"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/development",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "de.shopware.com",
+                    "uri": "http://de.shopware.com/launchwerk-gmbh",
+                    "extracted_on": "2016-03-25"
+                  },
+                  {
+                    "domain": "de.shopware.com",
+                    "uri": "http://de.shopware.com/launchwerk-gmbh/",
+                    "extracted_on": "2016-01-10"
+                  }
+                ],
+                "first_name": null,
+                "last_name": null,
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              },
+              {
+                "value": "nina@launchwerk.de",
+                "type": "personal",
+                "confidence": 94,
+                "sources": [
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/karriere/webdesigner-in-werkstudent-in-gesucht",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/karriere",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "yiiframework.com",
+                    "uri": "http://yiiframework.com/forum/index.php/topic/40443-php-webentwicklerin-darmstadt-gesucht",
+                    "extracted_on": "2014-04-19"
+                  },
+                  {
+                    "domain": "php-programmierer.de",
+                    "uri": "http://php-programmierer.de/job/9857/shopware-entwicklerin-gesucht-at-launchwerk-gmbh",
+                    "extracted_on": "2016-07-28"
+                  },
+                  {
+                    "domain": "php-programmierer.de",
+                    "uri": "http://php-programmierer.de/job/9147/php-webentwicklerin-mw-gesucht-at-launchwerk-gmbh",
+                    "extracted_on": "2016-03-26"
+                  },
+                  {
+                    "domain": "yiiframework.com",
+                    "uri": "http://yiiframework.com/forum/index.php/topic/40443-php-webentwicklerin-darmstadt-gesucht/page__pid__193362",
+                    "extracted_on": "2016-10-07"
+                  },
+                  {
+                    "domain": "yiiframework.com",
+                    "uri": "http://yiiframework.com/forum/index.php/topic/44481-germany-darmstadt-php-webentwickler-mw-gesucht",
+                    "extracted_on": "2016-10-14"
+                  },
+                  {
+                    "domain": "yiiframework.com",
+                    "uri": "http://yiiframework.com/forum/index.php/topic/40443-php-webentwicklerin-darmstadt-gesucht/page__p__193362",
+                    "extracted_on": "2016-11-12"
+                  },
+                  {
+                    "domain": "php-programmierer.de",
+                    "uri": "http://php-programmierer.de/job/9858/php-entwicklerin-gesucht-at-launchwerk-gmbh",
+                    "extracted_on": "2016-07-28"
+                  },
+                  {
+                    "domain": "php-programmierer.de",
+                    "uri": "http://php-programmierer.de/job/9147/php-webentwicklerin-mw-gesucht-at-launchwerk-gmbh/",
+                    "extracted_on": "2015-10-27"
+                  },
+                  {
+                    "domain": "mediengestalter19.rssing.com",
+                    "uri": "http://mediengestalter19.rssing.com/chan-17287927/all_p1269.html",
+                    "extracted_on": "2016-03-11"
+                  },
+                  {
+                    "domain": "mediengestalter19.rssing.com",
+                    "uri": "http://mediengestalter19.rssing.com/chan-17287927/all_p1273.html",
+                    "extracted_on": "2016-03-11"
+                  },
+                  {
+                    "domain": "cakephp-forum.de",
+                    "uri": "http://cakephp-forum.de/mitarbeiter-gesucht/php-framework-entwickler-m-w-gesucht-t1343.html",
+                    "extracted_on": "2015-12-31"
+                  }
+                ],
+                "first_name": "Nina",
+                "last_name": "Frau",
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              },
+              {
+                "value": "kontakt@launchwerk.de",
+                "type": "generic",
+                "confidence": 82,
+                "sources": [
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/blog/mvp-minimaler-aufwand-maximaler-nutzen",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/blog/von-der-vision-zum-mvp-5-schritte-zum-ersten-produkt",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/blog/festpreis-vs-time-materials",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/blog/definition-of-done-voraussetzungen-fur-das-nachste-ziel",
+                    "extracted_on": "2016-10-26"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de",
+                    "extracted_on": "2016-10-26"
+                  }
+                ],
+                "first_name": null,
+                "last_name": null,
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              },
+              {
+                "value": "robert@launchwerk.de",
+                "type": "personal",
+                "confidence": 75,
+                "sources": [
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/datenschutz",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/php-programmierung",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/ruby-programmierung",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/kontakt",
+                    "extracted_on": "2015-11-20"
+                  }
+                ],
+                "first_name": "Robert",
+                "last_name": "Kilian",
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": "+49 40 6094 5230"
+              },
+              {
+                "value": "jobs@launchwerk.de",
+                "type": "generic",
+                "confidence": 63,
+                "sources": [
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/karriere",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "24channels.de",
+                    "uri": "http://24channels.de/karriere",
+                    "extracted_on": "2016-05-14"
+                  }
+                ],
+                "first_name": null,
+                "last_name": null,
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              },
+              {
+                "value": "aboutyou@launchwerk.de",
+                "type": "personal",
+                "confidence": 24,
+                "sources": [
+                  {
+                    "domain": "developer.aboutyou.de",
+                    "uri": "http://developer.aboutyou.de/app-entwickler-agenturen",
+                    "extracted_on": "2015-12-18"
+                  }
+                ],
+                "first_name": null,
+                "last_name": null,
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              },
+              {
+                "value": "ben@launchwerk.de",
+                "type": "personal",
+                "confidence": 3,
+                "sources": [
+                  {
+                    "domain": "softguide.de",
+                    "uri": "http://softguide.de/programm/24channels-erp-pim-multichannel",
+                    "extracted_on": "2016-12-15"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/impressum",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/wie-wir-arbeiten",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/blog/code-talks-2014-real-time-bidding-und-mehr",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/webentwicklung",
+                    "extracted_on": "2015-11-20"
+                  },
+                  {
+                    "domain": "launchwerk.de",
+                    "uri": "http://launchwerk.de/shopware",
+                    "extracted_on": "2015-11-20"
+                  }
+                ],
+                "first_name": null,
+                "last_name": null,
+                "position": null,
+                "linkedin": null,
+                "twitter": null,
+                "phone_number": null
+              }
+            ]
+          },
+          "meta": {
+            "results": 7,
+            "limit": 10,
+            "offset": 0,
+            "params": {
+              "domain": "launchwerk.de",
+              "company": null,
+              "type": null,
+              "offset": null
+            }
+          }
+        }
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:05 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/_bulk
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_index":"entries_test","_id":"99778d37-143f-4f52-b56e-9a3dfc536996","_type":"entry"}}
+        {"first_name":"peter","last_name":"müller","position":null,"company_name":"launchwerk gmbh","email":"peter@launchwerk.de","user_id":"39161fcc-f78b-4a3c-b3fa-61c20d155661","created_at":"2017-04-24T06:05:05.095Z","updated_at":"2017-04-24T06:05:05.095Z","lookup_state":"failure_accepts_all","company_id":"7c7f5e2c-f69c-4c26-89a6-815c3be8a519","middle_name":null}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":19,"errors":false,"items":[{"index":{"_index":"entries_test","_type":"entry","_id":"99778d37-143f-4f52-b56e-9a3dfc536996","_version":1,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version:
+  recorded_at: Mon, 24 Apr 2017 06:05:05 GMT
+recorded_with: VCR 3.0.3

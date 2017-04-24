@@ -1,4 +1,6 @@
 class Api::V1::BaseController < ApplicationController
+  include Clearance::Authentication
+
   respond_to :json
 
   around_action :via_api_key, if: :api_key?
@@ -13,9 +15,10 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def via_api_key
-    sign_in(user_by_api_key)
-    yield
-    sign_out
+    clearance_session.instance_variable_set(:@current_user, user_by_api_key)
+    res = clearance_session.send(:run_sign_in_stack).success?
+    yield if res
+    clearance_session.instance_variable_set(:@current_user, nil)
   end
 
   protected

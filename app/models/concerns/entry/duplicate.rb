@@ -11,15 +11,6 @@ class Entry < ApplicationRecord
       destroy!
     end
 
-    protected
-
-    def add_duplicate_to_lists!
-      list_ids.each do |list|
-        ListChannel.add_entry_to_list(duplicate, list) unless list.in?(duplicate.list_ids)
-      end
-      duplicate.list_ids = (duplicate.list_ids + list_ids).uniq
-    end
-
     def duplicate
       @duplicate ||= Entry.search(
         '*',
@@ -30,6 +21,15 @@ class Entry < ApplicationRecord
           company_name: company_name.downcase
         }
       ).results.reject { |res| res.id == id }.first
+    end
+
+    protected
+
+    def add_duplicate_to_lists!
+      list_ids.each do |list|
+        ListChannel.add_entry_to_list(duplicate, list) unless list.in?(duplicate.list_ids)
+      end
+      duplicate.list_ids = (duplicate.list_ids + list_ids).uniq
     end
   end
 end

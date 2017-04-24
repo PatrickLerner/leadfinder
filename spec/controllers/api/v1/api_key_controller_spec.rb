@@ -24,6 +24,12 @@ describe Api::V1::EntriesController, type: :controller do
       expect(entry.lists).to be_empty
     end
 
+    it 'does not create an empty if not signed in at all' do
+      post :create, params: { entry: { first_name: 'Peter', last_name: 'Müller', company_name: 'Test 2 GmbH' } }
+      expect(response).to_not be_successful
+      expect(response.status).to eq(401)
+    end
+
     it 'signs out after the request' do
       @request.headers['X-API-KEY'] = api_key
       post :create, params: { entry: { first_name: 'Peter', last_name: 'Müller', company_name: 'Test GmbH' } }
