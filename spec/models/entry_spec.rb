@@ -323,6 +323,7 @@ describe Entry, type: :model do
 
     before(:each) do
       allow(entry).to receive(:update_attributes) { |*args| entry.assign_attributes(*args) }
+      allow(entry).to receive(:save!)
     end
 
     describe 'base' do

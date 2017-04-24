@@ -3,15 +3,20 @@ class Entry < ApplicationRecord
     extend ActiveSupport::Concern
 
     def guess_email!
+      save! if guess_email
+    end
+
+    def guess_email
       return if email.present?
       return if base_confidence.zero?
-      guess_email_format!
+      guess_email_format
       return unless email_format.present?
-      update_attributes(
+      assign_attributes(
         email: email_from_pattern(email_format),
         email_confidence: email_confidence,
         email_format: email_format
       )
+      true
     end
 
     class_methods do
@@ -26,24 +31,24 @@ class Entry < ApplicationRecord
 
     protected
 
-    def guess_email_format!
+    def guess_email_format
       self.email_confidence = base_confidence
-      guess_email_hunterio! || guess_email_previous_entry! || guess_email_common!
+      guess_email_hunterio || guess_email_previous_entry || guess_email_common
     end
 
-    def guess_email_hunterio!
+    def guess_email_hunterio
       self.email_format = Company::Hunterio.find_domain(domain).try(:pattern)
       self.email_confidence *= 1.5 if email_format.present?
       email_format.present?
     end
 
-    def guess_email_previous_entry!
+    def guess_email_previous_entry
       self.email_format = Entry.most_common_format(company)
       self.email_confidence *= 1.5 if email_format.present?
       email_format.present?
     end
 
-    def guess_email_common!
+    def guess_email_common
       self.email_format = Entry.most_common_format
       email_format.present?
     end

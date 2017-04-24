@@ -9,8 +9,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   end
 
   def retrieve
-    if build_new_entry.save
-      entry.perform_inline!
+    if retrieve_entry
       render json: { entry: entry.to_api }
     else
       render json: { errors: entry.errors }
@@ -74,6 +73,10 @@ class Api::V1::EntriesController < Api::V1::BaseController
 
   def entry
     @entry ||= current_user.entries.find_by!(id: params[:id])
+  end
+
+  def retrieve_entry
+    @entry ||= Entry.lookup_inline!(entry_params.merge(user: current_user))
   end
 
   def lists_from_params
