@@ -12,15 +12,11 @@ class Entry < ApplicationRecord
     end
 
     def duplicate
-      @duplicate ||= Entry.search(
-        '*',
-        where: {
-          user_id: user_id,
-          first_name: normalize_search_value(first_name),
-          last_name: normalize_search_value(last_name),
-          company_name: normalize_search_value(company_name)
-        }
-      ).results.reject { |res| res.id == id }.first
+      @duplicate ||=
+        Entry.where(user_id: user_id).where.not(id: id).where(
+          'LOWER(first_name) = ? AND LOWER(last_name) = ? AND LOWER(company_name) = ?',
+          first_name.downcase, last_name.downcase, company_name.downcase
+        ).first
     end
 
     protected

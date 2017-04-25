@@ -37,13 +37,6 @@ class Entry < ApplicationRecord
         created_at updated_at
       )
     )
-    Hash[data.map { |k, v| [k, normalize_search_value(v)] }]
-  end
-
-  protected
-
-  def normalize_search_value(val)
-    return val unless val.is_a?(String)
-    val.downcase.gsub(/[^0-9a-z ]/, '')
+    Hash[data.map { |k, v| [k, v.try(:downcase) || v] }]
   end
 end
