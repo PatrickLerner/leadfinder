@@ -16,9 +16,9 @@ class Entry < ApplicationRecord
         '*',
         where: {
           user_id: user_id,
-          first_name: first_name.downcase,
-          last_name: last_name.downcase,
-          company_name: company_name.downcase
+          first_name: normalize_search_value(first_name),
+          last_name: normalize_search_value(last_name),
+          company_name: normalize_search_value(company_name)
         }
       ).results.reject { |res| res.id == id }.first
     end
