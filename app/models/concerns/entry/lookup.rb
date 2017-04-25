@@ -30,7 +30,7 @@ class Entry < ApplicationRecord
       rescue EmailVerifier::NoMailServerException
         self.lookup_state = Entry::LOOKUP_STATE_FAILURE_MX_RECORDS
       rescue EmailVerifier::NotConnectedException, EmailVerifier::OutOfMailServersException,
-             EmailVerifier::FailureException, Net::SMTPFatalError
+             EmailVerifier::FailureException, Net::SMTPFatalError, EOFError
         self.lookup_state = Entry::LOOKUP_STATE_FAILURE_CONNECTION
       end
       true
