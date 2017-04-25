@@ -44,6 +44,6 @@ class Entry < ApplicationRecord
 
   def normalize_search_value(val)
     return val unless val.is_a?(String)
-    val.downcase.gsub(/[^0-9a-z]/, '')
+    val.downcase.gsub(/[^0-9a-z ]/, '')
   end
 end
