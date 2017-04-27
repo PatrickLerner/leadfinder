@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :lists, only: [:index, :show, :create, :destroy, :update] do
         member do
           get :export
+          post :reassign
         end
       end
       resources :entries, only: [:create, :update, :destroy, :show] do

@@ -12,6 +12,14 @@ class Api::V1::ListsController < Api::V1::BaseController
     render json: { list: list.to_api(include: %i(entries entries_meta), page: params[:page]) }
   end
 
+  def reassign
+    if reassignment_destination.present?
+      reassignment_destination.entry_ids = (reassignment_destination.entry_ids + reassignment_entry_ids).uniq
+    end
+    reassignment_source.entry_ids = [] if reassignment_source.present?
+    render json: { success: true }
+  end
+
   def create
     @list = current_user.lists.create(list_params)
     if list.save
@@ -39,6 +47,23 @@ class Api::V1::ListsController < Api::V1::BaseController
   end
 
   protected
+
+  def reassignment_source
+    @reassignment_source ||= List.find_by(id: params[:id])
+  end
+
+  def reassignment_destination
+    @reassignment_destination ||= List.find_by(id: params[:listId])
+  end
+
+  def reassignment_entry_ids
+    @reassignment_entry_ids ||=
+      if reassignment_source.present?
+        reassignment_source.entry_ids
+      else
+        current_user.entries.unassigned.pluck(:id)
+      end
+  end
 
   def list
     @list ||= if params[:id] == 'inbox'

@@ -90,4 +90,35 @@ describe Api::V1::ListsController, type: :controller do
       expect(body[:list].keys.sort).to eq(%w(entries entries_meta id name sort_by created_at entry_count).sort)
     end
   end
+
+  describe '#reassign' do
+    let(:entry_count) { 3 }
+    let(:list) { create(:list, with_entries: entry_count) }
+    let(:new_list) { create(:list) }
+
+    before(:each) do
+      allow(List).to receive(:find_by!) do |options|
+        if options[:id] == list.id
+          list
+        elsif options[:id] == new_list.id
+          new_list
+        end
+      end
+    end
+
+    it 'reassigns all entries of the list' do
+      expect(list.entries.length).to eq(entry_count)
+      post :reassign, params: { id: list.id, listId: new_list.id }
+      expect(list.entries.length).to eq(0)
+      expect(new_list.entries.length).to eq(entry_count)
+    end
+
+    it 'reassigns all inbox entries' do
+      create(:entry, user: user)
+      expect(user.entries.unassigned.length).to eq(1)
+      post :reassign, params: { id: 'inbox', listId: new_list.id }
+      expect(user.entries.unassigned.length).to eq(0)
+      expect(new_list.entries.length).to eq(1)
+    end
+  end
 end

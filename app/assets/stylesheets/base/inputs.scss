@@ -23,10 +23,10 @@ textarea {
 
 select {
   appearance: none;
-  background-image: asset-url('dropdown_arrow.gif');
+  background-image: asset-url('dropdown_arrow.png');
   background-position: 97%;
   background-repeat: no-repeat;
-  border-radius: $border-radius;
+  border-radius: 0;
 }
 
 label {
@@ -48,6 +48,11 @@ label {
 
   [type='radio'] {
     margin: 0 1rem 0 2rem;
+  }
+
+  select {
+    font-size: 1.6rem;
+    padding: 1rem .5rem;
   }
 
   [type='email'],

@@ -134,5 +134,11 @@ export default {
     Lists: 'Listen',
     Created: 'Erstellt',
     Leads: 'Leads'
+  },
+  ListAssignLink: {
+    'All leads in this list will be moved to a different list': 'Alle Leads dieser Liste werden zugewiesen',
+    'Reassign all': 'Alle zuweisen',
+    'Assign all': 'Alle zuweisen',
+    'Reassign all leads': 'Alle Leads neu zuweisen'
   }
 };
